@@ -40,7 +40,7 @@ function init(callback) {
         for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
             const element2 = element.getElementsByClassName("square")[index2];
             element2.id = "cell_numb_" + String(index) + String(index2);
-            element2.setAttribute("onclick", `square_click_function_event (${element2.id})`);
+            element2.setAttribute("onclick", `square_click_function_event('${element2.id}')`);
             //element2.innerText = String(index) + String(index2);
         }
     }
