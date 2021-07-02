@@ -67,9 +67,9 @@ function after_init() {
                 element2_id = "cell_numb_" + String(index) + String(index2);
                 int_row_hex += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? 0 : Math.pow(2, index2);
                 obj_all_data_to_save_sub.push((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false : true);
-                document.getElementById("block_data_txt").innerText+=(hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? "□":"■";
+                document.getElementById("block_data_txt").innerText += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? "□" : "■";
             }
-            document.getElementById("block_data_txt").innerText+="</div><div>"
+            document.getElementById("block_data_txt").innerText += "</div><div>"
             obj_all_data_to_save.push(obj_all_data_to_save_sub);
             document.getElementById("ascii_row_pattern_hex").innerText += int_row_hex.toString(16);
             document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText += ("0x" + ((int_row_hex < 10) ? "0" : "") + int_row_hex.toString(16).toUpperCase() + ",");
@@ -77,7 +77,7 @@ function after_init() {
         document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText = document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText.slice(0, -1) + "}";
         document.getElementById("obj_all_data_to_save").innerText = JSON.stringify(obj_all_data_to_save);
         document.getElementById("bton_data_fake").innerText = "1";
-        document.getElementById("block_data_txt").innerText=document.getElementById("block_data_txt").innerText.slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1);
+        document.getElementById("block_data_txt").innerText = document.getElementById("block_data_txt").innerText.slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1);
     });
     document.getElementById('btn_index_text').addEventListener('click', () => {
         document.getElementById("bton_data_fake").innerText = "-1";
@@ -97,8 +97,8 @@ function after_init() {
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col">
-<button onclick="var target_string='${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'~').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}';document.getElementById('what_to_snap_body').innerHTML=target_string.replace(/~/g,'\"');" 
-type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
+<button value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
+type="button" class="btn btn-primary trigger_load_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
 <button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
 </th>
@@ -110,5 +110,9 @@ type="button" class="btn btn-primary trigger_version_change" id="${(!document.ge
             }
         }
         checkFlag();
+    });
+
+    $('.trigger_load_event').click(function (event) {
+        document.getElementById('what_to_snap_body').innerHTML=event.target.value.replace(/~/g,'"');
     });
 }
