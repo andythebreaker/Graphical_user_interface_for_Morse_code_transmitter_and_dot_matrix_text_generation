@@ -1,4 +1,4 @@
-.square:before {
+.square {
     content: "";
     display: block;
     width: 5Vh;
