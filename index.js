@@ -88,7 +88,7 @@ function after_init() {
                     checkFlag();
                 }, 5);
             } else {
-                //document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'\\"').trim().replace(/&nbsp;/g, '')}`;
+                document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'\"').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}`;
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
 <th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
