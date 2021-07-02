@@ -40,6 +40,7 @@ function init(callback) {
         for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
             const element2 = element.getElementsByClassName("square")[index2];
             element2.id = "cell_numb_" + String(index) + String(index2);
+            element2.onclick =`$(#${element2.id}).css('background-color', (hexc(String($(#${element2.id}).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');`;
             //element2.innerText = String(index) + String(index2);
         }
     }
@@ -49,12 +50,12 @@ function init(callback) {
     }
 }
 function after_init() {
-    $('#obj_all_data_to_save').click(function () {
+    //$('#obj_all_data_to_save').click(function () {
         $('.square').click(function (event) {
             //document.getElementById("get_infoV").innerText = hexc(String($(this).css("background-color")));
             $(this).css("background-color", (hexc(String($(this).css("background-color"))) === "#ddb98b") ? "blue" : "#ddb98b");
         });
-    });
+    //});
     $('.bton_data').click(function (event) {
         var obj_all_data_to_save = [];
         document.getElementById("ascii_row_pattern_hex").innerText = "";
@@ -118,5 +119,5 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
 
 function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
-    document.getElementById('obj_all_data_to_save').click();
+    //document.getElementById('obj_all_data_to_save').click();
 }
