@@ -57,7 +57,7 @@ function after_init() {
         var obj_all_data_to_save = [];
         document.getElementById("ascii_row_pattern_hex").innerText = "";
         document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText = "{";
-        document.getElementById("block_data_txt").innerText = "";
+        document.getElementById("block_data_txt").innerText = "<div>";
         //document.getElementById("ascii_row_pattern_hex_with_data_structure_define").innerText = "";
         for (let index = 0; index < document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length; index++) {
             const element = document.getElementById("what_to_snap_body").getElementsByClassName("row_class")[index];
@@ -69,7 +69,7 @@ function after_init() {
                 obj_all_data_to_save_sub.push((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false : true);
                 document.getElementById("block_data_txt").innerText+=(hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? "□":"■";
             }
-            document.getElementById("block_data_txt").innerText+="<p>"
+            document.getElementById("block_data_txt").innerText+="</div><div>"
             obj_all_data_to_save.push(obj_all_data_to_save_sub);
             document.getElementById("ascii_row_pattern_hex").innerText += int_row_hex.toString(16);
             document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText += ("0x" + ((int_row_hex < 10) ? "0" : "") + int_row_hex.toString(16).toUpperCase() + ",");
@@ -77,7 +77,7 @@ function after_init() {
         document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText = document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText.slice(0, -1) + "}";
         document.getElementById("obj_all_data_to_save").innerText = JSON.stringify(obj_all_data_to_save);
         document.getElementById("bton_data_fake").innerText = "1";
-        document.getElementById("block_data_txt").innerText=document.getElementById("block_data_txt").innerText.slice(0, -1).slice(0, -1).slice(0, -1);
+        document.getElementById("block_data_txt").innerText=document.getElementById("block_data_txt").innerText.slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1);
     });
     document.getElementById('btn_index_text').addEventListener('click', () => {
         document.getElementById("bton_data_fake").innerText = "-1";
@@ -92,11 +92,12 @@ function after_init() {
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
 <th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
 <th scope="col">${$('#val_index_text').val()}</th>
-<th scope="col"><div class="pure_text_pattern">
+<th scope="col"><div class="pure_text_pattern" style="line-height:0.7rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col">
-<button type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_edit">edit</button>
+<button onclick="document.getElementById('what_to_snap_body').innerHTML = '${document.getElementById('what_to_snap_body').innerHTML.replace('"','\\"')}';" 
+type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
 <button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
 </th>
