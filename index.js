@@ -40,7 +40,7 @@ function init(callback) {
         for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
             const element2 = element.getElementsByClassName("square")[index2];
             element2.id = "cell_numb_" + String(index) + String(index2);
-            element2.onclick =`$(#${element2.id}).css('background-color', (hexc(String($(#${element2.id}).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');`;
+            element2.setAttribute("onclick", `$(#${element2.id}).css('background-color', (hexc(String($(#${element2.id}).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');`);
             //element2.innerText = String(index) + String(index2);
         }
     }
@@ -51,10 +51,10 @@ function init(callback) {
 }
 function after_init() {
     //$('#obj_all_data_to_save').click(function () {
-        $('.square').click(function (event) {
-            //document.getElementById("get_infoV").innerText = hexc(String($(this).css("background-color")));
-            $(this).css("background-color", (hexc(String($(this).css("background-color"))) === "#ddb98b") ? "blue" : "#ddb98b");
-        });
+    /*$('.square').click(function (event) {
+        //document.getElementById("get_infoV").innerText = hexc(String($(this).css("background-color")));
+        $(this).css("background-color", (hexc(String($(this).css("background-color"))) === "#ddb98b") ? "blue" : "#ddb98b");
+    });*/
     //});
     $('.bton_data').click(function (event) {
         var obj_all_data_to_save = [];
