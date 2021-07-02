@@ -36,7 +36,7 @@ function after_init() {
     $('.bton_data').click(function (event) {
         var obj_all_data_to_save=[];
         document.getElementById("ascii_row_pattern_hex").innerText="";
-        document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText="";
+        document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText="{";
         document.getElementById("ascii_row_pattern_hex_with_data_structure_define").innerText="";
         for (let index = 0; index < document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length; index++) {
             const element = document.getElementById("what_to_snap_body").getElementsByClassName("row_class")[index];
@@ -49,7 +49,9 @@ function after_init() {
             }
             obj_all_data_to_save.add(obj_all_data_to_save_sub);
             document.getElementById("ascii_row_pattern_hex").innerText+=int_row_hex.toString(16);
-        }
+            document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText+=("0x"+int_row_hex.toString(16)+",");
+        }slice(0, -1)
+        document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText=document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText.slice(0, -1).slice(0, -1)+"}";
         document.getElementById("ascii_row_pattern_hex_with_data_structure_define").innerText=JSON.stringify(obj_all_data_to_save);
     });
 }
