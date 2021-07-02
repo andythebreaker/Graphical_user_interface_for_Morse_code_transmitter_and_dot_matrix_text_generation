@@ -49,9 +49,11 @@ function init(callback) {
     }
 }
 function after_init() {
-    $('.square').click(function (event) {
-        //document.getElementById("get_infoV").innerText = hexc(String($(this).css("background-color")));
-        $(this).css("background-color", (hexc(String($(this).css("background-color"))) === "#ddb98b") ? "blue" : "#ddb98b");
+    $('#obj_all_data_to_save').click(function () {
+        $('.square').click(function (event) {
+            //document.getElementById("get_infoV").innerText = hexc(String($(this).css("background-color")));
+            $(this).css("background-color", (hexc(String($(this).css("background-color"))) === "#ddb98b") ? "blue" : "#ddb98b");
+        });
     });
     $('.bton_data').click(function (event) {
         var obj_all_data_to_save = [];
@@ -115,7 +117,6 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
 }
 
 function trigger_load_event_click_event(target_id) {
-    console.log("????????????");
-
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
+    document.getElementById('obj_all_data_to_save').click();
 }
