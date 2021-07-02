@@ -7,9 +7,10 @@
     border-radius: 1px;
     border-style: solid;
     border-color: black;
+    border-radius: 20%;
 }
 
 .square_table_cont {
     width: 74vw;
-    height: 74vw;
+
 }
