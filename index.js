@@ -40,7 +40,7 @@ function init(callback) {
         for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
             const element2 = element.getElementsByClassName("square")[index2];
             element2.id = "cell_numb_" + String(index) + String(index2);
-            element2.setAttribute("onclick", `$(#${element2.id}).css('background-color', (hexc(String($(#${element2.id}).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');`);
+            element2.setAttribute("onclick", `square_click_function_event (${element2.id})`);
             //element2.innerText = String(index) + String(index2);
         }
     }
@@ -120,4 +120,8 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
 function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
     //document.getElementById('obj_all_data_to_save').click();
+}
+
+function square_click_function_event (string_id) {
+    $(`#${string_id}`).css('background-color', (hexc(String($(`#${string_id}`).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');
 }
