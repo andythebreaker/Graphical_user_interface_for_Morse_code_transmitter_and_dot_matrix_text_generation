@@ -9,7 +9,7 @@ function init(callback) {
         const element = document.getElementById("what_to_snap_body").getElementsByClassName("row_class")[index];
         for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
             const element2 = element.getElementsByClassName("square")[index2];
-            element2.id = String(element.id) + String(index2);
+            element2.id = "cell_numb_" + String(index) + String(index2);
             //element2.innerText = String(index) + String(index2);
         }
     }
