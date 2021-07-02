@@ -88,7 +88,7 @@ function after_init() {
                     checkFlag();
                 }, 5);
             } else {
-                document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'\"').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}`;
+                document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'~').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}`;
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
 <th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
@@ -97,7 +97,7 @@ function after_init() {
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col">
-<button onclick="document.getElementById('what_to_snap_body').innerHTML = '${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'\"').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}';" 
+<button onclick="document.getElementById('what_to_snap_body').innerHTML = '${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'~').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}';" 
 type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
 <button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
