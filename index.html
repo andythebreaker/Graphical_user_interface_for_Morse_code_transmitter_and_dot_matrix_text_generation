@@ -8,6 +8,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
@@ -23,15 +24,6 @@
     overflow-y: hidden;">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark" id="style_width_280px">
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <button class="btn btn-primary" type="button" id="pswtest">password</button>
-                            <input id="pswV" type="text" class="form-control" placeholder=""
-                                aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col">
                         <button type="button" class="btn btn-primary" id="get_info">get_info</button>
@@ -69,109 +61,94 @@
         border-width: 1px 0;
         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
         "></div>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="style_RIGHT">
-            <!--div class="bg-dark me-md-3 pt-3 px-3">
-            </div-->
-            <div class="bg-light me-md-3 pt-3 px-3 w-100 overflow-auto">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                    </thead>
-                    <tbody id="all_commits">
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">0</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="flex-column flex-shrink-0 p-3 bg-light square_table_cont">
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                    <tr>
+                        <th class="square">0</th>
+                        <th class="square">1</th>
+                        <th class="square">2</th>
+                        <th class="square">3</th>
+                        <th class="square">4</th>
+                        <th class="square">5</th>
+                        <th class="square">6</th>
+                        <th class="square">7</th>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
-        <!--div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3"-->
     </main>
 
     <footer style="display: none;">

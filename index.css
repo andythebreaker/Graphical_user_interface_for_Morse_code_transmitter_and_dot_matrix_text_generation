@@ -1,0 +1,15 @@
+.square:before {
+    content: "";
+    display: block;
+    width: 5Vh;
+    height: 5Vh;
+    background-color: #ddb98b;
+    border-radius: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.square_table_cont {
+    width: 74vw;
+    height: 74vw;
+}
