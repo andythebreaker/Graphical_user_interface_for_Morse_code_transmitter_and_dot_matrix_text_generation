@@ -113,6 +113,10 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
     });
 
     $('.trigger_load_event').click(function (event) {
+        console.log("????????????");
+        console.log(event);
+        console.log(event.target);
+        console.log(event.target.value);
         document.getElementById('what_to_snap_body').innerHTML=event.target.value.replace(/~/g,'"');
     });
 }
