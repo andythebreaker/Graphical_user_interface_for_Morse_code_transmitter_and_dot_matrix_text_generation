@@ -19,7 +19,7 @@ function init(callback) {
     }
 }
 function after_init() {
-    $('.square :after').click(function () {
+    $('.square::before').click(function () {
         $(this).css("background-color", "blue");
     });
 }
