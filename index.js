@@ -97,7 +97,7 @@ function after_init() {
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col">
-<button value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
+<button onclick="trigger_load_event_click_event('${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
 type="button" class="btn btn-primary trigger_load_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
 <button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
@@ -112,11 +112,10 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
         checkFlag();
     });
 
-    $('.trigger_load_event').click(function (event) {
-        console.log("????????????");
-        console.log(event);
-        console.log(event.target);
-        console.log(event.target.value);
-        document.getElementById('what_to_snap_body').innerHTML=event.target.value.replace(/~/g,'"');
-    });
+}
+
+function trigger_load_event_click_event(target_id) {
+    console.log("????????????");
+
+    document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
 }
