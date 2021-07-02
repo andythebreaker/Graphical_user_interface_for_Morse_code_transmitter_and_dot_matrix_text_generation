@@ -13,7 +13,8 @@
 
 <body>
     <header style="display:none">
-        <div id="tmp"></div>
+        <div id="obj_all_data_to_save"></div>
+        <div id="bton_data_fake" class="bton_data"></div>
     </header>
     <main style="display: flex;
     flex-wrap: nowrap;
@@ -249,13 +250,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--div class="row">
                         <div class="col">
                             <div class="card overflow-auto">
                                 <div class="card-body" id="ascii_row_pattern_hex_with_data_structure_define"></div>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                     <div class="row">
                         <div class="col">
                             <div class="input-group mb-3">
@@ -278,38 +279,24 @@
         "></div>
         <div class="flex-column flex-shrink-0 p-3 bg-light square_table_cont">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-primary" id="get_info">get_info</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary" id="all_repo">all_repo</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-warning"
-                            id="Pull_the_remote_code_to_the_local_end_and_trigger_the_update">Pull the remote code to
-                            the local end and trigger the update</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-primary" id="game_main_website_status">game main website
-                            status</button>
-                    </div>
-                    <div class="col">
-                        <div class="card overflow-auto">
-                            <div class="card-body" id="game_main_website_statusV"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="bg-light me-md-3 pt-3 px-3 w-100 overflow-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">index</th>
+                            <th scope="col">name</th>
+                            <th scope="col">pitcure</th>
+                            <th scope="col">edit</th>
+                            <th scope="col">del</th>
+                            <th scope="col">pattern</th>
+                            <th scope="col">pattern_style_1</th>
+                            <th scope="col">pattern_style_2</th>
+                            <th scope="col">pattern_obj</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all_commits"></tbody>
+                </table>
             </div>
-            <div class="card overflow-auto">
-                <div class="card-body" id="get_infoV">
-                </div>
-            </div>
-
-
 
         </div>
     </main>
