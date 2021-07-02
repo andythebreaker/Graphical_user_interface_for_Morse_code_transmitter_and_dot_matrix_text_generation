@@ -96,7 +96,7 @@ function after_init() {
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col">
-<button onclick="document.getElementById('what_to_snap_body').innerHTML = '${document.getElementById('what_to_snap_body').innerHTML.replace('"','\\"')}';" 
+<button onclick="document.getElementById('what_to_snap_body').innerHTML = '${document.getElementById('what_to_snap_body').innerHTML.replace('"','\\"').trim().replace(/&nbsp;/g, '')}';" 
 type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
 <button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
