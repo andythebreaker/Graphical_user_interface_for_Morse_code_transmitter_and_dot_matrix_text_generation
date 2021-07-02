@@ -86,7 +86,7 @@ function after_init() {
             } else {
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
-<th scope="col">${(!document.getElementById("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
+<th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
 <th scope="col">${$('#val_index_text').val()}</th>
 <th scope="col">
 <button type="button" class="btn btn-primary trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_edit">edit</button>
@@ -96,7 +96,7 @@ function after_init() {
 <th scope="col">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
 <th scope="col">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
 <th scope="col">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col">${document.getElementsByClgetElementByIdassName("obj_all_data_to_save").innerText}</th>
+<th scope="col">${document.getElementById("obj_all_data_to_save").innerText}</th>
 </tr>`;
             }
         }
