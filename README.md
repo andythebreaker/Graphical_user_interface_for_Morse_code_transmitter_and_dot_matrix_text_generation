@@ -1,0 +1,2 @@
+# Graphical_user_interface_for_Morse_code_transmitter_and_dot_matrix_text_generation
+Graphical user interface for Morse code transmitter and dot matrix text generation
