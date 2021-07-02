@@ -45,9 +45,9 @@ function after_init() {
             for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
                 element2_id = "cell_numb_" + String(index) + String(index2);
                 int_row_hex+=(hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? 0:Math.pow(2,index2);
-                obj_all_data_to_save_sub.add((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false:true);
+                obj_all_data_to_save_sub.push((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false:true);
             }
-            obj_all_data_to_save.add(obj_all_data_to_save_sub);
+            obj_all_data_to_save.push(obj_all_data_to_save_sub);
             document.getElementById("ascii_row_pattern_hex").innerText+=int_row_hex.toString(16);
             document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText+=("0x"+int_row_hex.toString(16)+",");
         }slice(0, -1)
