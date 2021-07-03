@@ -10,7 +10,7 @@ function handleFileSelect() {
         return;
     }
 
-    var input = document.getElementById('btnLoad');
+    var input = document.getElementById('fileinput');
     if (!input) {
         alert("Um, couldn't find the fileinput element.");
         //console.log("Um, couldn't find the fileinput element.");
@@ -27,13 +27,14 @@ function handleFileSelect() {
         var file = input.files[0];
         var fr = new FileReader();
         fr.onload = function (e) {
-            document.getElementById('what_to_save_all_table').innerHTML="";
+            document.getElementById('what_to_save_all_table').innerHTML = "";
             document.getElementById('what_to_save_all_table').innerText = fr.result;
         };
         //fr.readAsText(file);
         //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
         fr.readAsDataURL(file);
     }
+
 }
 function download(data, filename, type) {
     var file = new Blob([data], { type: type });
