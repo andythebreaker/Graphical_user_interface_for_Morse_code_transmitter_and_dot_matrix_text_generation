@@ -119,6 +119,7 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
 
 function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
+    $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load','')).innerText);
     //document.getElementById('obj_all_data_to_save').click();
 }
 
