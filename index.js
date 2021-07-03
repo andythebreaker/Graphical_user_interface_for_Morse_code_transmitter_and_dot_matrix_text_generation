@@ -10,7 +10,7 @@ function handleFileSelect() {
         return;
     }
 
-    var input = document.getElementById('fileinput');
+    var input = document.getElementById('btnLoad');
     if (!input) {
         alert("Um, couldn't find the fileinput element.");
         //console.log("Um, couldn't find the fileinput element.");
