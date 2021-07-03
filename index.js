@@ -93,30 +93,31 @@ function after_init() {
             } else {
                 //document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'~').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}`;
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
-                document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
-<th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
-<th scope="col" class="data_save_table_val_index_text" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
-<th scope="col"><div class="pure_text_pattern" style="line-height:0.7rem;">
+                document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count class_for_remove_${document.getElementById("index_number_save_max").innerText}">
+<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText}" scope="col">${document.getElementById("index_number_save_max").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
+<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText} pure_text_pattern" style="line-height:0.7rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
-<th scope="col">
-<button onclick="trigger_load_event_click_event('${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
-type="button" class="btn btn-primary trigger_load_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">
+<button onclick="trigger_load_event_click_event('${ document.getElementById("index_number_save_max").innerText}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
+type="button" class="btn btn-primary trigger_load_event class_for_remove_${document.getElementById("index_number_save_max").innerText}" id="${ document.getElementById("index_number_save_max").innerText}_trigger_load">load</button>
 </th><th scope="col">
-<button onclick="trigger_del_event_click_event('${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del')"
-type="button" class="btn btn-warning trigger_del_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
+<button onclick="trigger_del_event_click_event('${ document.getElementById("index_number_save_max").innerText}_trigger_del')"
+type="button" class="btn btn-warning trigger_del_event class_for_remove_${document.getElementById("index_number_save_max").innerText}" id="${ document.getElementById("index_number_save_max").innerText}_trigger_del">del</button>
 </th>
-<th scope="col">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
-<th scope="col">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col">${document.getElementById("obj_all_data_to_save").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("obj_all_data_to_save").innerText}</th>
 </tr>`;
             }
+            document.getElementById("index_number_save_max").innerText=String(parseInt(document.getElementById("index_number_save_max").innerText.replace('_index',''),10)+1)+'_index';
         }
         checkFlag();
     });
     document.getElementById("agent_del_fucn").addEventListener("click", () => {
-        document.getElementById(document.getElementById("agent_del_fucn").innerText).remove();
+        document.getElementsByClassName(document.getElementById("agent_del_fucn").innerText).remove();
     });
 }
 
@@ -130,6 +131,6 @@ function square_click_function_event(string_id) {
     $(`#${string_id}`).css('background-color', (hexc(String($(`#${string_id}`).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');
 }
 function trigger_del_event_click_event(id_string) {
-    document.getElementById("agent_del_fucn").innerText = id_string;
+    document.getElementById("agent_del_fucn").innerText = 'class_for_remove_'+id_string.replace('_trigger_del','');
     document.getElementById("agent_del_fucn").click();
 }
