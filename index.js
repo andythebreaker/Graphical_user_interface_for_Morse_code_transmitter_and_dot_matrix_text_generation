@@ -126,7 +126,7 @@ function after_init() {
             document.getElementById("block_data_txt").innerText += "</div><div>"
             obj_all_data_to_save.push(obj_all_data_to_save_sub);
             document.getElementById("ascii_row_pattern_hex").innerText += int_row_hex.toString(16);
-            document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText += ("0x" + ((int_row_hex < 10) ? "0" : "") + int_row_hex.toString(16).toUpperCase() + ",");
+            document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText += ("0x" + ((int_row_hex < 16) ? "0" : "") + int_row_hex.toString(16).toUpperCase() + ",");
         }
         document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText = document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText.slice(0, -1) + "}";
         document.getElementById("obj_all_data_to_save").innerText = JSON.stringify(obj_all_data_to_save);
