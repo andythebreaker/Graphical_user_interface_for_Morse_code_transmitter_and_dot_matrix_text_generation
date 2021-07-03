@@ -103,7 +103,8 @@ ${document.getElementById("block_data_txt").innerText}
 <button onclick="trigger_load_event_click_event('${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
 type="button" class="btn btn-primary trigger_load_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_load">load</button>
 </th><th scope="col">
-<button type="button" class="btn btn-warning trigger_version_change" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
+<button onclick="trigger_del_event_click_event('${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del')"
+type="button" class="btn btn-warning trigger_del_event" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_trigger_del">del</button>
 </th>
 <th scope="col">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
 <th scope="col">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
@@ -114,15 +115,21 @@ type="button" class="btn btn-primary trigger_load_event" id="${(!document.getEle
         }
         checkFlag();
     });
-
+    document.getElementById("agent_del_fucn").addEventListener("click", () => {
+        document.getElementById(document.getElementById("agent_del_fucn").innerText).remove();
+    });
 }
 
 function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
-    $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load','')).innerText);
+    $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load', '')).innerText);
     //document.getElementById('obj_all_data_to_save').click();
 }
 
-function square_click_function_event (string_id) {
+function square_click_function_event(string_id) {
     $(`#${string_id}`).css('background-color', (hexc(String($(`#${string_id}`).css('background-color'))) === '#ddb98b') ? 'blue' : '#ddb98b');
+}
+function trigger_del_event_click_event(id_string) {
+    document.getElementById("agent_del_fucn").innerText = id_string;
+    document.getElementById("agent_del_fucn").click();
 }
