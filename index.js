@@ -197,7 +197,7 @@ function download_scope_event(event) {
     var event_target_val = document.getElementsByClassName(event.target.attributes.value.textContent);
     for (let index = 0; index < event_target_val.length; index++) {
         const element = event_target_val[index];
-        string_output = element.innerText + "\n";
+        string_output += element.innerText + "\n";
     }
     download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
