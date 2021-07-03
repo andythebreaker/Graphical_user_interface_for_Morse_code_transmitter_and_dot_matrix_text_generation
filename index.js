@@ -118,8 +118,9 @@ function after_init() {
             var int_row_hex = 0;
             var obj_all_data_to_save_sub = [];
             for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
-                element2_id = "cell_numb_" + String(index) + String((document.getElementById('horizontal_MSB_LSB_v').innerText === '(U):LSB;(D):MSB') ? index2 : (document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length - index2 - 1));
-                int_row_hex += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? 0 : Math.pow(2, index2);
+                var element2_id_msb_lsb = "cell_numb_" + String(index) + String((document.getElementById('horizontal_MSB_LSB_v').innerText === '(U):LSB;(D):MSB') ? index2 : (document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length - index2 - 1));
+                var element2_id = "cell_numb_" + String(index) + String(index2);
+                int_row_hex += (hexc(String($(`#${element2_id_msb_lsb}`).css("background-color"))) === "#ddb98b") ? 0 : Math.pow(2, index2);
                 obj_all_data_to_save_sub.push((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false : true);
                 document.getElementById("block_data_txt").innerText += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? "□" : "■";
             }
