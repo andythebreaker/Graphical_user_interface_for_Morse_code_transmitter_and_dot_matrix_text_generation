@@ -93,23 +93,23 @@ function after_init() {
             } else {
                 //document.getElementById('test_01').innerText=`${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g,'~').replace(/\n/g,'').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}`;
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
-                document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count class_for_remove_${document.getElementById("index_number_save_max").innerText}">
-<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText}" scope="col">${document.getElementById("index_number_save_max").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
-<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText} pure_text_pattern" style="line-height:0.7rem;">
+                document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
+<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col">${document.getElementById("index_number_save_max").innerText.replace('_index','')}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
+<th class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} pure_text_pattern" style="line-height:0.7rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">
-<button onclick="trigger_load_event_click_event('${ document.getElementById("index_number_save_max").innerText}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
-type="button" class="btn btn-primary trigger_load_event class_for_remove_${document.getElementById("index_number_save_max").innerText}" id="${ document.getElementById("index_number_save_max").innerText}_trigger_load">load</button>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
+<button onclick="trigger_load_event_click_event('${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_load')" value="${document.getElementById('what_to_snap_body').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, '')}" 
+type="button" class="btn btn-primary trigger_load_event class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_load">load</button>
 </th><th scope="col">
-<button onclick="trigger_del_event_click_event('${ document.getElementById("index_number_save_max").innerText}_trigger_del')"
-type="button" class="btn btn-warning trigger_del_event class_for_remove_${document.getElementById("index_number_save_max").innerText}" id="${ document.getElementById("index_number_save_max").innerText}_trigger_del">del</button>
+<button onclick="trigger_del_event_click_event('${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_del')"
+type="button" class="btn btn-warning trigger_del_event class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_del">del</button>
 </th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText}">${document.getElementById("obj_all_data_to_save").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("obj_all_data_to_save").innerText}</th>
 </tr>`;
             }
             document.getElementById("index_number_save_max").innerText=String(parseInt(document.getElementById("index_number_save_max").innerText.replace('_index',''),10)+1)+'_index';
@@ -123,7 +123,7 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
 
 function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
-    $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load', '')).innerText);
+    $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load', '')+'_data_save_table_val_index_text').innerText);
     //document.getElementById('obj_all_data_to_save').click();
 }
 
