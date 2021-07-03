@@ -125,6 +125,7 @@ function trigger_load_event_click_event(target_id) {
     document.getElementById('what_to_snap_body').innerHTML = document.getElementById(target_id).value.replace(/~/g, '"');
     $("#val_index_text").val(document.getElementById(target_id.replace('_trigger_load', '')+'_data_save_table_val_index_text').innerText);
     //document.getElementById('obj_all_data_to_save').click();
+    document.getElementById("bton_data_fake").click();
 }
 
 function square_click_function_event(string_id) {
