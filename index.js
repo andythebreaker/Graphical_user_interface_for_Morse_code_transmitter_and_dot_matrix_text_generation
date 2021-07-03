@@ -117,7 +117,7 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
         checkFlag();
     });
     document.getElementById("agent_del_fucn").addEventListener("click", () => {
-        document.getElementsByClassName(document.getElementById("agent_del_fucn").innerText).remove();
+        $('.'+document.getElementById("agent_del_fucn").innerText).remove();
     });
 }
 
