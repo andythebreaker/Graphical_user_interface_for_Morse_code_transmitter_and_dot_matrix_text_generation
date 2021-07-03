@@ -222,7 +222,7 @@ function reload_onclick_event() {
         function checkFlag() {
             if (document.getElementById('reload_partal_done').innerText !== '1') {
                 setTimeout(() => {
-                    console.log('checkFlag' + element.id);
+                    //console.log('checkFlag' + element.id);
                     checkFlag();
                 }, 5);
             } else {
