@@ -274,11 +274,55 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-outline-secondary" id="save_table">save</button>
-                    </div><div class="col">
-                    <input id="fileinput" type="file" class="btn btn-success"></div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="horizontal_MSB_LSB_s" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                horizontal MSB/LSB
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="horizontal_MSB_LSB_s">
+                                <li><a class="dropdown-item" href="#">(L):MSB;(R):LSB</a></li>
+                                <li><a class="dropdown-item" href="#">(L):LSB;(R):MSB</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col" id="horizontal_MSB_LSB_v">
+                        value
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col">
-                        <input class="btn btn-danger" id="btnLoad" type="button" value="Load_all_data" onclick="handleFileSelect();">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="vertical_MSB_LSB_s" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                vertical MSB/LSB
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="vertical_MSB_LSB_s">
+                                <li><a class="dropdown-item" href="#">(U):MSB;(D):LSB</a></li>
+                                <li><a class="dropdown-item" href="#">(U):LSB;(D):MSB</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col" id="vertical_MSB_LSB_v">
+                        value
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-secondary" id="reload_table">reload</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-secondary" id="save_table">save</button>
+                    </div>
+                    <div class="col">
+                        <input id="fileinput" type="file" class="btn btn-success">
+                    </div>
+                    <div class="col">
+                        <input class="btn btn-danger" id="btnLoad" type="button" value="Load_all_data"
+                            onclick="handleFileSelect();">
                     </div>
                 </div>
             </div>
@@ -300,39 +344,36 @@
                             <th scope="col" id="index_number_save_max">0_index</th>
                             <th scope="col">
                                 <button class="btn btn-primary download_scope" type="button" id="download_scope_name"
-                                    onclick="download_scope_event(event)"
-                                    value="collect_data_name">
+                                    onclick="download_scope_event(event)" value="collect_data_name">
                                     name</button>
                             </th>
                             <th scope="col">
                                 <button class="btn btn-primary download_scope" type="button" id="download_scope_pitcure"
-                                    onclick="download_scope_event(event)"
-                                    value="collect_data_picture">
+                                    onclick="download_scope_event(event)" value="collect_data_picture">
                                     pitcure</button>
                             </th>
                             <th scope="col">load</th>
                             <th scope="col">del</th>
                             <th scope="col">
                                 <button class="btn btn-primary download_scope" type="button" id="download_scope_pattern"
-                                    onclick="download_scope_event(event)"
-                                    value="collect_data_pattern">
+                                    onclick="download_scope_event(event)" value="collect_data_pattern">
                                     pattern</button>
                             </th>
                             <th scope="col">
-                                <button class="btn btn-primary download_scope" type="button" id="download_scope_pattern_style_1"
-                                    onclick="download_scope_event(event)"
+                                <button class="btn btn-primary download_scope" type="button"
+                                    id="download_scope_pattern_style_1" onclick="download_scope_event(event)"
                                     value="collect_data_pattern_style_1">
                                     pattern_style_1</button>
                             </th>
                             <th scope="col">
-                                <button class="btn btn-primary download_scope" type="button" id="download_scope_pattern_style_2"
-                                    onclick="download_scope_event(event)"
+                                <button class="btn btn-primary download_scope" type="button"
+                                    id="download_scope_pattern_style_2" onclick="download_scope_event(event)"
                                     value="collect_data_pattern_style_2">
                                     pattern_style_2</button>
                             </th>
                             <th scope="col">
-                                <button class="btn btn-primary download_scope" type="button" id="download_scope_pattern_obj"
-                                    onclick="download_scope_event(event)"
+                                <button class="btn btn-primary download_scope" type="button"
+                                    id="download_scope_pattern_obj" onclick="download_scope_event(event)"
                                     value="collect_data_pattern_obj">
                                     pattern_obj</button>
                             </th>
