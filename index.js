@@ -114,11 +114,11 @@ function after_init() {
         document.getElementById("block_data_txt").innerText = "<div>";
         //document.getElementById("ascii_row_pattern_hex_with_data_structure_define").innerText = "";
         for (let index = 0; index < document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length; index++) {
-            const element = document.getElementById("what_to_snap_body").getElementsByClassName("row_class")[index];
+            const element = document.getElementById("what_to_snap_body").getElementsByClassName("row_class")[(document.getElementById('vertical_MSB_LSB_v').innerText === '(U):LSB;(D):MSB') ? index : (document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length - index - 1)];
             var int_row_hex = 0;
             var obj_all_data_to_save_sub = [];
             for (let index2 = 0; index2 < element.getElementsByClassName("square").length; index2++) {
-                element2_id = "cell_numb_" + String(index) + String(index2);
+                element2_id = "cell_numb_" + String(index) + String((document.getElementById('vertical_MSB_LSB_v').innerText === '(U):LSB;(D):MSB') ? index2 : (document.getElementById("what_to_snap_body").getElementsByClassName("row_class").length - index2 - 1));
                 int_row_hex += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? 0 : Math.pow(2, index2);
                 obj_all_data_to_save_sub.push((hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? false : true);
                 document.getElementById("block_data_txt").innerText += (hexc(String($(`#${element2_id}`).css("background-color"))) === "#ddb98b") ? "□" : "■";
@@ -216,8 +216,8 @@ function reload_onclick_event() {
 
     var all_bton_u_need_2_click = document.getElementsByClassName('trigger_load_event');
     var all_bton_u_need_2_del = document.getElementsByClassName('trigger_del_event');
-    var all_bton_u_need_2_click_ary=[];
-    var all_bton_u_need_2_del_ary=[];
+    var all_bton_u_need_2_click_ary = [];
+    var all_bton_u_need_2_del_ary = [];
     for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
         const element = all_bton_u_need_2_click[index];
         all_bton_u_need_2_click_ary.push(element.id);
