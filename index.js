@@ -174,6 +174,16 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
     document.getElementById('save_table').addEventListener("click", () => {
         download(document.getElementById('what_to_save_all_table').innerHTML, `backup_${date_time_now()}`, 'txt');
     });
+    $('.btn.btn-secondary.dropdown-toggle').on('hidden.bs.dropdown', function (e) {
+        //console.log(".btn.btn-secondary.dropdown-toggle");
+        //console.log(e.target.id);
+        document.getElementById(e.target.id.slice(0, -1) + "v").innerHTML = document.getElementById("tmp").innerText;
+    });
+
+    $('.dropdown-item').on('click', function () {
+        //console.log($(this).text());
+        document.getElementById("tmp").innerText = $(this).text();
+    });
 
 }
 
