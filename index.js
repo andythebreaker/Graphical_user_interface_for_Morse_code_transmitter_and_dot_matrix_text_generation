@@ -26,7 +26,7 @@ function handleFileSelect() {
     } else {
         var file = input.files[0];
         var fr = new FileReader();
-        fr.onload = function(e) {
+        fr.onload = function (e) {
             document.getElementById('editor').innerText = fr.result;
             document.getElementById('editor_base64_fin').innerText = "1";
         };
@@ -169,8 +169,8 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
     document.getElementById("agent_del_fucn").addEventListener("click", () => {
         $('.' + document.getElementById("agent_del_fucn").innerText).remove();
     });
-    document.getElementById('save_table').addEventListener("click",()=>{
-        download(JSON.stringify($('#what_to_save_all_table')), `backup_${date_time_now()}`, 'txt');
+    document.getElementById('save_table').addEventListener("click", () => {
+        download(document.getElementById('what_to_save_all_table').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, ''), `backup_${date_time_now()}`, 'txt');
     });
 }
 
