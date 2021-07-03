@@ -28,7 +28,7 @@ function handleFileSelect() {
         var fr = new FileReader();
         fr.onload = function (e) {
             document.getElementById('what_to_save_all_table').innerHTML = "";
-            document.getElementById('what_to_save_all_table').innerText = fr.result;
+            document.getElementById('what_to_save_all_table').innerHTML = fr.result;
         };
         fr.readAsText(file);
         //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
@@ -164,6 +164,7 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
 </tr>`;
             }
             document.getElementById("index_number_save_max").innerText = String(parseInt(document.getElementById("index_number_save_max").innerText.replace('_index', ''), 10) + 1) + '_index';
+            document.getElementById('save_table').click();
         }
         checkFlag();
     });
