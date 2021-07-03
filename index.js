@@ -211,3 +211,6 @@ function download_scope_event(event) {
     }
     download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
+function reload_onclick_event() {
+    
+}
