@@ -2,6 +2,39 @@
 $(function () {
     init(after_init());
 });
+function handleFileSelect() {
+    if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+        //alert('The File APIs are not fully supported in this browser.');
+        console.log('The File APIs are not fully supported in this browser.');
+        document.getElementById("add_an_user").click();
+        return;
+    }
+
+    var input = document.getElementById('fileinput');
+    if (!input) {
+        //alert("Um, couldn't find the fileinput element.");
+        console.log("Um, couldn't find the fileinput element.");
+        document.getElementById("add_an_user").click();
+    } else if (!input.files) {
+        //alert("This browser doesn't seem to support the `files` property of file inputs.");
+        console.log("This browser doesn't seem to support the `files` property of file inputs.");
+        document.getElementById("add_an_user").click();
+    } else if (!input.files[0]) {
+        //alert("Please select a file before clicking 'Load'");
+        console.log("Please select a file before clicking 'Load'");
+        document.getElementById("add_an_user").click();
+    } else {
+        var file = input.files[0];
+        var fr = new FileReader();
+        fr.onload = function(e) {
+            document.getElementById('editor').innerText = fr.result;
+            document.getElementById('editor_base64_fin').innerText = "1";
+        };
+        //fr.readAsText(file);
+        //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
+        fr.readAsDataURL(file);
+    }
+}
 function download(data, filename, type) {
     var file = new Blob([data], { type: type });
     if (window.navigator.msSaveOrOpenBlob) // IE10+
