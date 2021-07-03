@@ -169,6 +169,9 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
     document.getElementById("agent_del_fucn").addEventListener("click", () => {
         $('.' + document.getElementById("agent_del_fucn").innerText).remove();
     });
+    document.getElementById('save_table').addEventListener("click",()=>{
+        download(JSON.stringify($('#what_to_save_all_table')), `backup_${date_time_now()}`, 'txt');
+    });
 }
 
 function trigger_load_event_click_event(target_id) {
@@ -193,5 +196,5 @@ function download_scope_event(event) {
         const element = event_target_val[index];
         string_output = element.innerText + "\n";
     }
-    download(string_output, `backup_${date_time_now()}`, 'txt');
+    download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
