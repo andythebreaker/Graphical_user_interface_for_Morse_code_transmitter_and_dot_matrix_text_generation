@@ -132,6 +132,7 @@ function after_init() {
         document.getElementById("obj_all_data_to_save").innerText = JSON.stringify(obj_all_data_to_save);
         document.getElementById("bton_data_fake").innerText = "1";
         document.getElementById("block_data_txt").innerText = document.getElementById("block_data_txt").innerText.slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1).slice(0, -1);
+        document.getElementById("reload_partal_done").innerText = '1';
     });
     document.getElementById('btn_index_text').addEventListener('click', () => {
         document.getElementById("bton_data_fake").innerText = "-1";
@@ -212,5 +213,24 @@ function download_scope_event(event) {
     download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
 function reload_onclick_event() {
-    
+    var all_bton_u_need_2_click = document.getElementsByClassName('trigger_load_event');
+    var all_bton_u_need_2_del = document.getElementsByClassName('trigger_del_event');
+    for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
+        const element = all_bton_u_need_2_click[index];
+        document.getElementById("reload_partal_done").innerText = '-1';
+        function checkFlag() {
+            if (document.getElementById('reload_partal_done').innerText !== '1') {
+                setTimeout(() => {
+                    checkFlag();
+                }, 5);
+            } else {
+                document.getElementById('btn_index_text').click();
+            }
+        }
+        checkFlag();
+    }
+    for (let index = 0; index < all_bton_u_need_2_del.length; index++) {
+        const element = all_bton_u_need_2_del[index];
+        element.click();
+    }
 }
