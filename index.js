@@ -29,10 +29,11 @@ function handleFileSelect() {
         fr.onload = function (e) {
             document.getElementById('what_to_save_all_table').innerHTML = "";
             document.getElementById('what_to_save_all_table').innerText = fr.result;
+            console.log(fr.readAsText(file));
+            console.log(fr.readAsBinaryString(file)); //as bit work with base64 for example upload to server
+            console.log(fr.readAsDataURL(file));
         };
-        //fr.readAsText(file);
-        //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
-        fr.readAsDataURL(file);
+
     }
 
 }
