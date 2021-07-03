@@ -215,11 +215,21 @@ function download_scope_event(event) {
 function reload_onclick_event() {
     var all_bton_u_need_2_click = document.getElementsByClassName('trigger_load_event');
     var all_bton_u_need_2_del = document.getElementsByClassName('trigger_del_event');
+    var all_bton_u_need_2_click_ary=[];
+    var all_bton_u_need_2_del_ary=[];
     for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
         const element = all_bton_u_need_2_click[index];
+        all_bton_u_need_2_click_ary.push(element.id);
+    }
+    for (let index = 0; index < all_bton_u_need_2_del.length; index++) {
+        const element = all_bton_u_need_2_del[index];
+        all_bton_u_need_2_del_ary.push(element.id);
+    }
+    for (let index = 0; index < all_bton_u_need_2_click_ary.length; index++) {
+        const element = all_bton_u_need_2_click_ary[index];
         document.getElementById("reload_partal_done").innerText = '-1';
-        console.log("load:" + element.id + "@index/length:" + String(index) + "/" + String(all_bton_u_need_2_click.length));
-        console.log(all_bton_u_need_2_click);
+        console.log("load:" + element.id + "@index/length:" + String(index) + "/" + String(all_bton_u_need_2_click_ary.length));
+        console.log(all_bton_u_need_2_click_ary);
         element.click();
         function checkFlag() {
             if (document.getElementById('reload_partal_done').innerText !== '1') {
@@ -234,8 +244,8 @@ function reload_onclick_event() {
         }
         checkFlag();
     }
-    for (let index = 0; index < all_bton_u_need_2_del.length; index++) {
-        const element = all_bton_u_need_2_del[index];
+    for (let index = 0; index < all_bton_u_need_2_del_ary.length; index++) {
+        const element = all_bton_u_need_2_del_ary[index];
         element.click();
         console.log("kill" + element.id);
     }
