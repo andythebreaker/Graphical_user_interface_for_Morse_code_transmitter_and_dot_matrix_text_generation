@@ -170,7 +170,7 @@ type="button" class="btn btn-warning trigger_del_event class_for_remove_${docume
         $('.' + document.getElementById("agent_del_fucn").innerText).remove();
     });
     document.getElementById('save_table').addEventListener("click", () => {
-        download(document.getElementById('what_to_save_all_table').innerHTML.replace(/"/g, '~').replace(/\n/g, '').trim().replace(/&nbsp;/g, '').replace(/[^\S\r\n]{2,}/g, ''), `backup_${date_time_now()}`, 'txt');
+        download(document.getElementById('what_to_save_all_table').innerHTML, `backup_${date_time_now()}`, 'txt');
     });
 }
 
