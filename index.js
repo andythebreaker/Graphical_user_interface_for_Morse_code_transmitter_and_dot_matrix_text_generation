@@ -218,7 +218,7 @@ function reload_onclick_event() {
     for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
         const element = all_bton_u_need_2_click[index];
         document.getElementById("reload_partal_done").innerText = '-1';
-        console.log("load" + element.id);
+        console.log("load:" + element.id + "@index/length:" + String(index) + String(all_bton_u_need_2_click.length));
         element.click();
         function checkFlag() {
             if (document.getElementById('reload_partal_done').innerText !== '1') {
