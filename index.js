@@ -95,8 +95,8 @@ function after_init() {
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
 <th class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col">${document.getElementById("index_number_save_max").innerText.replace('_index','')}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
-<th style="font-family: 'SourceHanSansTC-VF';" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} pure_text_pattern" style="line-height:1rem;">
+<th scope="col" class="collect_data_name class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
+<th style="font-family: 'SourceHanSansTC-VF';" class="collect_data_picture class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} pure_text_pattern" style="line-height:1rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
@@ -106,10 +106,10 @@ type="button" class="btn btn-primary trigger_load_event class_for_remove_${docum
 <button onclick="trigger_del_event_click_event('${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_del')"
 type="button" class="btn btn-warning trigger_del_event class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_trigger_del">del</button>
 </th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
-<th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("obj_all_data_to_save").innerText}</th>
+<th scope="col" class="collect_data_pattern class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex").innerText}</th>
+<th scope="col" class="collect_data_pattern_style_1 class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="collect_data_pattern_style_2 class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">#define ASCII88PATTERN_${$('#val_index_text').val()} ${document.getElementById("ascii_row_pattern_hex_with_data_structure").innerText}</th>
+<th scope="col" class="collect_data_pattern_obj class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">${document.getElementById("obj_all_data_to_save").innerText}</th>
 </tr>`;
             }
             document.getElementById("index_number_save_max").innerText=String(parseInt(document.getElementById("index_number_save_max").innerText.replace('_index',''),10)+1)+'_index';
