@@ -224,7 +224,10 @@ function reload_onclick_event() {
                     checkFlag();
                 }, 5);
             } else {
+                element.click();
+                console.log("load"+element.id);
                 document.getElementById('btn_index_text').click();
+                console.log("save"+element.id);
             }
         }
         checkFlag();
@@ -232,5 +235,6 @@ function reload_onclick_event() {
     for (let index = 0; index < all_bton_u_need_2_del.length; index++) {
         const element = all_bton_u_need_2_del[index];
         element.click();
+        console.log("kill"+element.id);
     }
 }
