@@ -96,7 +96,7 @@ function after_init() {
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
 <th class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col">${document.getElementById("index_number_save_max").innerText.replace('_index','')}</th>
 <th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} data_save_table_val_index_text" id="${ document.getElementById("index_number_save_max").innerText.replace('_index','')}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
-<th style="font-family: 'DFYuan-W5-WIN-BF';" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} pure_text_pattern" style="line-height:0.7rem;">
+<th style="font-family: 'SourceHanSansTC-VF';" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}" scope="col"><div class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')} pure_text_pattern" style="line-height:0.7rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
 <th scope="col" class="class_for_remove_${document.getElementById("index_number_save_max").innerText.replace('_index','')}">
