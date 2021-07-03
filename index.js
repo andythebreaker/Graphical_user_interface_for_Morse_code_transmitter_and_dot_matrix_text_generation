@@ -95,7 +95,7 @@ function after_init() {
                 $('#val_index_text').val((!$('#val_index_text').val()) ? date_time_now() : $('#val_index_text').val());
                 document.getElementById("all_commits").innerHTML = document.getElementById("all_commits").innerHTML + `<tr class="index_count">
 <th scope="col">${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}</th>
-<th scope="col">${$('#val_index_text').val()}</th>
+<th scope="col" class="data_save_table_val_index_text" id="${(!document.getElementsByClassName("index_count")) ? "0" : String(document.getElementsByClassName("index_count").length)}_data_save_table_val_index_text">${$('#val_index_text').val()}</th>
 <th scope="col"><div class="pure_text_pattern" style="line-height:0.7rem;">
 ${document.getElementById("block_data_txt").innerText}
 </div></th>
