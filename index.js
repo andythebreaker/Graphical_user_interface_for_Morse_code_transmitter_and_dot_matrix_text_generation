@@ -213,13 +213,13 @@ function download_scope_event(event) {
     download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
 function reload_onclick_event() {
-    var all_bton_u_need_2_click = document.getElementsByClassName('trigger_load_event');
-    var all_bton_u_need_2_del = document.getElementsByClassName('trigger_del_event');
-    for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
-        const element = all_bton_u_need_2_click[index];
+    document.getElementById('reload_buffer').innerText=JSON.stringify(document.getElementsByClassName('trigger_load_event'));
+    document.getElementById('reload_del_buffer').innerText=JSON.stringify(document.getElementsByClassName('trigger_del_event'));
+    for (let index = 0; index < JSON.parse(document.getElementById('reload_buffer').innerText).length; index++) {
+        const element = JSON.parse(document.getElementById('reload_buffer').innerText)[index];
         document.getElementById("reload_partal_done").innerText = '-1';
-        console.log("load:" + element.id + "@index/length:" + String(index) + "/" + String(all_bton_u_need_2_click.length));
-        console.log(all_bton_u_need_2_click);
+        //console.log("load:" + element.id + "@index/length:" + String(index) + "/" + String(JSON.parse(document.getElementById('reload_buffer').innerText).length));
+        //console.log(JSON.parse(document.getElementById('reload_buffer').innerText));
         element.click();
         function checkFlag() {
             if (document.getElementById('reload_partal_done').innerText !== '1') {
@@ -234,8 +234,8 @@ function reload_onclick_event() {
         }
         checkFlag();
     }
-    for (let index = 0; index < all_bton_u_need_2_del.length; index++) {
-        const element = all_bton_u_need_2_del[index];
+    for (let index = 0; index < JSON.parse(document.getElementById('reload_del_buffer').innerText).length; index++) {
+        const element = JSON.parse(document.getElementById('reload_del_buffer').innerText)[index];
         element.click();
         console.log("kill" + element.id);
     }
