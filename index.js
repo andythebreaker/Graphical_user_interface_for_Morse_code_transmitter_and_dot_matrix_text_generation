@@ -2,6 +2,23 @@
 $(function () {
     init(after_init());
 });
+function download(data, filename, type) {
+    var file = new Blob([data], { type: type });
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+            url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
+}
 function hexc(colorval) {
     var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
     delete (parts[0]);
@@ -136,5 +153,12 @@ function trigger_del_event_click_event(id_string) {
     document.getElementById("agent_del_fucn").click();
 }
 function download_scope_event(event) {
-    console.log(event);
+    //console.log(event);
+    var string_output = "";
+    var event_target_val = document.getElementsByClassName(event.target.attributes.value.textContent);
+    for (let index = 0; index < event_target_val.length; index++) {
+        const element = event_target_val[index];
+        string_output = element.innerText + "\n";
+    }
+    download(string_output, `backup_${date_time_now()}`, 'txt');
 }
