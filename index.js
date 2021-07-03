@@ -218,6 +218,7 @@ function reload_onclick_event() {
     for (let index = 0; index < all_bton_u_need_2_click.length; index++) {
         const element = all_bton_u_need_2_click[index];
         document.getElementById("reload_partal_done").innerText = '-1';
+        element.click();
         function checkFlag() {
             if (document.getElementById('reload_partal_done').innerText !== '1') {
                 setTimeout(() => {
@@ -225,7 +226,6 @@ function reload_onclick_event() {
                     checkFlag();
                 }, 5);
             } else {
-                element.click();
                 console.log("load" + element.id);
                 document.getElementById('btn_index_text').click();
                 console.log("save" + element.id);
