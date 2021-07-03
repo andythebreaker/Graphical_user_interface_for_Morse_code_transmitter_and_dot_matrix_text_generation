@@ -213,8 +213,9 @@ function download_scope_event(event) {
     download(string_output, `${event.target.attributes.value.textContent}_${date_time_now()}`, 'txt');
 }
 function reload_onclick_event() {
-    document.getElementById('reload_buffer').innerText=JSON.stringify(document.getElementsByClassName('trigger_load_event'));
-    document.getElementById('reload_del_buffer').innerText=JSON.stringify(document.getElementsByClassName('trigger_del_event'));
+    document.getElementById('reload_buffer').innerText = JSON.stringify(document.getElementsByClassName('trigger_load_event'));
+    document.getElementById('reload_del_buffer').innerText = JSON.stringify(document.getElementsByClassName('trigger_del_event'));
+    console.log(JSON.parse(document.getElementById('reload_buffer').innerText));
     for (let index = 0; index < JSON.parse(document.getElementById('reload_buffer').innerText).length; index++) {
         const element = JSON.parse(document.getElementById('reload_buffer').innerText)[index];
         document.getElementById("reload_partal_done").innerText = '-1';
