@@ -227,7 +227,7 @@ function reload_onclick_event() {
         all_bton_u_need_2_del_ary.push(element.id);
     }
     for (let index = 0; index < all_bton_u_need_2_click_ary.length; index++) {
-        const element = all_bton_u_need_2_click_ary[index];
+        const element = document.getElementById(all_bton_u_need_2_click_ary[index]);
         document.getElementById("reload_partal_done").innerText = '-1';
         console.log("load:" + element.id + "@index/length:" + String(index) + "/" + String(all_bton_u_need_2_click_ary.length));
         console.log(all_bton_u_need_2_click_ary);
@@ -248,7 +248,7 @@ function reload_onclick_event() {
     }
 
     for (let index = 0; index < all_bton_u_need_2_del_ary.length; index++) {
-        const element = all_bton_u_need_2_del_ary[index];
+        const element = document.getElementById(all_bton_u_need_2_del_ary[index]);
 
         element.click();
         console.log("kill" + element.id);
