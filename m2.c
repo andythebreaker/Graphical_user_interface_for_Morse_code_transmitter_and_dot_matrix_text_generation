@@ -2952,7 +2952,7 @@ irq_handler_t isr(int irq, void *data)
         {
             gpio_direction_output(UP_HAT_LED1, is_on);
             is_on ^= 0x01;
-            SCREEN_SHOW_FRAM(ASCII88PATTERN_K)
+            SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
         }
     }
     last_time = this_time;
