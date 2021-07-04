@@ -480,7 +480,6 @@ irq_handler_t isr(int irq, void *data)
 
 int init_module()
 {
-    short int i = 0;
     uint8_t screen_setting_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
     gpio_free(UP_HAT_SW1);
     gpio_free(UP_HAT_LED1);
