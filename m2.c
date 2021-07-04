@@ -14,20 +14,11 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-#define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                               \
-    uint8_t screen_show_fram_void_8_tmp[8] = SCREEN_SHOW_FRAM_PATTERN;                                           \
-    SCREEN_SHOW_FRAM_for_loop_i = 0;                                                                             \
-    row_pattern[0] = screen_show_fram_void_8_tmp[0];                                                             \
-    row_pattern[1] = screen_show_fram_void_8_tmp[1];                                                             \
-    row_pattern[2] = screen_show_fram_void_8_tmp[2];                                                             \
-    row_pattern[3] = screen_show_fram_void_8_tmp[3];                                                             \
-    row_pattern[4] = screen_show_fram_void_8_tmp[4];                                                             \
-    row_pattern[5] = screen_show_fram_void_8_tmp[5];                                                             \
-    row_pattern[6] = screen_show_fram_void_8_tmp[6];                                                             \
-    row_pattern[7] = screen_show_fram_void_8_tmp[7];                                                             \
-    for (SCREEN_SHOW_FRAM_for_loop_i = 0; SCREEN_SHOW_FRAM_for_loop_i < 49 * 8; SCREEN_SHOW_FRAM_for_loop_i++)   \
-    {                                                                                                            \
-        screen_show_one_row(SCREEN_SHOW_FRAM_for_loop_i % 49, 0, SCREEN_SHOW_FRAM_for_loop_i / 49, row_pattern); \
+#define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
+    row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
+    for (SCREEN_SHOW_FRAM_for_loop_i = 0; SCREEN_SHOW_FRAM_for_loop_i < 49 * 8; SCREEN_SHOW_FRAM_for_loop_i++)                            \
+    {                                                                                                                                     \
+        screen_show_one_row(SCREEN_SHOW_FRAM_for_loop_i % 49, 0, SCREEN_SHOW_FRAM_for_loop_i / 49, row_pattern_obj.row_pattern_foo_elem); \
     }
 
 #define ASCII88PATTERN_A                               \
@@ -295,7 +286,7 @@ static int timeout_ms = INTERVAL_FAST_MS;
 struct timer_list timer;
 static ktime_t last_time;
 
-static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
+//static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
 short int SCREEN_SHOW_FRAM_for_loop_i = 0;
 typedef struct row_pattern_foo_struct
 {
@@ -464,24 +455,6 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
     }
 }
 
-static void screen_show_fram(void)
-{
-    short int i = 0;
-    static uint8_t screen_show_fram_void_8_tmp[8] = ASCII88PATTERN_SLAH;
-    row_pattern[0] = screen_show_fram_void_8_tmp[0];
-    row_pattern[1] = screen_show_fram_void_8_tmp[1];
-    row_pattern[2] = screen_show_fram_void_8_tmp[2];
-    row_pattern[3] = screen_show_fram_void_8_tmp[3];
-    row_pattern[4] = screen_show_fram_void_8_tmp[4];
-    row_pattern[5] = screen_show_fram_void_8_tmp[5];
-    row_pattern[6] = screen_show_fram_void_8_tmp[6];
-    row_pattern[7] = screen_show_fram_void_8_tmp[7];
-    for (i = 0; i < 49 * 8; i++)
-    {
-        screen_show_one_row(i % 49, 0, i / 49, row_pattern);
-    }
-}
-
 static void timer_callback(struct timer_list *arg)
 {
     gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
@@ -496,19 +469,9 @@ irq_handler_t isr(int irq, void *data)
         is_press ^= 0x01;
         if (is_press)
         {
-            short int i = 0;
             gpio_direction_output(UP_HAT_LED1, is_on);
-            //printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
             is_on ^= 0x01;
-            //screen_show_fram();
-            //SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
-            row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = ASCII88PATTERN_I};
-            for (i = 0; i < 49 * 8; i++)
-            {
-                screen_show_one_row(i % 49, 0, i / 49, row_pattern_obj.row_pattern_foo_elem);
-            }
-            //row_pattern=ASCII88PATTERN_FFFF;
-            //screen_show_fram();
+            SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
         }
     }
     last_time = this_time;
@@ -584,10 +547,8 @@ int init_module()
     screen_setting_data[0] = 0x01;
     screen_show_one_row(-1, 1, 0x0a, screen_setting_data);
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
-    for (i = 0; i < 49 * 8; i++)
-    {
-        screen_show_one_row(i % 49, 0, i / 49, row_pattern);
-    }
+    
+    SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
 
     return 0;
 }
