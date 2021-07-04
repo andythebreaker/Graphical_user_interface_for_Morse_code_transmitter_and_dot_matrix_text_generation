@@ -270,6 +270,7 @@
 #define UP_HAT_LED5 12
 
 #define INTERVAL_FAST_MS 100
+#define INTERVAL_SLOW_MS 500
 
 #define IRQ_NAME "button_1"
 #define SERIAL_DEVICE "/dev/ttyS0"
@@ -284,7 +285,7 @@ static ktime_t last_time;
 static char is_on = 0;
 static char is_press = 0;
 
-static int timeout_ms = INTERVAL_FAST_MS;
+static int timeout_ms = INTERVAL_SLOW_MS;
 struct timer_list timer;
 static ktime_t last_time;
 
