@@ -39,7 +39,7 @@
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("andythebreaker");
 MODULE_DESCRIPTION("m2");
-MODULE_VERSION("8.5");
+MODULE_VERSION("8.0");
 
 static short int button_irq_id = 0;
 static ktime_t last_time;
@@ -50,7 +50,7 @@ static int timeout_ms = INTERVAL_FAST_MS;
 struct timer_list timer;
 static ktime_t last_time;
 
-static uint8_t row_pattern[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0x18, 0xFF, 0xFF, 0xFF};
+static uint8_t row_pattern[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
