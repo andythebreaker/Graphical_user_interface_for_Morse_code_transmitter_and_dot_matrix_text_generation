@@ -279,7 +279,7 @@ static int timeout_ms = INTERVAL_FAST_MS;
 struct timer_list timer;
 static ktime_t last_time;
 
-static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
+static uint8_t row_pattern[8] = ASCII88PATTERN_5;
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -456,14 +456,10 @@ irq_handler_t isr(int irq, void *data)
         is_press ^= 0x01;
         if (is_press)
         {
-            short int i = 0;
+
             gpio_direction_output(UP_HAT_LED1, is_on);
-            printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
+            //printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
             is_on ^= 0x01;
-            for (i = 0; i < 49 * 8; i++)
-            {
-                screen_show_one_row(i % 49, 0, i / 49, row_pattern);
-            }
         }
     }
     last_time = this_time;
@@ -537,8 +533,12 @@ int init_module()
     screen_show_one_row(-2, 1, 0x0b, screen_setting_data);
     screen_setting_data[0] = 0x01;
     screen_show_one_row(-1, 1, 0x0a, screen_setting_data);
-
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
+    short int i = 0;
+    for (i = 0; i < 49 * 8; i++)
+    {
+        screen_show_one_row(i % 49, 0, i / 49, row_pattern);
+    }
 
     return 0;
 }
