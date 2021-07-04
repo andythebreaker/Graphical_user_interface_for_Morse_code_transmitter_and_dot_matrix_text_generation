@@ -297,6 +297,11 @@ static ktime_t last_time;
 
 static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
 short int SCREEN_SHOW_FRAM_for_loop_i = 0;
+typedef struct row_pattern_foo_struct
+{
+    uint8_t row_pattern_foo_elem[8];
+} row_pattern_foo;
+row_pattern_foo row_pattern_obj;
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -491,11 +496,17 @@ irq_handler_t isr(int irq, void *data)
         is_press ^= 0x01;
         if (is_press)
         {
+            short int i = 0;
             gpio_direction_output(UP_HAT_LED1, is_on);
             //printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
             is_on ^= 0x01;
             //screen_show_fram();
-            SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
+            //SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
+            row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = ASCII88PATTERN_I};
+            for (i = 0; i < 49 * 8; i++)
+            {
+                screen_show_one_row(i % 49, 0, i / 49, row_pattern_obj.row_pattern_foo_elem);
+            }
             //row_pattern=ASCII88PATTERN_FFFF;
             //screen_show_fram();
         }
