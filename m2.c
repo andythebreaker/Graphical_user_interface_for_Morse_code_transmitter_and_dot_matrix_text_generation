@@ -14,122 +14,250 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-#define MORSE_CODE_A {0,0,0,0,1,2}
-#define MORSE_CODE_B {0,0,2,1,1,1}
-#define MORSE_CODE_C {0,0,0,0,1,2}
-#define MORSE_CODE_D {0,0,0,0,1,2}
-#define MORSE_CODE_E {0,0,0,0,1,2}
-#define MORSE_CODE_F {0,0,0,0,1,2}
-#define MORSE_CODE_G {0,0,0,0,1,2}
-#define MORSE_CODE_H {0,0,0,0,1,2}
-#define MORSE_CODE_I {0,0,0,0,1,2}
-#define MORSE_CODE_J {0,0,0,0,1,2}
-#define MORSE_CODE_K {0,0,0,0,1,2}
-#define MORSE_CODE_L {0,0,0,0,1,2}
-#define MORSE_CODE_M {0,0,0,0,1,2}
-#define MORSE_CODE_N {0,0,0,0,1,2}
-#define MORSE_CODE_O {0,0,0,0,1,2}
-#define MORSE_CODE_P {0,0,0,0,1,2}
-#define MORSE_CODE_Q {0,0,0,0,1,2}
-#define MORSE_CODE_R {0,0,0,0,1,2}
-#define MORSE_CODE_S {0,0,0,0,1,2}
-#define MORSE_CODE_T {0,0,0,0,1,2}
-#define MORSE_CODE_U {0,0,0,0,1,2}
-#define MORSE_CODE_V {0,0,0,0,1,2}
-#define MORSE_CODE_W {0,0,0,0,1,2}
-#define MORSE_CODE_X {0,0,0,0,1,2}
-#define MORSE_CODE_Y {0,0,0,0,1,2}
-#define MORSE_CODE_Z {0,0,0,0,1,2}
-#define MORSE_CODE_0 {0,0,0,0,1,2}
-#define MORSE_CODE_1 {0,0,0,0,1,2}
-#define MORSE_CODE_2 {0,0,0,0,1,2}
-#define MORSE_CODE_3 {0,0,0,0,1,2}
-#define MORSE_CODE_4 {0,0,0,0,1,2}
-#define MORSE_CODE_5 {0,0,0,0,1,2}
-#define MORSE_CODE_6 {0,0,0,0,1,2}
-#define MORSE_CODE_7 {0,0,0,0,1,2}
-#define MORSE_CODE_8 {0,0,0,0,1,2}
-#define MORSE_CODE_9 {0,0,0,0,1,2}
-#define MORSE_CODE_DOT {0,0,0,0,1,2}
-#define MORSE_CODE_LB {0,0,0,0,1,2}
-#define MORSE_CODE_RB {0,0,0,0,1,2}
-#define MORSE_CODE_PLUS {0,0,0,0,1,2}
-#define MORSE_CODE_SP {0,0,0,0,1,2}
-#define MORSE_CODE_UQ {0,0,0,0,1,2}
-#define MORSE_CODE_COMA {0,0,0,0,1,2}
-#define MORSE_CODE_DASH {0,0,0,0,1,2}
-#define MORSE_CODE_EQ {0,0,0,0,1,2}
-#define MORSE_CODE_UEXC {0,0,0,0,1,2}
-#define MORSE_CODE_QM {0,0,0,0,1,2}
-#define MORSE_CODE_AND {0,0,0,0,1,2}
-#define MORSE_CODE_DD {0,0,0,0,1,2}
-#define MORSE_CODE_MONY {0,0,0,0,1,2}
-#define MORSE_CODE_EXC {0,0,0,0,1,2}
-#define MORSE_CODE_SQUT {0,0,0,0,1,2}
-#define MORSE_CODE_COLN {0,0,0,0,1,2}
-#define MORSE_CODE_DQUT {0,0,0,0,1,2}
-#define MORSE_CODE_AT {0,0,0,0,1,2}
-#define MORSE_CODE_SLAH {0,0,0,0,1,2}
-#define MORSE_CODE_FFFF {0,0,0,0,0,0}
+#define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                               \
+    SCREEN_SHOW_FRAM_for_loop_i = 0;                                                                             \
+    static uint8_t screen_show_fram_void_8_tmp[8] = SCREEN_SHOW_FRAM_PATTERN;                                    \
+    row_pattern[0] = screen_show_fram_void_8_tmp[0];                                                             \
+    row_pattern[1] = screen_show_fram_void_8_tmp[1];                                                             \
+    row_pattern[2] = screen_show_fram_void_8_tmp[2];                                                             \
+    row_pattern[3] = screen_show_fram_void_8_tmp[3];                                                             \
+    row_pattern[4] = screen_show_fram_void_8_tmp[4];                                                             \
+    row_pattern[5] = screen_show_fram_void_8_tmp[5];                                                             \
+    row_pattern[6] = screen_show_fram_void_8_tmp[6];                                                             \
+    row_pattern[7] = screen_show_fram_void_8_tmp[7];                                                             \
+    for (SCREEN_SHOW_FRAM_for_loop_i = 0; SCREEN_SHOW_FRAM_for_loop_i < 49 * 8; SCREEN_SHOW_FRAM_for_loop_i++)   \
+    {                                                                                                            \
+        screen_show_one_row(SCREEN_SHOW_FRAM_for_loop_i % 49, 0, SCREEN_SHOW_FRAM_for_loop_i / 49, row_pattern); \
+    }
 
-#define ASCII88PATTERN_A {0x3C,0x42,0x81,0x81,0xFF,0x81,0x81,0x81}
-#define ASCII88PATTERN_B {0xFC,0x82,0x81,0xFE,0x82,0x81,0x82,0xFC}
-#define ASCII88PATTERN_C {0x3C,0x42,0x81,0x80,0x80,0x81,0x42,0x3C}
-#define ASCII88PATTERN_D {0xFC,0x82,0x81,0x81,0x81,0x81,0x82,0xFC}
-#define ASCII88PATTERN_E {0xFF,0x81,0x80,0xFC,0x80,0x80,0x81,0xFF}
-#define ASCII88PATTERN_F {0xFF,0x81,0x80,0xFC,0x80,0x80,0x80,0x80}
-#define ASCII88PATTERN_G {0xFF,0x81,0x80,0x80,0x87,0x81,0x81,0xFF}
-#define ASCII88PATTERN_H {0x81,0x81,0x81,0xFF,0x81,0x81,0x81,0x81}
-#define ASCII88PATTERN_I {0x3E,0x08,0x08,0x08,0x08,0x08,0x08,0x3E}
-#define ASCII88PATTERN_J {0x3E,0x08,0x08,0x08,0x08,0x48,0x48,0x30}
-#define ASCII88PATTERN_K {0x42,0x44,0x48,0x70,0x48,0x44,0x42,0x41}
-#define ASCII88PATTERN_L {0x70,0x20,0x20,0x20,0x20,0x20,0x20,0x7F}
-#define ASCII88PATTERN_M {0x81,0xC3,0xA5,0x99,0x81,0x81,0x81,0x81}
-#define ASCII88PATTERN_N {0x81,0xC1,0xA1,0x91,0x89,0x85,0x83,0x81}
-#define ASCII88PATTERN_O {0x3C,0x42,0x81,0x81,0x81,0x81,0x42,0x3C}
-#define ASCII88PATTERN_P {0xFC,0x42,0x41,0x42,0x7C,0x40,0x40,0xE0}
-#define ASCII88PATTERN_Q {0x3C,0x42,0x42,0x42,0x4A,0x46,0x3C,0x03}
-#define ASCII88PATTERN_R {0xFC,0x42,0x42,0x7C,0x48,0x44,0x42,0xC1}
-#define ASCII88PATTERN_S {0x3C,0x42,0x40,0x40,0x3C,0x02,0x42,0x3C}
-#define ASCII88PATTERN_T {0x7F,0x49,0x08,0x08,0x08,0x08,0x08,0x1C}
-#define ASCII88PATTERN_U {0x81,0x81,0x81,0x81,0x81,0x81,0x42,0x3C}
-#define ASCII88PATTERN_V {0x41,0x41,0x41,0x41,0x41,0x22,0x14,0x08}
-#define ASCII88PATTERN_W {0x82,0x82,0x82,0x82,0x82,0x92,0x54,0x28}
-#define ASCII88PATTERN_X {0x81,0x42,0x24,0x18,0x18,0x24,0x42,0x81}
-#define ASCII88PATTERN_Y {0x41,0x22,0x14,0x08,0x08,0x08,0x08,0x08}
-#define ASCII88PATTERN_Z {0xFF,0x02,0x04,0x08,0x10,0x20,0x40,0xFF}
-#define ASCII88PATTERN_0 {0x3C,0x42,0x85,0x89,0x91,0xA1,0x42,0x3C}
-#define ASCII88PATTERN_1 {0x18,0x28,0x08,0x08,0x08,0x08,0x08,0x3E}
-#define ASCII88PATTERN_2 {0x3C,0x42,0x42,0x04,0x08,0x10,0x20,0x7E}
-#define ASCII88PATTERN_3 {0x3C,0x42,0x02,0x04,0x08,0x04,0x42,0x3C}
-#define ASCII88PATTERN_4 {0x04,0x0C,0x14,0x24,0x44,0xFF,0x04,0x04}
-#define ASCII88PATTERN_5 {0x3E,0x20,0x20,0x3C,0x02,0x02,0x02,0x3C}
-#define ASCII88PATTERN_6 {0x1C,0x22,0x20,0x3C,0x22,0x22,0x22,0x1C}
-#define ASCII88PATTERN_7 {0x7E,0x42,0x04,0x08,0x10,0x20,0x20,0x20}
-#define ASCII88PATTERN_8 {0x1C,0x22,0x22,0x22,0x1C,0x22,0x22,0x1C}
-#define ASCII88PATTERN_9 {0x1C,0x22,0x22,0x22,0x1E,0x02,0x22,0x1C}
-#define ASCII88PATTERN_DOT {0x00,0x00,0x00,0x00,0x00,0x00,0x18,0x18}
-#define ASCII88PATTERN_LB {0x08,0x10,0x20,0x20,0x20,0x20,0x10,0x08}
-#define ASCII88PATTERN_RB {0x20,0x10,0x08,0x08,0x08,0x08,0x10,0x20}
-#define ASCII88PATTERN_PLUS {0x08,0x08,0x08,0x7F,0x08,0x08,0x08,0x00}
-#define ASCII88PATTERN_SP {0x18,0x18,0x00,0x00,0x18,0x18,0x08,0x10}
-#define ASCII88PATTERN_UQ {0x08,0x00,0x08,0x0C,0x02,0x22,0x14,0x08}
-#define ASCII88PATTERN_COMA {0x00,0x00,0x00,0x00,0x18,0x18,0x08,0x10}
-#define ASCII88PATTERN_DASH {0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00}
-#define ASCII88PATTERN_EQ {0x00,0x00,0x3C,0x00,0x00,0x3C,0x00,0x00}
-#define ASCII88PATTERN_UEXC {0x10,0x00,0x00,0x10,0x10,0x10,0x10,0x10}
-#define ASCII88PATTERN_QM {0x18,0x24,0x04,0x04,0x18,0x10,0x00,0x10}
-#define ASCII88PATTERN_AND {0x3C,0x42,0x42,0x2C,0x33,0x4C,0x44,0x3B}
-#define ASCII88PATTERN_DD {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF}
-#define ASCII88PATTERN_MONY {0x10,0x7C,0x92,0x90,0x7C,0x12,0x92,0x7C}
-#define ASCII88PATTERN_EXC {0x10,0x10,0x10,0x10,0x10,0x00,0x00,0x10}
-#define ASCII88PATTERN_SQUT {0x08,0x10,0x30,0x30,0x00,0x00,0x00,0x00}
-#define ASCII88PATTERN_COLN {0x00,0x18,0x18,0x00,0x00,0x18,0x18,0x00}
-#define ASCII88PATTERN_DQUT {0x09,0x12,0x36,0x36,0x00,0x00,0x00,0x00}
-#define ASCII88PATTERN_AT {0x78,0x8A,0x9A,0xAA,0xAA,0x9A,0x82,0x7C}
-#define ASCII88PATTERN_SLAH {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80}
-#define ASCII88PATTERN_FFFF {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
-
+#define ASCII88PATTERN_A                               \
+    {                                                  \
+        0x3C, 0x42, 0x81, 0x81, 0xFF, 0x81, 0x81, 0x81 \
+    }
+#define ASCII88PATTERN_B                               \
+    {                                                  \
+        0xFC, 0x82, 0x81, 0xFE, 0x82, 0x81, 0x82, 0xFC \
+    }
+#define ASCII88PATTERN_C                               \
+    {                                                  \
+        0x3C, 0x42, 0x81, 0x80, 0x80, 0x81, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_D                               \
+    {                                                  \
+        0xFC, 0x82, 0x81, 0x81, 0x81, 0x81, 0x82, 0xFC \
+    }
+#define ASCII88PATTERN_E                               \
+    {                                                  \
+        0xFF, 0x81, 0x80, 0xFC, 0x80, 0x80, 0x81, 0xFF \
+    }
+#define ASCII88PATTERN_F                               \
+    {                                                  \
+        0xFF, 0x81, 0x80, 0xFC, 0x80, 0x80, 0x80, 0x80 \
+    }
+#define ASCII88PATTERN_G                               \
+    {                                                  \
+        0xFF, 0x81, 0x80, 0x80, 0x87, 0x81, 0x81, 0xFF \
+    }
+#define ASCII88PATTERN_H                               \
+    {                                                  \
+        0x81, 0x81, 0x81, 0xFF, 0x81, 0x81, 0x81, 0x81 \
+    }
+#define ASCII88PATTERN_I                               \
+    {                                                  \
+        0x3E, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x3E \
+    }
+#define ASCII88PATTERN_J                               \
+    {                                                  \
+        0x3E, 0x08, 0x08, 0x08, 0x08, 0x48, 0x48, 0x30 \
+    }
+#define ASCII88PATTERN_K                               \
+    {                                                  \
+        0x42, 0x44, 0x48, 0x70, 0x48, 0x44, 0x42, 0x41 \
+    }
+#define ASCII88PATTERN_L                               \
+    {                                                  \
+        0x70, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x7F \
+    }
+#define ASCII88PATTERN_M                               \
+    {                                                  \
+        0x81, 0xC3, 0xA5, 0x99, 0x81, 0x81, 0x81, 0x81 \
+    }
+#define ASCII88PATTERN_N                               \
+    {                                                  \
+        0x81, 0xC1, 0xA1, 0x91, 0x89, 0x85, 0x83, 0x81 \
+    }
+#define ASCII88PATTERN_O                               \
+    {                                                  \
+        0x3C, 0x42, 0x81, 0x81, 0x81, 0x81, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_P                               \
+    {                                                  \
+        0xFC, 0x42, 0x41, 0x42, 0x7C, 0x40, 0x40, 0xE0 \
+    }
+#define ASCII88PATTERN_Q                               \
+    {                                                  \
+        0x3C, 0x42, 0x42, 0x42, 0x4A, 0x46, 0x3C, 0x03 \
+    }
+#define ASCII88PATTERN_R                               \
+    {                                                  \
+        0xFC, 0x42, 0x42, 0x7C, 0x48, 0x44, 0x42, 0xC1 \
+    }
+#define ASCII88PATTERN_S                               \
+    {                                                  \
+        0x3C, 0x42, 0x40, 0x40, 0x3C, 0x02, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_T                               \
+    {                                                  \
+        0x7F, 0x49, 0x08, 0x08, 0x08, 0x08, 0x08, 0x1C \
+    }
+#define ASCII88PATTERN_U                               \
+    {                                                  \
+        0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_V                               \
+    {                                                  \
+        0x41, 0x41, 0x41, 0x41, 0x41, 0x22, 0x14, 0x08 \
+    }
+#define ASCII88PATTERN_W                               \
+    {                                                  \
+        0x82, 0x82, 0x82, 0x82, 0x82, 0x92, 0x54, 0x28 \
+    }
+#define ASCII88PATTERN_X                               \
+    {                                                  \
+        0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81 \
+    }
+#define ASCII88PATTERN_Y                               \
+    {                                                  \
+        0x41, 0x22, 0x14, 0x08, 0x08, 0x08, 0x08, 0x08 \
+    }
+#define ASCII88PATTERN_Z                               \
+    {                                                  \
+        0xFF, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0xFF \
+    }
+#define ASCII88PATTERN_0                               \
+    {                                                  \
+        0x3C, 0x42, 0x85, 0x89, 0x91, 0xA1, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_1                               \
+    {                                                  \
+        0x18, 0x28, 0x08, 0x08, 0x08, 0x08, 0x08, 0x3E \
+    }
+#define ASCII88PATTERN_2                               \
+    {                                                  \
+        0x3C, 0x42, 0x42, 0x04, 0x08, 0x10, 0x20, 0x7E \
+    }
+#define ASCII88PATTERN_3                               \
+    {                                                  \
+        0x3C, 0x42, 0x02, 0x04, 0x08, 0x04, 0x42, 0x3C \
+    }
+#define ASCII88PATTERN_4                               \
+    {                                                  \
+        0x04, 0x0C, 0x14, 0x24, 0x44, 0xFF, 0x04, 0x04 \
+    }
+#define ASCII88PATTERN_5                               \
+    {                                                  \
+        0x3E, 0x20, 0x20, 0x3C, 0x02, 0x02, 0x02, 0x3C \
+    }
+#define ASCII88PATTERN_6                               \
+    {                                                  \
+        0x1C, 0x22, 0x20, 0x3C, 0x22, 0x22, 0x22, 0x1C \
+    }
+#define ASCII88PATTERN_7                               \
+    {                                                  \
+        0x7E, 0x42, 0x04, 0x08, 0x10, 0x20, 0x20, 0x20 \
+    }
+#define ASCII88PATTERN_8                               \
+    {                                                  \
+        0x1C, 0x22, 0x22, 0x22, 0x1C, 0x22, 0x22, 0x1C \
+    }
+#define ASCII88PATTERN_9                               \
+    {                                                  \
+        0x1C, 0x22, 0x22, 0x22, 0x1E, 0x02, 0x22, 0x1C \
+    }
+#define ASCII88PATTERN_DOT                             \
+    {                                                  \
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18 \
+    }
+#define ASCII88PATTERN_LB                              \
+    {                                                  \
+        0x08, 0x10, 0x20, 0x20, 0x20, 0x20, 0x10, 0x08 \
+    }
+#define ASCII88PATTERN_RB                              \
+    {                                                  \
+        0x20, 0x10, 0x08, 0x08, 0x08, 0x08, 0x10, 0x20 \
+    }
+#define ASCII88PATTERN_PLUS                            \
+    {                                                  \
+        0x08, 0x08, 0x08, 0x7F, 0x08, 0x08, 0x08, 0x00 \
+    }
+#define ASCII88PATTERN_SP                              \
+    {                                                  \
+        0x18, 0x18, 0x00, 0x00, 0x18, 0x18, 0x08, 0x10 \
+    }
+#define ASCII88PATTERN_UQ                              \
+    {                                                  \
+        0x08, 0x00, 0x08, 0x0C, 0x02, 0x22, 0x14, 0x08 \
+    }
+#define ASCII88PATTERN_COMA                            \
+    {                                                  \
+        0x00, 0x00, 0x00, 0x00, 0x18, 0x18, 0x08, 0x10 \
+    }
+#define ASCII88PATTERN_DASH                            \
+    {                                                  \
+        0x00, 0x00, 0x00, 0x3C, 0x00, 0x00, 0x00, 0x00 \
+    }
+#define ASCII88PATTERN_EQ                              \
+    {                                                  \
+        0x00, 0x00, 0x3C, 0x00, 0x00, 0x3C, 0x00, 0x00 \
+    }
+#define ASCII88PATTERN_UEXC                            \
+    {                                                  \
+        0x10, 0x00, 0x00, 0x10, 0x10, 0x10, 0x10, 0x10 \
+    }
+#define ASCII88PATTERN_QM                              \
+    {                                                  \
+        0x18, 0x24, 0x04, 0x04, 0x18, 0x10, 0x00, 0x10 \
+    }
+#define ASCII88PATTERN_AND                             \
+    {                                                  \
+        0x3C, 0x42, 0x42, 0x2C, 0x33, 0x4C, 0x44, 0x3B \
+    }
+#define ASCII88PATTERN_DD                              \
+    {                                                  \
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF \
+    }
+#define ASCII88PATTERN_MONY                            \
+    {                                                  \
+        0x10, 0x7C, 0x92, 0x90, 0x7C, 0x12, 0x92, 0x7C \
+    }
+#define ASCII88PATTERN_EXC                             \
+    {                                                  \
+        0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x10 \
+    }
+#define ASCII88PATTERN_SQUT                            \
+    {                                                  \
+        0x08, 0x10, 0x30, 0x30, 0x00, 0x00, 0x00, 0x00 \
+    }
+#define ASCII88PATTERN_COLN                            \
+    {                                                  \
+        0x00, 0x18, 0x18, 0x00, 0x00, 0x18, 0x18, 0x00 \
+    }
+#define ASCII88PATTERN_DQUT                            \
+    {                                                  \
+        0x09, 0x12, 0x36, 0x36, 0x00, 0x00, 0x00, 0x00 \
+    }
+#define ASCII88PATTERN_AT                              \
+    {                                                  \
+        0x78, 0x8A, 0x9A, 0xAA, 0xAA, 0x9A, 0x82, 0x7C \
+    }
+#define ASCII88PATTERN_SLAH                            \
+    {                                                  \
+        0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 \
+    }
+#define ASCII88PATTERN_FFFF                            \
+    {                                                  \
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF \
+    }
 
 #define UP_HAT_SW1 25
 #define UP_HAT_LED1 24
@@ -168,6 +296,7 @@ struct timer_list timer;
 static ktime_t last_time;
 
 static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
+short int SCREEN_SHOW_FRAM_for_loop_i = 0;
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -330,17 +459,18 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
     }
 }
 
-static void screen_show_fram(void){
+static void screen_show_fram(void)
+{
     short int i = 0;
-    static uint8_t screen_show_fram_void_8_tmp [8] = ASCII88PATTERN_SLAH;
-    row_pattern[0]=screen_show_fram_void_8_tmp [0];
-    row_pattern[1]=screen_show_fram_void_8_tmp [1];
-    row_pattern[2]=screen_show_fram_void_8_tmp [2];
-    row_pattern[3]=screen_show_fram_void_8_tmp [3];
-    row_pattern[4]=screen_show_fram_void_8_tmp [4];
-    row_pattern[5]=screen_show_fram_void_8_tmp [5];
-    row_pattern[6]=screen_show_fram_void_8_tmp [6];
-    row_pattern[7]=screen_show_fram_void_8_tmp [7];
+    static uint8_t screen_show_fram_void_8_tmp[8] = ASCII88PATTERN_SLAH;
+    row_pattern[0] = screen_show_fram_void_8_tmp[0];
+    row_pattern[1] = screen_show_fram_void_8_tmp[1];
+    row_pattern[2] = screen_show_fram_void_8_tmp[2];
+    row_pattern[3] = screen_show_fram_void_8_tmp[3];
+    row_pattern[4] = screen_show_fram_void_8_tmp[4];
+    row_pattern[5] = screen_show_fram_void_8_tmp[5];
+    row_pattern[6] = screen_show_fram_void_8_tmp[6];
+    row_pattern[7] = screen_show_fram_void_8_tmp[7];
     for (i = 0; i < 49 * 8; i++)
     {
         screen_show_one_row(i % 49, 0, i / 49, row_pattern);
@@ -364,7 +494,8 @@ irq_handler_t isr(int irq, void *data)
             gpio_direction_output(UP_HAT_LED1, is_on);
             //printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
             is_on ^= 0x01;
-            screen_show_fram();
+            //screen_show_fram();
+            SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
             //row_pattern=ASCII88PATTERN_FFFF;
             //screen_show_fram();
         }
