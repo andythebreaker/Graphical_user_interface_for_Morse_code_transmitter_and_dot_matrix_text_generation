@@ -468,6 +468,7 @@ irq_handler_t isr(int irq, void *data)
 
 int init_module()
 {
+    short int i = 0;
     uint8_t screen_setting_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
     gpio_free(UP_HAT_SW1);
     gpio_free(UP_HAT_LED1);
@@ -534,7 +535,6 @@ int init_module()
     screen_setting_data[0] = 0x01;
     screen_show_one_row(-1, 1, 0x0a, screen_setting_data);
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
-    short int i = 0;
     for (i = 0; i < 49 * 8; i++)
     {
         screen_show_one_row(i % 49, 0, i / 49, row_pattern);
