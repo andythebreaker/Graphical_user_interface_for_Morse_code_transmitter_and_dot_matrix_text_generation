@@ -15,8 +15,8 @@
 #include <linux/delay.h>
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                               \
-    SCREEN_SHOW_FRAM_for_loop_i = 0;                                                                             \
     static uint8_t screen_show_fram_void_8_tmp[8] = SCREEN_SHOW_FRAM_PATTERN;                                    \
+    SCREEN_SHOW_FRAM_for_loop_i = 0;                                                                             \
     row_pattern[0] = screen_show_fram_void_8_tmp[0];                                                             \
     row_pattern[1] = screen_show_fram_void_8_tmp[1];                                                             \
     row_pattern[2] = screen_show_fram_void_8_tmp[2];                                                             \
