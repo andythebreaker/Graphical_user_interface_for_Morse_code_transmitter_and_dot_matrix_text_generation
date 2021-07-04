@@ -337,8 +337,15 @@ int main()
         }
         cout << endl;
     }
+    string main_output = "";
+
     for (double i = 0; i < length_of_all_tree_node; i++)
     {
-        cout << to_string(tree_all[int(i)].numb) + "endof.length:" + to_string(tree_all[int(i)].endof.size()) << endl;
+        main_output += "case " + to_string(tree_all[int(i)].numb) + ":\nif(morse_pattern_status==1){\n" + ((tree_all[int(i)].dot) ? ("morse_pattern_status=" + to_string((*(tree_all[int(i)].dot)).numb) + ";") : "target_morse_pattern_error_event") +
+                       "\n}else if(morse_pattern_status==1){\n" + ((tree_all[int(i)].dash) ? ("morse_pattern_status=" + to_string((*(tree_all[int(i)].dash)).numb) + ";") : "target_morse_pattern_error_event") +
+                       "\n}else{\n" +
+                       ((tree_all[int(i)].endof.size() > 0) ? ("SCREEN_SHOW_FRAM(" + (*(tree_all[int(i)].endof.begin())).name() + ")") : "target_morse_pattern_error_event") + "\n}break;";
     }
+    cout << "================================================================" << endl;
+    cout << main_output << endl;
 }
