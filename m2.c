@@ -14,6 +14,64 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
+#define MORSE_CODE_A {0,0,0,0,1,2}
+#define MORSE_CODE_B {0,0,2,1,1,1}
+#define MORSE_CODE_C {0,0,0,0,1,2}
+#define MORSE_CODE_D {0,0,0,0,1,2}
+#define MORSE_CODE_E {0,0,0,0,1,2}
+#define MORSE_CODE_F {0,0,0,0,1,2}
+#define MORSE_CODE_G {0,0,0,0,1,2}
+#define MORSE_CODE_H {0,0,0,0,1,2}
+#define MORSE_CODE_I {0,0,0,0,1,2}
+#define MORSE_CODE_J {0,0,0,0,1,2}
+#define MORSE_CODE_K {0,0,0,0,1,2}
+#define MORSE_CODE_L {0,0,0,0,1,2}
+#define MORSE_CODE_M {0,0,0,0,1,2}
+#define MORSE_CODE_N {0,0,0,0,1,2}
+#define MORSE_CODE_O {0,0,0,0,1,2}
+#define MORSE_CODE_P {0,0,0,0,1,2}
+#define MORSE_CODE_Q {0,0,0,0,1,2}
+#define MORSE_CODE_R {0,0,0,0,1,2}
+#define MORSE_CODE_S {0,0,0,0,1,2}
+#define MORSE_CODE_T {0,0,0,0,1,2}
+#define MORSE_CODE_U {0,0,0,0,1,2}
+#define MORSE_CODE_V {0,0,0,0,1,2}
+#define MORSE_CODE_W {0,0,0,0,1,2}
+#define MORSE_CODE_X {0,0,0,0,1,2}
+#define MORSE_CODE_Y {0,0,0,0,1,2}
+#define MORSE_CODE_Z {0,0,0,0,1,2}
+#define MORSE_CODE_0 {0,0,0,0,1,2}
+#define MORSE_CODE_1 {0,0,0,0,1,2}
+#define MORSE_CODE_2 {0,0,0,0,1,2}
+#define MORSE_CODE_3 {0,0,0,0,1,2}
+#define MORSE_CODE_4 {0,0,0,0,1,2}
+#define MORSE_CODE_5 {0,0,0,0,1,2}
+#define MORSE_CODE_6 {0,0,0,0,1,2}
+#define MORSE_CODE_7 {0,0,0,0,1,2}
+#define MORSE_CODE_8 {0,0,0,0,1,2}
+#define MORSE_CODE_9 {0,0,0,0,1,2}
+#define MORSE_CODE_DOT {0,0,0,0,1,2}
+#define MORSE_CODE_LB {0,0,0,0,1,2}
+#define MORSE_CODE_RB {0,0,0,0,1,2}
+#define MORSE_CODE_PLUS {0,0,0,0,1,2}
+#define MORSE_CODE_SP {0,0,0,0,1,2}
+#define MORSE_CODE_UQ {0,0,0,0,1,2}
+#define MORSE_CODE_COMA {0,0,0,0,1,2}
+#define MORSE_CODE_DASH {0,0,0,0,1,2}
+#define MORSE_CODE_EQ {0,0,0,0,1,2}
+#define MORSE_CODE_UEXC {0,0,0,0,1,2}
+#define MORSE_CODE_QM {0,0,0,0,1,2}
+#define MORSE_CODE_AND {0,0,0,0,1,2}
+#define MORSE_CODE_DD {0,0,0,0,1,2}
+#define MORSE_CODE_MONY {0,0,0,0,1,2}
+#define MORSE_CODE_EXC {0,0,0,0,1,2}
+#define MORSE_CODE_SQUT {0,0,0,0,1,2}
+#define MORSE_CODE_COLN {0,0,0,0,1,2}
+#define MORSE_CODE_DQUT {0,0,0,0,1,2}
+#define MORSE_CODE_AT {0,0,0,0,1,2}
+#define MORSE_CODE_SLAH {0,0,0,0,1,2}
+#define MORSE_CODE_FFFF {0,0,0,0,0,0}
+
 #define ASCII88PATTERN_A {0x3C,0x42,0x81,0x81,0xFF,0x81,0x81,0x81}
 #define ASCII88PATTERN_B {0xFC,0x82,0x81,0xFE,0x82,0x81,0x82,0xFC}
 #define ASCII88PATTERN_C {0x3C,0x42,0x81,0x80,0x80,0x81,0x42,0x3C}
@@ -98,7 +156,7 @@
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("andythebreaker");
 MODULE_DESCRIPTION("m2");
-MODULE_VERSION("8.5");
+MODULE_VERSION("10.5");
 
 static short int button_irq_id = 0;
 static ktime_t last_time;
@@ -110,7 +168,6 @@ struct timer_list timer;
 static ktime_t last_time;
 
 static uint8_t row_pattern[8] = ASCII88PATTERN_FFFF;
-
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -273,9 +330,17 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
     }
 }
 
-static void screen_show_fram(void)
-{
+static void screen_show_fram(void){
     short int i = 0;
+    static uint8_t screen_show_fram_void_8_tmp [8] = ASCII88PATTERN_SLAH;
+    row_pattern[0]=screen_show_fram_void_8_tmp [0];
+    row_pattern[1]=screen_show_fram_void_8_tmp [1];
+    row_pattern[2]=screen_show_fram_void_8_tmp [2];
+    row_pattern[3]=screen_show_fram_void_8_tmp [3];
+    row_pattern[4]=screen_show_fram_void_8_tmp [4];
+    row_pattern[5]=screen_show_fram_void_8_tmp [5];
+    row_pattern[6]=screen_show_fram_void_8_tmp [6];
+    row_pattern[7]=screen_show_fram_void_8_tmp [7];
     for (i = 0; i < 49 * 8; i++)
     {
         screen_show_one_row(i % 49, 0, i / 49, row_pattern);
@@ -299,6 +364,7 @@ irq_handler_t isr(int irq, void *data)
             gpio_direction_output(UP_HAT_LED1, is_on);
             //printk(KERN_DEBUG "\ngpio_direction_output(UP_HAT_LED1, is_on);\n");
             is_on ^= 0x01;
+            screen_show_fram();
             //row_pattern=ASCII88PATTERN_FFFF;
             //screen_show_fram();
         }
