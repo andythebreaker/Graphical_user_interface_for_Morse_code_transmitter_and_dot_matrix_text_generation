@@ -172,1788 +172,1844 @@ pattern:54, 1[dot](0->1), 2[dash](1->4), 2[dash](4->10), 1[dot](10->21), 2[dash]
 pattern:55, 2[dash](0->2), 1[dot](2->5), 1[dot](5->11), 2[dash](11->24), 1[dot](24->49), 0[endof](49->49)
 ================================================================
 case 0:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=1;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=2;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 1:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=3;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=4;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_E)
 }break;case 2:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=5;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=6;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_T)
 }break;case 3:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=7;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=8;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
 }break;case 4:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=9;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=10;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
 }break;case 5:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=11;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=12;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_N)
 }break;case 6:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=13;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=14;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_M)
 }break;case 7:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=15;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=16;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_S)
 }break;case 8:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=17;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=18;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_U)
 }break;case 9:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=19;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=20;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_R)
 }break;case 10:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=21;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=22;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_W)
 }break;case 11:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=23;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=24;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_D)
 }break;case 12:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=25;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=26;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_K)
 }break;case 13:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=27;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=28;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_G)
 }break;case 14:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=29;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=30;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_O)
 }break;case 15:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=31;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=32;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_H)
 }break;case 16:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=33;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=34;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_V)
 }break;case 17:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=35;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=36;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_F)
 }break;case 18:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=37;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=38;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 19:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=39;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=40;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_L)
 }break;case 20:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=41;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=42;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 21:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=43;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=44;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_P)
 }break;case 22:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=45;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=46;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_J)
 }break;case 23:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=47;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=48;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
 }break;case 24:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=49;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=50;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_X)
 }break;case 25:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=51;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=52;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
 }break;case 26:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=53;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=54;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_Y)
 }break;case 27:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=55;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=56;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_Z)
 }break;case 28:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=57;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=58;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_Q)
 }break;case 29:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=59;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=60;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 30:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=61;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=62;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 31:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=63;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=64;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_5)
 }break;case 32:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=65;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=66;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_4)
 }break;case 33:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=67;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=68;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 34:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=69;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=70;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_3)
 }break;case 35:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=71;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=72;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 36:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=73;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=74;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_UQ)
 }break;case 37:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=75;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=76;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 38:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=77;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=78;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_2)
 }break;case 39:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=79;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=80;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_AND)
 }break;case 40:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=81;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=82;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 41:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=83;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=84;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_PLUS)
 }break;case 42:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=85;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=86;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 43:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=87;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=88;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 44:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=89;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=90;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 45:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=91;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=92;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 46:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=93;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=94;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_1)
 }break;case 47:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=95;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=96;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_6)
 }break;case 48:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=97;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=98;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_EQ)
 }break;case 49:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=99;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=100;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_SLAH)
 }break;case 50:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=101;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=102;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 51:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=103;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=104;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 52:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=105;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=106;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 53:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=107;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=108;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_LB)
 }break;case 54:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=109;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=110;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 55:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=111;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=112;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_7)
 }break;case 56:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=113;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=114;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 57:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=115;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=116;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 58:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=117;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=118;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 59:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=119;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=120;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_8)
 }break;case 60:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=121;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=122;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 61:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=123;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=124;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_9)
 }break;case 62:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=125;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=126;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_0)
 }break;case 63:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=127;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=128;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 64:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=129;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=130;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 65:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=131;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=132;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 66:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=133;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=134;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 67:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=135;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=136;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 68:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=137;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=138;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 69:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=139;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=140;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 70:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=141;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=142;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 71:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=143;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=144;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 72:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=145;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=146;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 73:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=147;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=148;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 74:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=149;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=150;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 75:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=151;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=152;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_QM)
 }break;case 76:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=153;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=154;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_DD)
 }break;case 77:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=155;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=156;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 78:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=157;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=158;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 79:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=159;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=160;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 80:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=161;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=162;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 81:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=163;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=164;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_DQUT)
 }break;case 82:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=165;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=166;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 83:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=167;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=168;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 84:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=169;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=170;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_DOT)
 }break;case 85:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=171;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=172;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 86:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=173;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=174;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 87:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=175;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=176;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 88:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=177;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=178;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 89:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=179;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=180;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_AT)
 }break;case 90:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=181;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=182;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 91:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=183;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=184;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 92:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=185;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=186;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 93:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=187;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=188;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_SQUT)
 }break;case 94:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=189;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=190;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 95:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=191;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=192;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 96:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=193;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=194;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_DASH)
 }break;case 97:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=195;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=196;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 98:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=197;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=198;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 99:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=199;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=200;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 100:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=201;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=202;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 101:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=203;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=204;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 102:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=205;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=206;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 103:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=207;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=208;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 104:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=209;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=210;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 105:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=211;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=212;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_SP)
 }break;case 106:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=213;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=214;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_EXC)
 }break;case 107:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=215;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=216;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 108:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=217;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=218;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_RB)
 }break;case 109:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=219;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=220;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 110:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=221;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=222;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 111:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=223;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=224;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 112:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=225;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=226;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_UEXC)
 }break;case 113:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=227;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=228;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 114:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=229;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=230;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_COMA)
 }break;case 115:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=231;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=232;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 116:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=233;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=234;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 117:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=235;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=236;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 118:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=237;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=238;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 119:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=239;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=240;
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_COLN)
 }break;case 120:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=241;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=242;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 121:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=243;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=244;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 122:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=245;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=246;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 123:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=247;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=248;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 124:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=249;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=250;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 125:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=251;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=252;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 126:
-if(morse_pattern_status==1){
+if(input_bool==1){
 morse_pattern_status=253;
-}else if(morse_pattern_status==1){
+}else if(input_bool==2){
 morse_pattern_status=254;
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 127:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 128:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 129:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 130:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 131:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 132:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 133:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 134:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 135:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 136:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
+morse_pattern_status=0;
 SCREEN_SHOW_FRAM(ASCII88PATTERN_MONY)
 }break;case 137:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 138:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 139:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 140:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 141:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 142:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 143:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 144:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 145:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 146:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 147:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 148:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 149:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 150:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 151:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 152:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 153:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 154:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 155:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 156:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 157:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 158:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 159:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 160:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 161:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 162:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 163:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 164:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 165:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 166:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 167:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 168:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 169:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 170:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 171:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 172:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 173:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 174:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 175:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 176:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 177:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 178:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 179:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 180:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 181:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 182:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 183:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 184:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 185:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 186:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 187:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 188:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 189:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 190:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 191:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 192:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 193:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 194:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 195:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 196:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 197:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 198:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 199:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 200:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 201:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 202:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 203:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 204:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 205:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 206:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 207:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 208:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 209:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 210:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 211:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 212:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 213:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 214:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 215:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 216:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 217:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 218:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 219:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 220:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 221:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 222:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 223:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 224:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 225:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 226:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 227:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 228:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 229:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 230:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 231:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 232:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 233:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 234:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 235:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 236:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 237:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 238:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 239:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 240:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 241:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 242:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 243:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 244:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 245:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 246:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 247:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 248:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 249:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 250:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 251:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 252:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 253:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;case 254:
-if(morse_pattern_status==1){
-target_morse_pattern_error_event
-}else if(morse_pattern_status==1){
-target_morse_pattern_error_event
+if(input_bool==1){
+target_morse_pattern_error_event();
+}else if(input_bool==2){
+target_morse_pattern_error_event();
 }else{
-target_morse_pattern_error_event
+target_morse_pattern_error_event();
 }break;
