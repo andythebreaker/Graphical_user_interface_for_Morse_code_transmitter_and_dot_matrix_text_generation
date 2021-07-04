@@ -30,29 +30,29 @@ public:
     cell() {}
 
     // Initialize a Box with custom dimensions
-    cell(string name, int *morse)
+    cell(string name, vector<int> morse)
         : m_name(name), m_morse(morse)
     {
     }
 
     string name(void) { return m_name; };
-    int *morse(void) { return m_morse; }
+    vector<int> morse(void) { return m_morse; }
 
 private:
     // Will have value of 0 when default constructor is called.
     // If we didn't zero-init here, default constructor would
     // leave them uninitialized with garbage values.
-    string m_name{"nan"};
-    int *m_morse{0};
+    string m_name{NULL};
+    vector<int> m_morse{NULL};
 };
 
 // 宣告類別
-class tree_of_all
+class tree_node
 {
     // 宣告 public 成員
 public:
-    tree_of_all dot();
-    tree_of_all dash();
+    tree_node dot();
+    tree_node dash();
     cell *endof;
 };
 
@@ -70,6 +70,7 @@ string print_int_ary(int *int_ary)
 int main()
 {
     cout << "Running..." << endl;
+    tree_node tree_node_main;
 
     //56
     int morse_ary_A[] = {1, 2, 0};
@@ -129,8 +130,10 @@ int main()
     int morse_ary_AT[] = {1, 2, 2, 1, 2, 1, 0};
     int morse_ary_SLAH[] = {2, 1, 1, 2, 1, 0};
 
+    vector<int> aaa(morse_ary_A, morse_ary_A + sizeof(morse_ary_A) / sizeof(morse_ary_A[0]));
+
     cell morse_ary[ALL_MOS_PAT_NUM] = {
-        {"ASCII88PATTERN_A", morse_ary_A},
+        {"ASCII88PATTERN_A", new vector<int> (morse_ary_A,sizeof(morse_ary_A)/sizeof(morse_ary_A[0])},
         {"ASCII88PATTERN_B", morse_ary_B},
         {"ASCII88PATTERN_C", morse_ary_C},
         {"ASCII88PATTERN_D", morse_ary_D},
@@ -187,9 +190,16 @@ int main()
         {"ASCII88PATTERN_AT", morse_ary_AT},
         {"ASCII88PATTERN_SLAH", morse_ary_SLAH},
     };
+
+    int max_step_numb = 0;
+
     for (size_t i = 0; i < ALL_MOS_PAT_NUM; i++)
     {
         cout << morse_ary[i].name() << endl;
         cout << print_int_ary(morse_ary[i].morse()) << endl;
+        int arrSize = sizeof(morse_ary[i].morse()) / sizeof(morse_ary[i].morse()[0]);
+        cout << "morse length (+1)" << arrSize << endl;
+        max_step_numb = (arrSize > max_step_numb) ? arrSize : max_step_numb;
     }
+    cout << "\t\tmax_step_numb:" << to_string(max_step_numb) << endl;
 }
