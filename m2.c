@@ -307,7 +307,7 @@ typedef struct row_pattern_foo_struct
 row_pattern_foo row_pattern_obj;
 static short int loopi = 0;
 static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
-static uint8_t able_state_flag = 0;
+static uint8_t able_state_flag = 1;
 
 void chmod_error_3_led(void)
 {
@@ -5070,22 +5070,22 @@ irq_handler_t isr(int irq, void *data)
             if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
             {
                 led_status_3[0] = 1;
+                led_status_3[1] = 0;
                 led_status_3[2] = 0;
-                led_status_3[3] = 0;
                 chmod_error_3_led();
             }
             else if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
             {
                 led_status_3[0] = 0;
-                led_status_3[2] = 1;
-                led_status_3[3] = 0;
+                led_status_3[1] = 1;
+                led_status_3[2] = 0;
                 chmod_error_3_led();
             }
             else
             {
                 led_status_3[0] = 0;
-                led_status_3[2] = 0;
-                led_status_3[3] = 1;
+                led_status_3[1] = 0;
+                led_status_3[2] = 1;
                 chmod_error_3_led();
             }
         }
@@ -5167,8 +5167,8 @@ int init_module()
 
     chmod_error_3_led();
     led_status_3[0] = 0;
+    led_status_3[1] = 0;
     led_status_3[2] = 0;
-    led_status_3[3] = 0;
     chmod_error_3_led();
     /*gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (loopi = 7; loopi >= 0; loopi--)
