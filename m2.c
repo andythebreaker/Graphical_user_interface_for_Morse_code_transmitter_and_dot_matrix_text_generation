@@ -3053,22 +3053,22 @@ int init_module()
     screen_setting_data[0] = 0x00;
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
     {                                                                                                                                     
-        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+        screen_show_one_row(loopi, 1, 0x0f, screen_setting_data); 
     }
     screen_setting_data[0] = 0xFF;
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
     {                                                                                                                                     
-        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+        screen_show_one_row(loopi, 1, 0x09, screen_setting_data); 
     }
     screen_setting_data[0] = 0x07;
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
     {                                                                                                                                     
-        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+        screen_show_one_row(loopi, 1, 0x0b, screen_setting_data); 
     }
     screen_setting_data[0] = 0x01;
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
     {                                                                                                                                     
-        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+        screen_show_one_row(loopi, 1, 0x0a, screen_setting_data); 
     }
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
 
