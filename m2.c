@@ -5064,7 +5064,7 @@ irq_handler_t isr(int irq, void *data)
     ktime_t this_time = ktime_get();
     if (this_time - last_time > DEBOUNCE_BUFFER)
     {
-        if (able_state_flag)
+        /*if (able_state_flag)
         {
             //disable_clock_B();
             if (last_relase < TIME_BETWEEN_PATTERN_SHORT)
@@ -5093,14 +5093,14 @@ irq_handler_t isr(int irq, void *data)
         {
             //disable_clock_A();
             //ERROR_3_EVENT_ON
-        }
-        /*is_press ^= 0x01;
+        }*/
+        is_press ^= 0x01;
         if (is_press)
         {
             gpio_direction_output(UP_HAT_LED1, is_on);
             is_on ^= 0x01;
             //SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
-        }*/
+        }
     }
     last_time = this_time;
     last_relase = this_time;
