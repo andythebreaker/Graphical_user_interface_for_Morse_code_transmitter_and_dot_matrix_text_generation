@@ -300,6 +300,7 @@ typedef struct row_pattern_foo_struct
     uint8_t row_pattern_foo_elem[8];
 } row_pattern_foo;
 row_pattern_foo row_pattern_obj;
+short int loopi = 0;
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -2963,12 +2964,15 @@ irq_handler_t isr(int irq, void *data)
 int init_module()
 {
     uint8_t screen_setting_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    int led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
     gpio_free(UP_HAT_SW1);
     gpio_free(UP_HAT_LED1);
     gpio_free(UP_HAT_LED5);
     gpio_free(UP_HAT_MAX7219_LOAD);
     gpio_free(UP_HAT_MAX7219_DIN);
-    gpio_free(UP_HAT_MAX7219_CLK);
+    gpio_free(UP_HAT_MAX7219_CLK);gpio_free(UP_HAT_74HC595_DS);
+    gpio_free(UP_HAT_74HC595_STCP);
+    gpio_free(UP_HAT_74HC595_SHCP);
     if (gpio_request(UP_HAT_SW1, "UP_HAT_SW1") != 0)
     {
         printk(KERN_ERR "\nif (gpio_request(UP_HAT_SW1, UP_HAT_SW1) != 0)\n");
@@ -2998,7 +3002,30 @@ int init_module()
     {
         printk(KERN_ERR "\nif (gpio_request(UP_HAT_SW1, UP_HAT_MAX7219_CLK) != 0)\n");
         return -1;
+    }if (gpio_request(UP_HAT_74HC595_STCP, "UP_HAT_74HC595_STCP") != 0)
+    {
+        printk(KERN_ERR "\nif (gpio_request(UP_HAT_74HC595_STCP, UP_HAT_74HC595_STCP) != 0)\n");
+        return -1;
     }
+    if (gpio_request(UP_HAT_74HC595_SHCP, "UP_HAT_74HC595_SHCP") != 0)
+    {
+        printk(KERN_ERR "\nif (gpio_request(UP_HAT_74HC595_SHCP, UP_HAT_74HC595_SHCP) != 0)\n");
+        return -1;
+    }
+    if (gpio_request(UP_HAT_74HC595_DS, "UP_HAT_74HC595_DS") != 0)
+    {
+        printk(KERN_ERR "\nif (gpio_request(UP_HAT_74HC595_DS, UP_HAT_74HC595_DS) != 0)\n");
+        return -1;
+    }
+
+    gpio_direction_output(UP_HAT_74HC595_STCP, 0);
+    for (loopi = 7; loopi >= 0; loopi--)
+    {
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
+        gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[loopi]);
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
+    }
+    gpio_direction_output(UP_HAT_74HC595_STCP, 1);
 
     gpio_direction_output(UP_HAT_LED5, is_on);
 
@@ -3018,15 +3045,31 @@ int init_module()
     mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
 
     screen_setting_data[0] = 0x01;
-    screen_show_one_row(-5, 1, 0x0c, screen_setting_data);
+    for (loopi = 0; loopi < 49 * 8; loopi++)                            
+    {                                                                                                                                     
+        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+    }
+    
     screen_setting_data[0] = 0x00;
-    screen_show_one_row(-4, 1, 0x0f, screen_setting_data);
+    for (loopi = 0; loopi < 49 * 8; loopi++)                            
+    {                                                                                                                                     
+        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+    }
     screen_setting_data[0] = 0xFF;
-    screen_show_one_row(-3, 1, 0x09, screen_setting_data);
+    for (loopi = 0; loopi < 49 * 8; loopi++)                            
+    {                                                                                                                                     
+        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+    }
     screen_setting_data[0] = 0x07;
-    screen_show_one_row(-2, 1, 0x0b, screen_setting_data);
+    for (loopi = 0; loopi < 49 * 8; loopi++)                            
+    {                                                                                                                                     
+        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+    }
     screen_setting_data[0] = 0x01;
-    screen_show_one_row(-1, 1, 0x0a, screen_setting_data);
+    for (loopi = 0; loopi < 49 * 8; loopi++)                            
+    {                                                                                                                                     
+        screen_show_one_row(loopi, 1, 0x0c, screen_setting_data); 
+    }
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
 
     SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
@@ -3044,6 +3087,17 @@ void cleanup_module(void)
     gpio_free(UP_HAT_MAX7219_LOAD);
     gpio_free(UP_HAT_MAX7219_DIN);
     gpio_free(UP_HAT_MAX7219_CLK);
+     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
+    for (loopi = 7; loopi >= 0; loopi--)
+    {
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
+        gpio_direction_output(UP_HAT_74HC595_DS, 0);
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
+    }
+    gpio_direction_output(UP_HAT_74HC595_STCP, 1);
+    gpio_free(UP_HAT_74HC595_STCP);
+    gpio_free(UP_HAT_74HC595_SHCP);
+    gpio_free(UP_HAT_74HC595_DS);
 
     del_timer(&timer);
 
