@@ -311,7 +311,7 @@ void chmod_error_3_led(void)
     for (i = 7; i >= 0; i--)
     {
         gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
-        gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[loopi]);
+        gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[i]);
         gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
     }
     gpio_direction_output(UP_HAT_74HC595_STCP, 1);
