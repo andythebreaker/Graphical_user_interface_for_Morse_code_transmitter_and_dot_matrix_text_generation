@@ -14,7 +14,7 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-#define IF_TEST_ALL_CHAR_DISP
+//#define IF_TEST_ALL_CHAR_DISP
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
