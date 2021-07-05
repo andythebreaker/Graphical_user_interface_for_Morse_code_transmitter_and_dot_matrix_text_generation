@@ -306,7 +306,7 @@ static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
 
 void chmod_error_3_led(void)
 {
-    uint8_t i = 0;
+    short int i = 0;
     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (i = 7; i >= 0; i--)
     {
