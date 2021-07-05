@@ -5129,14 +5129,15 @@ int init_module()
         return -1;
     }
 
-    gpio_direction_output(UP_HAT_74HC595_STCP, 0);
+chmod_error_3_led();
+    /*gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (loopi = 7; loopi >= 0; loopi--)
     {
         gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
         gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[loopi]);
         gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
     }
-    gpio_direction_output(UP_HAT_74HC595_STCP, 1);
+    gpio_direction_output(UP_HAT_74HC595_STCP, 1);*/
 
     gpio_direction_output(UP_HAT_LED5, is_on);
 
