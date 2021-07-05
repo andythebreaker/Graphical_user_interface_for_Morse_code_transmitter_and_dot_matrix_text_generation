@@ -5067,14 +5067,14 @@ irq_handler_t isr(int irq, void *data)
         if (able_state_flag)
         {
             //disable_clock_B();
-            if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
+            if (this_time -last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
             {
                 led_status_3[0] = 1;
                 led_status_3[1] = 0;
                 led_status_3[2] = 0;
                 chmod_error_3_led();
             }
-            else if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
+            else if (this_time -last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
             {
                 led_status_3[0] = 0;
                 led_status_3[1] = 1;
