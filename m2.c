@@ -3030,19 +3030,14 @@ int init_module()
     gpio_direction_output(UP_HAT_LED5, is_on);
 
     gpio_direction_output(UP_HAT_LED1, is_on);
+    printk(KERN_DEBUG "\nGPIO loaded !\n");
     is_on ^= 0x01;
 
-    last_time = ktime_get();
     if ((button_irq_id = gpio_to_irq(UP_HAT_SW1)) < 0)
     {
         return -1;
     }
 
-    printk(KERN_DEBUG "\nGPIO loaded !\n");
-
-    last_time = ktime_get();
-    timer_setup(&timer, timer_callback, 0);
-    mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
 
     screen_setting_data[0] = 0x01;
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
@@ -3071,6 +3066,11 @@ int init_module()
     {                                                                                                                                     
         screen_show_one_row(loopi%49, 1, 0x0a, screen_setting_data); usleep_range(20000ul,30000ul);
     }
+    last_time = ktime_get();
+
+    last_time = ktime_get();
+    timer_setup(&timer, timer_callback, 0);
+    mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
 
     SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
