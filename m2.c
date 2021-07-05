@@ -3048,6 +3048,7 @@ int init_module()
     for (loopi = 0; loopi < 49 * 8; loopi++)                            
     {                                                                                                                                     
         screen_show_one_row(loopi%49, 1, 0x0c-1, screen_setting_data); 
+        usleep_range(20000ul,20000ul);
     }
     
     screen_setting_data[0] = 0x00;
