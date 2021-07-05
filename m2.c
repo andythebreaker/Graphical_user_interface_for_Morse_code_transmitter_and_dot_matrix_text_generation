@@ -294,14 +294,28 @@ static ktime_t last_time;
 static int TEST_ALL_CHAR_DISP_index = 0;
 #endif
 static char bool_on_error = 0;
-uint8_t morse_pattern_status = 0;
-short int SCREEN_SHOW_FRAM_for_loop_i = 0;
+static uint8_t morse_pattern_status = 0;
+static short int SCREEN_SHOW_FRAM_for_loop_i = 0;
 typedef struct row_pattern_foo_struct
 {
     uint8_t row_pattern_foo_elem[8];
 } row_pattern_foo;
 row_pattern_foo row_pattern_obj;
-short int loopi = 0;
+static short int loopi = 0;
+static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
+
+void chmod_error_3_led(void)
+{
+    uint8_t i = 0;
+    gpio_direction_output(UP_HAT_74HC595_STCP, 0);
+    for (i = 7; i >= 0; i--)
+    {
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
+        gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[loopi]);
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
+    }
+    gpio_direction_output(UP_HAT_74HC595_STCP, 1);
+}
 
 static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_setting, uint8_t row_pattern_index, uint8_t *row_pattern)
 {
@@ -5060,7 +5074,6 @@ irq_handler_t isr(int irq, void *data)
 int init_module()
 {
     uint8_t screen_setting_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-    int led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
     gpio_free(UP_HAT_SW1);
     gpio_free(UP_HAT_LED1);
     gpio_free(UP_HAT_LED5);
