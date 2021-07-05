@@ -466,6 +466,12 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
 static void target_morse_pattern_error_event(void)
 {
     bool_on_error ^= 0x01;
+}static void target_input_length_error_event(void)
+{
+    bool_on_error ^= 0x01;
+}static void target_input_time_error_event(void)
+{
+    bool_on_error ^= 0x01;
 }
 
 static void morse_pattern_logic(char input_bool)
