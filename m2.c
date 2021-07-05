@@ -16,6 +16,8 @@
 
 #define IF_TEST_ALL_CHAR_DISP
 
+#define MS_TO_US(MS_INPUT) 1000000ll * MS_INPUT
+
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
     for (SCREEN_SHOW_FRAM_for_loop_i = 0; SCREEN_SHOW_FRAM_for_loop_i < 49 * 8; SCREEN_SHOW_FRAM_for_loop_i++)                            \
@@ -272,6 +274,8 @@
 #define INTERVAL_FAST_MS 100
 #define INTERVAL_SLOW_MS 500
 #define DEBOUNCE_BUFFER 50000000
+#define TIME_BETWEEN_PATTERN_SHORT 800
+#define TIME_BETWEEN_PATTERN_STANDER 1000
 
 #define IRQ_NAME "button_1"
 #define SERIAL_DEVICE "/dev/ttyS0"
@@ -282,13 +286,13 @@ MODULE_DESCRIPTION("m2");
 MODULE_VERSION("10.5");
 
 static short int button_irq_id = 0;
-static ktime_t last_time;
 static char is_on = 0;
 static char is_press = 0;
 
 static int timeout_ms = INTERVAL_SLOW_MS;
 struct timer_list timer;
 static ktime_t last_time;
+static ktime_t last_relase;
 
 #ifdef IF_TEST_ALL_CHAR_DISP
 static int TEST_ALL_CHAR_DISP_index = 0;
@@ -303,6 +307,7 @@ typedef struct row_pattern_foo_struct
 row_pattern_foo row_pattern_obj;
 static short int loopi = 0;
 static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
+static uint8_t able_state_flag = 0;
 
 void chmod_error_3_led(void)
 {
@@ -5059,15 +5064,46 @@ irq_handler_t isr(int irq, void *data)
     ktime_t this_time = ktime_get();
     if (this_time - last_time > DEBOUNCE_BUFFER)
     {
-        is_press ^= 0x01;
+        if (able_state_flag)
+        {
+            //disable_clock_B();
+            if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
+            {
+                led_status_3[0] = 1;
+                led_status_3[2] = 0;
+                led_status_3[3] = 0;
+                chmod_error_3_led();
+            }
+            else if (last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
+            {
+                led_status_3[0] = 0;
+                led_status_3[2] = 1;
+                led_status_3[3] = 0;
+                chmod_error_3_led();
+            }
+            else
+            {
+                led_status_3[0] = 0;
+                led_status_3[2] = 0;
+                led_status_3[3] = 1;
+                chmod_error_3_led();
+            }
+        }
+        else
+        {
+            //disable_clock_A();
+            //ERROR_3_EVENT_ON
+        }
+        /*is_press ^= 0x01;
         if (is_press)
         {
             gpio_direction_output(UP_HAT_LED1, is_on);
             is_on ^= 0x01;
             //SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
-        }
+        }*/
     }
     last_time = this_time;
+    last_relase = this_time;
     return (irq_handler_t)IRQ_HANDLED;
 }
 
@@ -5129,7 +5165,11 @@ int init_module()
         return -1;
     }
 
-chmod_error_3_led();
+    chmod_error_3_led();
+    led_status_3[0] = 0;
+    led_status_3[2] = 0;
+    led_status_3[3] = 0;
+    chmod_error_3_led();
     /*gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (loopi = 7; loopi >= 0; loopi--)
     {
@@ -5156,7 +5196,6 @@ chmod_error_3_led();
         screen_show_one_row(loopi % 49, 1, 0x0c - 1, screen_setting_data);
     }
     usleep_range(20000ul, 30000ul);
-
     screen_setting_data[0] = 0x00;
     for (loopi = 0; loopi < 49 * 8; loopi++)
     {
