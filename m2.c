@@ -374,6 +374,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         if (morse_pattern_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
             led_status_3[0] = !led_status_3[0];
+            morse_pattern_error_blink_counter++;
         }
         else
         {
@@ -391,6 +392,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         if (input_length_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
             led_status_3[1] = !led_status_3[1];
+            input_length_error_blink_counter++;
         }
         else
         {
@@ -408,6 +410,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         if (input_time_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
             led_status_3[2] = !led_status_3[2];
+            input_time_error_blink_counter++;
         }
         else
         {
