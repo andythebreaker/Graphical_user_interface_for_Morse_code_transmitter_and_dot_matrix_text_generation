@@ -276,8 +276,17 @@
 #define INTERVAL_FAST_MS 100
 #define INTERVAL_SLOW_MS 500
 #define DEBOUNCE_BUFFER 50
+
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_STANDER 1000
+#define TIME_BETWEEN_PATTERN_LONG 1200
+#define TIME_DASH_SHORT 2400
+#define TIME_DASH_STANDER 3000
+#define TIME_DASH_LONG 3600
+#define TIME_DOT_SHORT 800
+#define TIME_DOT_STANDER 1000
+#define TIME_DOT_LONG 1200
+
 #define HRTIMER_MIN_TIME_INTERVAL 20
 #define TIME_ERROR_BLINK_ALL 100
 #define ERROR_BLINK_COUNTER_MAX_LIGHT_TIME 4
@@ -328,6 +337,21 @@ static struct hrtimer hr_timer;
 static ktime_t ktime_interval;
 static s64 starttime_ns;
 
+typedef enum timer_callback_state_enum TCS;
+enum timer_callback_state_enum
+{
+    timer_callback_state_ppt_blue0,
+    timer_callback_state_ppt_blue1,
+    timer_callback_state_ppt_blue2,
+    timer_callback_state_ppt_blue3,
+    West
+};
+static TCS timer_callback_state = timer_callback_state_ppt_blue0;
+
+//pre declare
+static void call_back_fucn_n(void);
+static void timer_callback(struct timer_list *arg);
+
 static void call_back_fucn_n(void)
 {
     able_press_flag = true;
@@ -337,7 +361,12 @@ static void call_back_fucn_n(void)
     }
     else
     {
-        gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
+        gpio_direction_output(UP_HAT_LED5, 1);
+        able_press_flag = false;
+        last_time = ktime_get();
+        timer_callback_state = timer_callback_state_ppt_blue2;
+        timer_setup(&timer, timer_callback, 0);
+        mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_STANDER));
         last_press = ktime_get();
     }
 }
@@ -5195,7 +5224,27 @@ static void timer_callback(struct timer_list *arg)
     }
     TEST_ALL_CHAR_DISP_index++;
 #endif
-    call_back_fucn_n();
+
+    switch (timer_callback_state)
+    {
+    case timer_callback_state_ppt_blue1:
+        call_back_fucn_n();
+        break;
+    case timer_callback_state_ppt_blue2:
+        gpio_direction_output(UP_HAT_LED5, 0);
+        last_time = ktime_get();
+        timer_callback_state = timer_callback_state_ppt_blue3;
+        timer_setup(&timer, timer_callback, 0);
+        mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_LONG - TIME_DASH_STANDER));
+        break;
+    case timer_callback_state_ppt_blue3:
+
+        break;
+    default:
+        printk(KERN_ERR "\ntimer_callback (switch - case @ jiffies) \nUnusual entry into the default area.\n");
+        break;
+    }
+
     //mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
 }
 
@@ -5235,6 +5284,7 @@ irq_handler_t isr(int irq, void *data)
                 led_status_3[2] = 0;
                 chmod_error_3_led();*/
                         last_time = ktime_get();
+                        timer_callback_state = timer_callback_state_ppt_blue1;
                         timer_setup(&timer, timer_callback, 0);
 #ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
