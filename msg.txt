@@ -1,1 +1,1 @@
-設定計時器的default
+befrore do if else framess

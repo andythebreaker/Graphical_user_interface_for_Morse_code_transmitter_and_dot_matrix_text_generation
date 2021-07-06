@@ -5286,28 +5286,35 @@ irq_handler_t isr(int irq, void *data)
                 }
             }
             else
-            {
+            { //relase
                 infinite_flashing_input_time_error_event = false;
+                if (able_relase_flag)
+                {
+                    /*TODO:
+                    * big if else
+                    */
+                    /*TODO:
+                    * set timer between pattern long
+                    * -> call back send zero
+                    * set var last relase
+                    */
+                }
+                else
+                {
+                    target_input_length_error_event();
+                }
             }
         }
         else
         {
             target_input_time_error_event();
-            /*TODO:
-        disable clock ㄅ*/
-            //disable_clock_A();
-            //ERROR_3_EVENT_ON
+            if (timer_pending(&timer) == 1)
+            {
+                del_timer(&timer);
+            }
         }
-        /*is_press ^= 0x01;
-        if (is_press)
-        {
-            gpio_direction_output(UP_HAT_LED1, is_on);
-            is_on ^= 0x01;
-            //SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
-        }*/
     }
     last_time = this_time;
-    last_relase = this_time;
     return (irq_handler_t)IRQ_HANDLED;
 }
 
