@@ -319,11 +319,13 @@ static bool hrtimer_try_to_cancel_flag_hr_timer = false;
 static bool target_morse_pattern_error_event_flag = false;
 static bool target_input_length_error_event_flag = false;
 static bool target_input_time_error_event_flag = false;
+static short int morse_pattern_error_blink_counter = 0;
+static short int input_length_error_blink_counter = 0;
+static short int input_time_error_blink_counter = 0;
 
 static struct hrtimer hr_timer;
 static ktime_t ktime_interval;
 static s64 starttime_ns;
-static short int error_blink_counter = 0;
 
 static void call_back_fucn_n(void)
 {
@@ -367,56 +369,56 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
     //return HRTIMER_NORESTART;
     //}
 
-    if (error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
+    if (target_morse_pattern_error_event_flag)
     {
-
-        if (target_morse_pattern_error_event_flag)
+        if (morse_pattern_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
-
             led_status_3[0] = !led_status_3[0];
         }
         else
         {
+            morse_pattern_error_blink_counter = 0;
             led_status_3[0] = 0;
+            target_morse_pattern_error_event_flag = false;
         }
-        if (target_input_length_error_event_flag)
+    }
+    else
+    {
+        //no move
+    }
+    if (target_input_length_error_event_flag)
+    {
+        if (input_length_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
-
             led_status_3[1] = !led_status_3[1];
         }
         else
         {
+            input_length_error_blink_counter = 0;
             led_status_3[1] = 0;
+            target_input_length_error_event_flag = false;
         }
-        if (target_input_time_error_event_flag)
+    }
+    else
+    {
+        //no move
+    }
+    if (target_input_time_error_event_flag)
+    {
+        if (input_time_error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
         {
-
             led_status_3[2] = !led_status_3[2];
         }
         else
         {
-            led_status_3[0] = 0;
-            led_status_3[1] = 0;
+            input_time_error_blink_counter = 0;
             led_status_3[2] = 0;
+            target_input_time_error_event_flag = false;
         }
     }
     else
     {
-        error_blink_counter = 0;
-        led_status_3[0] = 0;
-        led_status_3[1] = 0;
-        led_status_3[2] = 0;
-    }
-    if (target_morse_pattern_error_event_flag || target_input_length_error_event_flag || target_input_time_error_event_flag)
-    {
-        error_blink_counter++;
-    }
-    else
-    {
-        error_blink_counter = 0;
-        led_status_3[0] = 0;
-        led_status_3[1] = 0;
-        led_status_3[2] = 0;
+        //no move
     }
 
     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
