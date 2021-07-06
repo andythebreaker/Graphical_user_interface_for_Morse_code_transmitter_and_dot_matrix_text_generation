@@ -394,9 +394,9 @@ static void call_back_fucn_n(void)
         gpio_direction_output(UP_HAT_LED5, 1);
         printk(KERN_DEBUG "\nset able press to false @ 396\n");
         able_press_flag = false;
+        able_relase_flag = true;
         timer_callback_state = timer_callback_state_ppt_blue2;
         JIFFIES_TIMER_GO(TIME_DASH_STANDER)
-        able_relase_flag = true;
         last_press = ktime_get();
     }
 }
@@ -5462,6 +5462,7 @@ irq_handler_t isr(int irq, void *data)
                 }
                 else
                 {
+                    printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
                     target_input_length_error_event();
                 }
             }
