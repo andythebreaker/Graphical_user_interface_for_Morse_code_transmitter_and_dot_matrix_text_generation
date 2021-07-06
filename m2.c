@@ -16,8 +16,8 @@
 
 //#define IF_TEST_ALL_CHAR_DISP
 
-#define MS_TO_US(MS_INPUT) 1000000ll * MS_INPUT
-#define US_TO_MS(US_INPUT) US_INPUT / 1000000ll
+#define MS_TO_NS(MS_INPUT) 1000000ll * MS_INPUT
+#define NS_TO_MS(US_INPUT) US_INPUT / 1000000ll
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
@@ -277,7 +277,7 @@
 #define DEBOUNCE_BUFFER 50
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_STANDER 1000
-#define HRTIMER_MIN_TIME_INTERVAL 1
+#define HRTIMER_MIN_TIME_INTERVAL 20
 #define TIME_ERROR_BLINK_ALL 100
 #define ERROR_BLINK_COUNTER_MAX_LIGHT_TIME 4
 
@@ -5201,7 +5201,7 @@ static void timer_callback(struct timer_list *arg)
 irq_handler_t isr(int irq, void *data)
 {
     ktime_t this_time = ktime_get();
-    if (this_time - last_time > MS_TO_US(DEBOUNCE_BUFFER))
+    if (this_time - last_time > MS_TO_NS(DEBOUNCE_BUFFER))
     {
         if (able_state_flag)
         {
@@ -5211,8 +5211,10 @@ irq_handler_t isr(int irq, void *data)
             {
                 if (able_press_flag)
                 {
+                    long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
+                    long long target_delay_time_ms = NS_TO_MS(ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
                     gpio_direction_output(UP_HAT_LED1, 0);
-                    if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
+                    if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_SHORT))
                     {
                         /*led_status_3[0] = 1;
                 led_status_3[1] = 0;
@@ -5220,7 +5222,7 @@ irq_handler_t isr(int irq, void *data)
                 chmod_error_3_led();*/
                         target_input_time_error_event();
                     }
-                    else if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) && ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time) > MS_TO_US(HRTIMER_MIN_TIME_INTERVAL))
+                    else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
                         able_press_flag = false;
                         /*led_status_3[0] = 0;
@@ -5230,8 +5232,8 @@ irq_handler_t isr(int irq, void *data)
                 chmod_error_3_led();*/
                         last_time = ktime_get();
                         timer_setup(&timer, timer_callback, 0);
-                        printk("\nthis time - last relase:\n\t%llddelay time:\t%lld...\n",this_time - last_relase,US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time)));
-                        mod_timer(&timer, jiffies + msecs_to_jiffies(US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time))));
+                        printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
+                        mod_timer(&timer, jiffies + msecs_to_jiffies(target_delay_time_ms));
                     }
                     else
                     {
@@ -5386,7 +5388,7 @@ int init_module()
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
     //printk("mod_hrtimer: installing module...\n");
     //define a ktime variable with the interval time defined on top of this file
-    ktime_interval = ktime_set(0, MS_TO_US(TIME_ERROR_BLINK_ALL));
+    ktime_interval = ktime_set(0, MS_TO_NS(TIME_ERROR_BLINK_ALL));
     //init a high resolution timer named 'hr_timer'
     hrtimer_init(&hr_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
     //set the callback function for this hr_timer
