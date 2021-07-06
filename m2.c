@@ -393,6 +393,7 @@ static void call_back_fucn_n(void)
     else
     {
         gpio_direction_output(UP_HAT_LED5, 1);
+        printk(KERN_DEBUG "\nset able press to false @ 369\n");
         able_press_flag = false;
         timer_callback_state = timer_callback_state_ppt_blue2;
         JIFFIES_TIMER_GO(TIME_DASH_STANDER)
@@ -5366,6 +5367,7 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
+                        printk(KERN_DEBUG "\nset able press to false @ 5370\n");
                         able_press_flag = false;
                         timer_callback_state = timer_callback_state_ppt_blue1;
 
