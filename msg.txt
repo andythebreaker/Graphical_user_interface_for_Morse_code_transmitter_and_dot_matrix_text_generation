@@ -1,1 +1,1 @@
-print press and relase
+調整dash與dot的筆誤

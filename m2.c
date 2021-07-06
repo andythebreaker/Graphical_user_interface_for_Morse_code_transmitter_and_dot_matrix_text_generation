@@ -5434,7 +5434,7 @@ irq_handler_t isr(int irq, void *data)
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
-                    else if (var_switch_case < TIME_DOT_STANDER)
+                    else if (var_switch_case < TIME_DASH_STANDER)
                     { //5
                         if (target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                         {
@@ -5449,7 +5449,7 @@ irq_handler_t isr(int irq, void *data)
                             set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                         }
                     }
-                    else if (var_switch_case < TIME_DOT_LONG)
+                    else if (var_switch_case < TIME_DASH_LONG)
                     { //6
                         gpio_direction_output(UP_HAT_LED5, 0);
                         morse_pattern_logic(2);
