@@ -20,13 +20,13 @@
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
-#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)  \
+#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)    \
     printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get())); \
-    if (timer_pending(&timer) == 1)                         \
-    {                                                       \
-        del_timer(&timer);                                  \
-    }                                                       \
-    timer_setup(&timer, timer_callback, 0);                 \
+    if (timer_pending(&timer) == 1)                           \
+    {                                                         \
+        del_timer(&timer);                                    \
+    }                                                         \
+    timer_setup(&timer, timer_callback, 0);                   \
     mod_timer(&timer, jiffies + msecs_to_jiffies(INPUT_STUFF_FOR_JIFFIES_TIMER_GO));
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
@@ -5345,10 +5345,10 @@ irq_handler_t isr(int irq, void *data)
     ktime_t this_time = ktime_get();
     if (this_time - last_time > MS_TO_NS(DEBOUNCE_BUFFER))
     {
+        is_press ^= 0x01;
         if (able_state_flag)
         {
             //disable_clock_B();
-            is_press ^= 0x01;
             if (is_press)
             {
                 if (able_press_flag)
