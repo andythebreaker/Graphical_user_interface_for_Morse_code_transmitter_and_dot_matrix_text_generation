@@ -355,7 +355,9 @@ enum timer_callback_state_enum
     timer_callback_state_ppt_blue1,
     timer_callback_state_ppt_blue2,
     timer_callback_state_ppt_blue3,
-    West
+    timer_callback_state_big_if_else2,
+    timer_callback_state_big_if_else5,
+    timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase
 };
 static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 
@@ -363,6 +365,13 @@ static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 static void call_back_fucn_n(void);
 static void timer_callback(struct timer_list *arg);
 static void morse_pattern_logic(char input_bool);
+
+static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_t last_relase_input)
+{
+    last_relase = last_relase_input;
+    timer_callback_state = timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase;
+    JIFFIES_TIMER_GO(TIME_BETWEEN_PATTERN_LONG)
+}
 
 static void call_back_fucn_n(void)
 {
@@ -5231,6 +5240,19 @@ static void timer_callback(struct timer_list *arg)
         infinite_flashing_input_time_error_event = true;
         target_input_length_error_event();
         break;
+    case timer_callback_state_big_if_else2:
+        gpio_direction_output(UP_HAT_LED5, 0);
+        morse_pattern_logic(1);
+        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
+        break;
+    case timer_callback_state_big_if_else5:
+        gpio_direction_output(UP_HAT_LED5, 0);
+        morse_pattern_logic(2);
+        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
+        break;
+    case timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase:
+        morse_pattern_logic(0);
+        break;
     default:
         printk(KERN_ERR "\ntimer_callback (switch - case @ jiffies) \nUnusual entry into the default area.\n");
         break;
@@ -5290,14 +5312,69 @@ irq_handler_t isr(int irq, void *data)
                 infinite_flashing_input_time_error_event = false;
                 if (able_relase_flag)
                 {
-                    /*TODO:
-                    * big if else
-                    */
-                    /*TODO:
-                    * set timer between pattern long
-                    * -> call back send zero
-                    * set var last relase
-                    */
+                    long long var_switch_case = this_time - last_press;
+                    long long target_delay_time_dot = ktime_to_ns(last_press) + MS_TO_NS(TIME_DOT_STANDER) - ktime_to_ns(this_time);
+                    long long target_delay_time_ms_dot = NS_TO_MS(target_delay_time_dot);
+                    long long target_delay_time_dash = ktime_to_ns(last_press) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
+                    long long target_delay_time_ms_dash = NS_TO_MS(target_delay_time_dot);
+                    if (var_switch_case < TIME_DOT_SHORT)
+                    { //1
+                        target_input_length_error_event();
+                        able_relase_flag = false;
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                    }
+                    else if (var_switch_case < TIME_DOT_STANDER)
+                    { //2
+                        if (target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+                        {
+                            timer_callback_state = timer_callback_state_big_if_else2;
+                            JIFFIES_TIMER_GO(target_delay_time_ms_dot)
+                        }
+                        else
+                        {
+                            /*copy from case 3*/
+                            gpio_direction_output(UP_HAT_LED5, 0);
+                        morse_pattern_logic(1);
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                        }
+                    }
+                    else if (var_switch_case < TIME_DOT_LONG)
+                    { //3
+                        gpio_direction_output(UP_HAT_LED5, 0);
+                        morse_pattern_logic(1);
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                    }
+                    else if (var_switch_case < TIME_DASH_SHORT)
+                    { //4
+                        target_input_length_error_event();
+                        able_relase_flag = false;
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                    }
+                    else if (var_switch_case < TIME_DOT_STANDER)
+                    { //5
+                        if (target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+                        {
+                            timer_callback_state = timer_callback_state_big_if_else5;
+                            JIFFIES_TIMER_GO(target_delay_time_ms_dash)
+                        }
+                        else
+                        {
+                            /*copy from case 6*/
+                            gpio_direction_output(UP_HAT_LED5, 0);
+                        morse_pattern_logic(2);
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                        }
+                    }
+                    else if (var_switch_case < TIME_DOT_LONG)
+                    { //6
+                        gpio_direction_output(UP_HAT_LED5, 0);
+                        morse_pattern_logic(2);
+                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                    }
+                    else
+                    { //7
+                        able_relase_flag = false;
+                    }
                 }
                 else
                 {
