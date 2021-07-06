@@ -5352,7 +5352,7 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (var_switch_case < TIME_DOT_STANDER)
                     { //5
-                        if (target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+                        if (target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                         {
                             timer_callback_state = timer_callback_state_big_if_else5;
                             JIFFIES_TIMER_GO(target_delay_time_ms_dash)
