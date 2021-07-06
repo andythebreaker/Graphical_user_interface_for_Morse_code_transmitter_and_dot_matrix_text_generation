@@ -535,29 +535,29 @@ static void all_error_parrent_event(void)
 static void target_morse_pattern_error_event(void)
 {
     bool_on_error ^= 0x01;
-    all_error_parrent_event();
     led_status_3[0] = 1;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
     chmod_error_3_led();
+    all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
     bool_on_error ^= 0x01;
-    all_error_parrent_event();
     led_status_3[0] = 0;
     led_status_3[1] = 1;
     led_status_3[2] = 0;
     chmod_error_3_led();
+    all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
     bool_on_error ^= 0x01;
-    all_error_parrent_event();
     led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 1;
     chmod_error_3_led();
+    all_error_parrent_event();
 }
 
 static void morse_pattern_logic(char input_bool)
