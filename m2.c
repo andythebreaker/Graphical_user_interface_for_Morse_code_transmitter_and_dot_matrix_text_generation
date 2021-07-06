@@ -273,7 +273,7 @@
 
 #define INTERVAL_FAST_MS 100
 #define INTERVAL_SLOW_MS 500
-#define DEBOUNCE_BUFFER 50000000
+#define DEBOUNCE_BUFFER 50
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_STANDER 1000
 
@@ -293,6 +293,7 @@ static int timeout_ms = INTERVAL_SLOW_MS;
 struct timer_list timer;
 static ktime_t last_time;
 static ktime_t last_relase;
+static ktime_t last_press;
 
 #ifdef IF_TEST_ALL_CHAR_DISP
 static int TEST_ALL_CHAR_DISP_index = 0;
@@ -309,7 +310,44 @@ static short int loopi = 0;
 static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
 static uint8_t able_state_flag = 1;
 
-void chmod_error_3_led(void)
+static struct hrtimer hr_timer;
+static ktime_t ktime_interval;
+static s64 starttime_ns;
+
+static void call_back_fucn_n(void)
+{
+    gpio_direction_output(UP_HAT_LED5, 1);
+    last_press = ktime_get();
+}
+
+static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
+{
+    /*static int n=0;
+	static int min=1000000000, max=0, sum=0;
+	int latency;*/
+    //s64 now_ns = ktime_to_ns(ktime_get());
+
+    hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval); //next call relative to expired timestamp
+                                                                       // calculate some statistics values...
+                                                                       /*n++;
+	latency = now_ns - starttime_ns - n * INTERVAL_BETWEEN_CALLBACKS;
+	sum += latency/1000;
+	if (min>latency) min = latency;
+	if (max<latency) max = latency;
+	printk("mod_hrtimer: my_hrtimer_callback called after %dus.\n", (int) (now_ns - starttime_ns)/1000 );
+	if (n < NR_ITERATIONS)
+		return HRTIMER_RESTART;
+	else {
+		printk("mod_hrtimer: my_hrtimer_callback: statistics latences over %d hrtimer callbacks: "
+		"min=%dus, max=%dus, mean=%dus\n", n, min/1000, max/1000, sum/n);*/
+
+    call_back_fucn_n();
+
+    return HRTIMER_NORESTART;
+    //}
+}
+
+static void chmod_error_3_led(void)
 {
     short int i = 0;
     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
@@ -479,6 +517,7 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
         gpio_direction_output(UP_HAT_MAX7219_LOAD, 1);
         break;
     default:
+        printk(KERN_ERR "\non fucn. 'screen_show_one_row' went into default !!!\n");
         break;
     }
 }
@@ -5062,35 +5101,60 @@ static void timer_callback(struct timer_list *arg)
 irq_handler_t isr(int irq, void *data)
 {
     ktime_t this_time = ktime_get();
-    if (this_time - last_time > DEBOUNCE_BUFFER)
+    if (this_time - last_time > MS_TO_US(DEBOUNCE_BUFFER))
     {
         if (able_state_flag)
         {
             //disable_clock_B();
-            if (this_time -last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
+            is_press ^= 0x01;
+            if (is_press)
             {
-                led_status_3[0] = 1;
+                if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
+                {
+                    /*led_status_3[0] = 1;
                 led_status_3[1] = 0;
                 led_status_3[2] = 0;
-                chmod_error_3_led();
-            }
-            else if (this_time -last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
-            {
-                led_status_3[0] = 0;
+                chmod_error_3_led();*/
+                    target_input_time_error_event();
+                }
+                else if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER))
+                {
+                    /*led_status_3[0] = 0;
                 led_status_3[1] = 1;
                 led_status_3[2] = 0;
-                chmod_error_3_led();
+                chmod_error_3_led();*/
+                    //printk("mod_hrtimer: installing module...\n");
+                    //define a ktime variable with the interval time defined on top of this file
+                    ktime_interval = ktime_set(0, ktime_to_ns(last_relase) + TIME_BETWEEN_PATTERN_STANDER - ktime_to_ns(this_time));
+                    //init a high resolution timer named 'hr_timer'
+                    hrtimer_init(&hr_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+                    //set the callback function for this hr_timer
+                    hr_timer.function = &my_hrtimer_callback;
+                    //get the current time as high resolution timestamp, convert it to ns
+                    starttime_ns = ktime_to_ns(ktime_get());
+                    //activate the high resolution timer including callback function...
+                    hrtimer_start(&hr_timer, ktime_interval, HRTIMER_MODE_REL);
+                    /*printk( "mod_hrtimer: started timer callback function to fire every %lldns (current jiffies=%ld, HZ=%d)\n", 
+		INTERVAL_BETWEEN_CALLBACKS, jiffies, HZ );*/
+                }
+                else
+                {
+                    /*led_status_3[0] = 0;
+                led_status_3[1] = 0;
+                led_status_3[2] = 1;
+                chmod_error_3_led();*/
+                    call_back_fucn_n();
+                }
             }
             else
             {
-                led_status_3[0] = 0;
-                led_status_3[1] = 0;
-                led_status_3[2] = 1;
-                chmod_error_3_led();
             }
         }
         else
         {
+            target_input_time_error_event();
+            /*TODO:
+        disable clock ㄅ*/
             //disable_clock_A();
             //ERROR_3_EVENT_ON
         }
@@ -5164,12 +5228,10 @@ int init_module()
         printk(KERN_ERR "\nif (gpio_request(UP_HAT_74HC595_DS, UP_HAT_74HC595_DS) != 0)\n");
         return -1;
     }
+    gpio_direction_output(UP_HAT_LED5, 0);
 
     chmod_error_3_led();
-    led_status_3[0] = 0;
-    led_status_3[1] = 0;
-    led_status_3[2] = 0;
-    chmod_error_3_led();
+
     /*gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (loopi = 7; loopi >= 0; loopi--)
     {
@@ -5179,11 +5241,8 @@ int init_module()
     }
     gpio_direction_output(UP_HAT_74HC595_STCP, 1);*/
 
-    gpio_direction_output(UP_HAT_LED5, is_on);
-
-    gpio_direction_output(UP_HAT_LED1, is_on);
     printk(KERN_DEBUG "\nGPIO loaded !\n");
-    is_on ^= 0x01;
+    //is_on ^= 0x01;
 
     if ((button_irq_id = gpio_to_irq(UP_HAT_SW1)) < 0)
     {
@@ -5228,7 +5287,11 @@ int init_module()
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
 
     SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
-
+    gpio_direction_output(UP_HAT_LED1, is_on);
+    led_status_3[0] = 0;
+    led_status_3[1] = 0;
+    led_status_3[2] = 0;
+    chmod_error_3_led();
     return 0;
 }
 
