@@ -20,6 +20,15 @@
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
+#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO) \
+    last_time = ktime_get();                               \
+    if (timer_pending(&timer) == 1)                        \
+    {                                                      \
+        del_timer(&timer);                                 \
+    }                                                      \
+    timer_setup(&timer, timer_callback, 0);                \
+    mod_timer(&timer, jiffies + msecs_to_jiffies(INPUT_STUFF_FOR_JIFFIES_TIMER_GO));
+
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
     for (SCREEN_SHOW_FRAM_for_loop_i = 0; SCREEN_SHOW_FRAM_for_loop_i < 49 * 8; SCREEN_SHOW_FRAM_for_loop_i++)                            \
@@ -330,7 +339,7 @@ static bool hrtimer_try_to_cancel_flag_hr_timer = false;
 static bool target_morse_pattern_error_event_flag = false;
 static bool target_input_length_error_event_flag = false;
 static bool target_input_time_error_event_flag = false;
-static bool infinite_flashing_input_time_error_event=false;
+static bool infinite_flashing_input_time_error_event = false;
 static short int morse_pattern_error_blink_counter = 0;
 static short int input_length_error_blink_counter = 0;
 static short int input_time_error_blink_counter = 0;
@@ -366,10 +375,8 @@ static void call_back_fucn_n(void)
     {
         gpio_direction_output(UP_HAT_LED5, 1);
         able_press_flag = false;
-        last_time = ktime_get();
         timer_callback_state = timer_callback_state_ppt_blue2;
-        timer_setup(&timer, timer_callback, 0);
-        mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_STANDER));
+        JIFFIES_TIMER_GO(TIME_DASH_STANDER)
         able_relase_flag = true;
         last_press = ktime_get();
     }
@@ -378,7 +385,7 @@ static void call_back_fucn_n(void)
 static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
 {
     short int i = 0;
-    #ifdef IF_TEST_ALL_CHAR_DISP
+#ifdef IF_TEST_ALL_CHAR_DISP
     switch (TEST_ALL_CHAR_DISP_index)
     {
     case (0):
@@ -1298,7 +1305,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
     TEST_ALL_CHAR_DISP_index++;
 #endif
 
-    hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval); 
+    hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval);
 
     if (target_morse_pattern_error_event_flag)
     {
@@ -1555,13 +1562,15 @@ static void target_morse_pattern_error_event(void)
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
-{morse_pattern_logic(0);
+{
+    morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
-{morse_pattern_logic(0);
+{
+    morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
     all_error_parrent_event();
@@ -5215,14 +5224,12 @@ static void timer_callback(struct timer_list *arg)
         break;
     case timer_callback_state_ppt_blue2:
         gpio_direction_output(UP_HAT_LED5, 0);
-        last_time = ktime_get();
         timer_callback_state = timer_callback_state_ppt_blue3;
-        timer_setup(&timer, timer_callback, 0);
-        mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_LONG - TIME_DASH_STANDER));
+        JIFFIES_TIMER_GO(TIME_DASH_LONG - TIME_DASH_STANDER)
         break;
     case timer_callback_state_ppt_blue3:
-    infinite_flashing_input_time_error_event=true;
-target_input_length_error_event();
+        infinite_flashing_input_time_error_event = true;
+        target_input_length_error_event();
         break;
     default:
         printk(KERN_ERR "\ntimer_callback (switch - case @ jiffies) \nUnusual entry into the default area.\n");
@@ -5250,10 +5257,7 @@ irq_handler_t isr(int irq, void *data)
                     gpio_direction_output(UP_HAT_LED1, 0);
                     if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_SHORT))
                     {
-                        /*led_status_3[0] = 1;
-                led_status_3[1] = 0;
-                led_status_3[2] = 0;
-                chmod_error_3_led();*/
+
 #ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:%lld\n", this_time - last_relase);
 #endif
@@ -5262,25 +5266,15 @@ irq_handler_t isr(int irq, void *data)
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
                         able_press_flag = false;
-                        /*led_status_3[0] = 0;
-                
-                led_status_3[1] = 1;
-                led_status_3[2] = 0;
-                chmod_error_3_led();*/
-                        last_time = ktime_get();
                         timer_callback_state = timer_callback_state_ppt_blue1;
-                        timer_setup(&timer, timer_callback, 0);
+
 #ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
 #endif
-                        mod_timer(&timer, jiffies + msecs_to_jiffies(target_delay_time_ms));
+                        JIFFIES_TIMER_GO(target_delay_time_ms);
                     }
                     else
                     {
-                        /*led_status_3[0] = 0;
-                led_status_3[1] = 0;
-                led_status_3[2] = 1;
-                chmod_error_3_led();*/
                         call_back_fucn_n();
                     }
                 }
@@ -5292,7 +5286,8 @@ irq_handler_t isr(int irq, void *data)
                 }
             }
             else
-            {infinite_flashing_input_time_error_event=false;
+            {
+                infinite_flashing_input_time_error_event = false;
             }
         }
         else

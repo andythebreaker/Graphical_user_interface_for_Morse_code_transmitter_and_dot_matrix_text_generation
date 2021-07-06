@@ -1,1 +1,1 @@
-black row one row2
+設定計時器的default
