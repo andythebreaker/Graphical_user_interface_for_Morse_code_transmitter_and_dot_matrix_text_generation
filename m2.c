@@ -303,7 +303,7 @@ static short int button_irq_id = 0;
 //static char is_on = 0;
 static char is_press = 0;
 
-static int timeout_ms = INTERVAL_SLOW_MS;
+//static int timeout_ms = INTERVAL_SLOW_MS;
 struct timer_list timer;
 static ktime_t last_time;
 static ktime_t last_relase;
@@ -312,7 +312,7 @@ static ktime_t last_press;
 #ifdef IF_TEST_ALL_CHAR_DISP
 static int TEST_ALL_CHAR_DISP_index = 0;
 #endif
-static char bool_on_error = 0;
+//static char bool_on_error = 0;
 static uint8_t morse_pattern_status = 0;
 static short int SCREEN_SHOW_FRAM_for_loop_i = 0;
 typedef struct row_pattern_foo_struct
@@ -1543,6 +1543,7 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
 static void all_error_parrent_event(void)
 {
     gpio_direction_output(UP_HAT_LED1, 1);
+    gpio_direction_output(UP_HAT_LED5, 1);
 }
 
 static void target_morse_pattern_error_event(void)
