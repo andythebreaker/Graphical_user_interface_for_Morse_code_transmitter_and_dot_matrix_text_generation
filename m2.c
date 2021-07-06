@@ -286,6 +286,7 @@
 #define INTERVAL_SLOW_MS 500
 #define DEBOUNCE_BUFFER 50
 
+#define TIME_BETWEEN_CHAR 3000
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_STANDER 1000
 #define TIME_BETWEEN_PATTERN_LONG 1200
@@ -357,7 +358,8 @@ enum timer_callback_state_enum
     timer_callback_state_ppt_blue3,
     timer_callback_state_big_if_else2,
     timer_callback_state_big_if_else5,
-    timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase
+    timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase,
+    timer_callback_state_after_success
 };
 static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 
@@ -365,6 +367,13 @@ static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 static void call_back_fucn_n(void);
 static void timer_callback(struct timer_list *arg);
 static void morse_pattern_logic(char input_bool);
+
+static void every_time_at_success(void)
+{
+    able_state_flag = false;
+    timer_callback_state = timer_callback_state_after_success;
+    JIFFIES_TIMER_GO(TIME_BETWEEN_CHAR)
+}
 
 static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_t last_relase_input)
 {
@@ -1615,6 +1624,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_E)
         }
         break;
@@ -1630,6 +1640,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_T)
         }
         break;
@@ -1645,6 +1656,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_I)
         }
         break;
@@ -1660,6 +1672,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
         }
         break;
@@ -1675,6 +1688,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_N)
         }
         break;
@@ -1690,6 +1704,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_M)
         }
         break;
@@ -1705,6 +1720,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_S)
         }
         break;
@@ -1720,6 +1736,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_U)
         }
         break;
@@ -1735,6 +1752,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_R)
         }
         break;
@@ -1750,6 +1768,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_W)
         }
         break;
@@ -1765,6 +1784,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_D)
         }
         break;
@@ -1780,6 +1800,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_K)
         }
         break;
@@ -1795,6 +1816,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_G)
         }
         break;
@@ -1810,6 +1832,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_O)
         }
         break;
@@ -1825,6 +1848,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_H)
         }
         break;
@@ -1840,6 +1864,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_V)
         }
         break;
@@ -1855,6 +1880,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_F)
         }
         break;
@@ -1884,6 +1910,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_L)
         }
         break;
@@ -1913,6 +1940,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_P)
         }
         break;
@@ -1928,6 +1956,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_J)
         }
         break;
@@ -1943,6 +1972,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
         }
         break;
@@ -1958,6 +1988,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_X)
         }
         break;
@@ -1973,6 +2004,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
         }
         break;
@@ -1988,6 +2020,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_Y)
         }
         break;
@@ -2003,6 +2036,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_Z)
         }
         break;
@@ -2018,6 +2052,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_Q)
         }
         break;
@@ -2061,6 +2096,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_5)
         }
         break;
@@ -2076,6 +2112,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_4)
         }
         break;
@@ -2105,6 +2142,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_3)
         }
         break;
@@ -2134,6 +2172,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_UQ)
         }
         break;
@@ -2163,6 +2202,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_2)
         }
         break;
@@ -2178,6 +2218,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_AND)
         }
         break;
@@ -2207,6 +2248,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_PLUS)
         }
         break;
@@ -2278,6 +2320,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_1)
         }
         break;
@@ -2293,6 +2336,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_6)
         }
         break;
@@ -2308,6 +2352,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_EQ)
         }
         break;
@@ -2323,6 +2368,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_SLAH)
         }
         break;
@@ -2380,6 +2426,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_LB)
         }
         break;
@@ -2409,6 +2456,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_7)
         }
         break;
@@ -2466,6 +2514,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_8)
         }
         break;
@@ -2495,6 +2544,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_9)
         }
         break;
@@ -2510,6 +2560,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_0)
         }
         break;
@@ -2693,6 +2744,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_QM)
         }
         break;
@@ -2708,6 +2760,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_DD)
         }
         break;
@@ -2779,6 +2832,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_DQUT)
         }
         break;
@@ -2822,6 +2876,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_DOT)
         }
         break;
@@ -2893,6 +2948,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_AT)
         }
         break;
@@ -2950,6 +3006,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_SQUT)
         }
         break;
@@ -2993,6 +3050,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_DASH)
         }
         break;
@@ -3120,6 +3178,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_SP)
         }
         break;
@@ -3135,6 +3194,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_EXC)
         }
         break;
@@ -3164,6 +3224,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_RB)
         }
         break;
@@ -3221,6 +3282,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_UEXC)
         }
         break;
@@ -3250,6 +3312,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_COMA)
         }
         break;
@@ -3321,6 +3384,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_COLN)
         }
         break;
@@ -3560,6 +3624,7 @@ static void morse_pattern_logic(char input_bool)
         else
         {
             morse_pattern_status = 0;
+            every_time_at_success();
             SCREEN_SHOW_FRAM(ASCII88PATTERN_MONY)
         }
         break;
@@ -5253,6 +5318,10 @@ static void timer_callback(struct timer_list *arg)
     case timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase:
         morse_pattern_logic(0);
         break;
+    case timer_callback_state_after_success:
+        able_state_flag = true;
+        gpio_direction_output(UP_HAT_LED1, 1);
+        break;
     default:
         printk(KERN_ERR "\ntimer_callback (switch - case @ jiffies) \nUnusual entry into the default area.\n");
         break;
@@ -5334,8 +5403,8 @@ irq_handler_t isr(int irq, void *data)
                         {
                             /*copy from case 3*/
                             gpio_direction_output(UP_HAT_LED5, 0);
-                        morse_pattern_logic(1);
-                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            morse_pattern_logic(1);
+                            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                         }
                     }
                     else if (var_switch_case < TIME_DOT_LONG)
@@ -5361,8 +5430,8 @@ irq_handler_t isr(int irq, void *data)
                         {
                             /*copy from case 6*/
                             gpio_direction_output(UP_HAT_LED5, 0);
-                        morse_pattern_logic(2);
-                        set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            morse_pattern_logic(2);
+                            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                         }
                     }
                     else if (var_switch_case < TIME_DOT_LONG)
