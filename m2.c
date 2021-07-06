@@ -21,8 +21,7 @@
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
 #define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)  \
-    last_time = ktime_get();                                \
-    printk("\ntime stmp:\n%lld\n", ktime_to_ns(last_time)); \
+    printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get())); \
     if (timer_pending(&timer) == 1)                         \
     {                                                       \
         del_timer(&timer);                                  \

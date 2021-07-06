@@ -1,1 +1,1 @@
-print morse_pattern_logic input
+remove strange last time up date
