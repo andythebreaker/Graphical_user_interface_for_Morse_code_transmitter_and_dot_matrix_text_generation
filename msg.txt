@@ -1,1 +1,1 @@
-add dbug msg
+    printk(KERN_DEBUG "\nkey word : timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase => morse_pattern_logic(0);\n");

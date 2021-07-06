@@ -1581,6 +1581,7 @@ static void target_morse_pattern_error_event(void)
 }
 static void target_input_length_error_event(void)
 {
+    printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
@@ -1588,6 +1589,7 @@ static void target_input_length_error_event(void)
 }
 static void target_input_time_error_event(void)
 {
+    printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
@@ -5317,6 +5319,7 @@ static void timer_callback(struct timer_list *arg)
         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
         break;
     case timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase:
+        printk(KERN_DEBUG "\nkey word : timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase => morse_pattern_logic(0);\n");
         morse_pattern_logic(0);
         break;
     case timer_callback_state_after_success:
