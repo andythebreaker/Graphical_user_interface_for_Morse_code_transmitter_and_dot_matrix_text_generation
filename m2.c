@@ -395,12 +395,17 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         }
         else
         {
+            led_status_3[0] = 0;
+            led_status_3[1] = 0;
             led_status_3[2] = 0;
         }
     }
     else
     {
         error_blink_counter = 0;
+        led_status_3[0] = 0;
+        led_status_3[1] = 0;
+        led_status_3[2] = 0;
     }
     if (target_morse_pattern_error_event_flag || target_input_length_error_event_flag || target_input_time_error_event_flag)
     {
@@ -409,6 +414,9 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
     else
     {
         error_blink_counter = 0;
+        led_status_3[0] = 0;
+        led_status_3[1] = 0;
+        led_status_3[2] = 0;
     }
 
     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
