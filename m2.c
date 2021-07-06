@@ -618,19 +618,19 @@ static void all_error_parrent_event(void)
 
 static void target_morse_pattern_error_event(void)
 {
-    SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
+    //SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
     target_morse_pattern_error_event_flag = true;
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
-    SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
+    //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
-    SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
+    //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
     all_error_parrent_event();
 }
@@ -5230,6 +5230,7 @@ irq_handler_t isr(int irq, void *data)
                 chmod_error_3_led();*/
                         last_time = ktime_get();
                         timer_setup(&timer, timer_callback, 0);
+                        printk(KERN_DEBUG "\nthis time - last relase:\n\t%lldelay time:\t%ll\n",this_time - last_relase,US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time)));
                         mod_timer(&timer, jiffies + msecs_to_jiffies(US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time))));
                     }
                     else
@@ -5244,6 +5245,7 @@ irq_handler_t isr(int irq, void *data)
                 else
                 {
                     hrtimer_try_to_cancel_flag_hr_timer = true;
+                    //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
                     target_input_length_error_event();
                 }
             }
