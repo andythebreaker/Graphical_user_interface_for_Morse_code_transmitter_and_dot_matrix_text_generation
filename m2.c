@@ -5254,7 +5254,7 @@ static void timer_callback(struct timer_list *arg)
     }
     TEST_ALL_CHAR_DISP_index++;
 #endif
-
+call_back_fucn_n();
     //mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
 }
 
