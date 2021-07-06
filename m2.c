@@ -329,6 +329,7 @@ static bool hrtimer_try_to_cancel_flag_hr_timer = false;
 static bool target_morse_pattern_error_event_flag = false;
 static bool target_input_length_error_event_flag = false;
 static bool target_input_time_error_event_flag = false;
+static bool infinite_flashing_input_time_error_event=false;
 static short int morse_pattern_error_blink_counter = 0;
 static short int input_length_error_blink_counter = 0;
 static short int input_time_error_blink_counter = 0;
@@ -351,6 +352,7 @@ static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 //pre declare
 static void call_back_fucn_n(void);
 static void timer_callback(struct timer_list *arg);
+static void morse_pattern_logic(char input_bool);
 
 static void call_back_fucn_n(void)
 {
@@ -374,30 +376,927 @@ static void call_back_fucn_n(void)
 static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
 {
     short int i = 0;
+    #ifdef IF_TEST_ALL_CHAR_DISP
+    switch (TEST_ALL_CHAR_DISP_index)
+    {
+    case (0):
+        morse_pattern_logic(1);
+        break;
+    case (1):
+        morse_pattern_logic(2);
+        break;
+    case (2):
+        morse_pattern_logic(0);
+        break;
+    case (3):
+        morse_pattern_logic(2);
+        break;
+    case (4):
+        morse_pattern_logic(1);
+        break;
+    case (5):
+        morse_pattern_logic(1);
+        break;
+    case (6):
+        morse_pattern_logic(1);
+        break;
+    case (7):
+        morse_pattern_logic(0);
+        break;
+    case (8):
+        morse_pattern_logic(2);
+        break;
+    case (9):
+        morse_pattern_logic(1);
+        break;
+    case (10):
+        morse_pattern_logic(2);
+        break;
+    case (11):
+        morse_pattern_logic(1);
+        break;
+    case (12):
+        morse_pattern_logic(0);
+        break;
+    case (13):
+        morse_pattern_logic(2);
+        break;
+    case (14):
+        morse_pattern_logic(1);
+        break;
+    case (15):
+        morse_pattern_logic(1);
+        break;
+    case (16):
+        morse_pattern_logic(0);
+        break;
+    case (17):
+        morse_pattern_logic(1);
+        break;
+    case (18):
+        morse_pattern_logic(0);
+        break;
+    case (19):
+        morse_pattern_logic(1);
+        break;
+    case (20):
+        morse_pattern_logic(1);
+        break;
+    case (21):
+        morse_pattern_logic(2);
+        break;
+    case (22):
+        morse_pattern_logic(1);
+        break;
+    case (23):
+        morse_pattern_logic(0);
+        break;
+    case (24):
+        morse_pattern_logic(2);
+        break;
+    case (25):
+        morse_pattern_logic(2);
+        break;
+    case (26):
+        morse_pattern_logic(1);
+        break;
+    case (27):
+        morse_pattern_logic(0);
+        break;
+    case (28):
+        morse_pattern_logic(1);
+        break;
+    case (29):
+        morse_pattern_logic(1);
+        break;
+    case (30):
+        morse_pattern_logic(1);
+        break;
+    case (31):
+        morse_pattern_logic(1);
+        break;
+    case (32):
+        morse_pattern_logic(0);
+        break;
+    case (33):
+        morse_pattern_logic(1);
+        break;
+    case (34):
+        morse_pattern_logic(1);
+        break;
+    case (35):
+        morse_pattern_logic(0);
+        break;
+    case (36):
+        morse_pattern_logic(1);
+        break;
+    case (37):
+        morse_pattern_logic(2);
+        break;
+    case (38):
+        morse_pattern_logic(2);
+        break;
+    case (39):
+        morse_pattern_logic(2);
+        break;
+    case (40):
+        morse_pattern_logic(0);
+        break;
+    case (41):
+        morse_pattern_logic(2);
+        break;
+    case (42):
+        morse_pattern_logic(1);
+        break;
+    case (43):
+        morse_pattern_logic(2);
+        break;
+    case (44):
+        morse_pattern_logic(0);
+        break;
+    case (45):
+        morse_pattern_logic(1);
+        break;
+    case (46):
+        morse_pattern_logic(2);
+        break;
+    case (47):
+        morse_pattern_logic(1);
+        break;
+    case (48):
+        morse_pattern_logic(1);
+        break;
+    case (49):
+        morse_pattern_logic(0);
+        break;
+    case (50):
+        morse_pattern_logic(2);
+        break;
+    case (51):
+        morse_pattern_logic(2);
+        break;
+    case (52):
+        morse_pattern_logic(0);
+        break;
+    case (53):
+        morse_pattern_logic(2);
+        break;
+    case (54):
+        morse_pattern_logic(1);
+        break;
+    case (55):
+        morse_pattern_logic(0);
+        break;
+    case (56):
+        morse_pattern_logic(2);
+        break;
+    case (57):
+        morse_pattern_logic(2);
+        break;
+    case (58):
+        morse_pattern_logic(2);
+        break;
+    case (59):
+        morse_pattern_logic(0);
+        break;
+    case (60):
+        morse_pattern_logic(1);
+        break;
+    case (61):
+        morse_pattern_logic(2);
+        break;
+    case (62):
+        morse_pattern_logic(2);
+        break;
+    case (63):
+        morse_pattern_logic(1);
+        break;
+    case (64):
+        morse_pattern_logic(0);
+        break;
+    case (65):
+        morse_pattern_logic(2);
+        break;
+    case (66):
+        morse_pattern_logic(2);
+        break;
+    case (67):
+        morse_pattern_logic(1);
+        break;
+    case (68):
+        morse_pattern_logic(2);
+        break;
+    case (69):
+        morse_pattern_logic(0);
+        break;
+    case (70):
+        morse_pattern_logic(1);
+        break;
+    case (71):
+        morse_pattern_logic(2);
+        break;
+    case (72):
+        morse_pattern_logic(1);
+        break;
+    case (73):
+        morse_pattern_logic(0);
+        break;
+    case (74):
+        morse_pattern_logic(1);
+        break;
+    case (75):
+        morse_pattern_logic(1);
+        break;
+    case (76):
+        morse_pattern_logic(1);
+        break;
+    case (77):
+        morse_pattern_logic(0);
+        break;
+    case (78):
+        morse_pattern_logic(2);
+        break;
+    case (79):
+        morse_pattern_logic(0);
+        break;
+    case (80):
+        morse_pattern_logic(1);
+        break;
+    case (81):
+        morse_pattern_logic(1);
+        break;
+    case (82):
+        morse_pattern_logic(2);
+        break;
+    case (83):
+        morse_pattern_logic(0);
+        break;
+    case (84):
+        morse_pattern_logic(1);
+        break;
+    case (85):
+        morse_pattern_logic(1);
+        break;
+    case (86):
+        morse_pattern_logic(1);
+        break;
+    case (87):
+        morse_pattern_logic(2);
+        break;
+    case (88):
+        morse_pattern_logic(0);
+        break;
+    case (89):
+        morse_pattern_logic(1);
+        break;
+    case (90):
+        morse_pattern_logic(2);
+        break;
+    case (91):
+        morse_pattern_logic(2);
+        break;
+    case (92):
+        morse_pattern_logic(0);
+        break;
+    case (93):
+        morse_pattern_logic(2);
+        break;
+    case (94):
+        morse_pattern_logic(1);
+        break;
+    case (95):
+        morse_pattern_logic(1);
+        break;
+    case (96):
+        morse_pattern_logic(2);
+        break;
+    case (97):
+        morse_pattern_logic(0);
+        break;
+    case (98):
+        morse_pattern_logic(2);
+        break;
+    case (99):
+        morse_pattern_logic(1);
+        break;
+    case (100):
+        morse_pattern_logic(2);
+        break;
+    case (101):
+        morse_pattern_logic(2);
+        break;
+    case (102):
+        morse_pattern_logic(0);
+        break;
+    case (103):
+        morse_pattern_logic(2);
+        break;
+    case (104):
+        morse_pattern_logic(2);
+        break;
+    case (105):
+        morse_pattern_logic(1);
+        break;
+    case (106):
+        morse_pattern_logic(1);
+        break;
+    case (107):
+        morse_pattern_logic(0);
+        break;
+    case (108):
+        morse_pattern_logic(2);
+        break;
+    case (109):
+        morse_pattern_logic(2);
+        break;
+    case (110):
+        morse_pattern_logic(2);
+        break;
+    case (111):
+        morse_pattern_logic(2);
+        break;
+    case (112):
+        morse_pattern_logic(2);
+        break;
+    case (113):
+        morse_pattern_logic(0);
+        break;
+    case (114):
+        morse_pattern_logic(1);
+        break;
+    case (115):
+        morse_pattern_logic(2);
+        break;
+    case (116):
+        morse_pattern_logic(2);
+        break;
+    case (117):
+        morse_pattern_logic(2);
+        break;
+    case (118):
+        morse_pattern_logic(2);
+        break;
+    case (119):
+        morse_pattern_logic(0);
+        break;
+    case (120):
+        morse_pattern_logic(1);
+        break;
+    case (121):
+        morse_pattern_logic(1);
+        break;
+    case (122):
+        morse_pattern_logic(2);
+        break;
+    case (123):
+        morse_pattern_logic(2);
+        break;
+    case (124):
+        morse_pattern_logic(2);
+        break;
+    case (125):
+        morse_pattern_logic(0);
+        break;
+    case (126):
+        morse_pattern_logic(1);
+        break;
+    case (127):
+        morse_pattern_logic(1);
+        break;
+    case (128):
+        morse_pattern_logic(1);
+        break;
+    case (129):
+        morse_pattern_logic(2);
+        break;
+    case (130):
+        morse_pattern_logic(2);
+        break;
+    case (131):
+        morse_pattern_logic(0);
+        break;
+    case (132):
+        morse_pattern_logic(1);
+        break;
+    case (133):
+        morse_pattern_logic(1);
+        break;
+    case (134):
+        morse_pattern_logic(1);
+        break;
+    case (135):
+        morse_pattern_logic(1);
+        break;
+    case (136):
+        morse_pattern_logic(2);
+        break;
+    case (137):
+        morse_pattern_logic(0);
+        break;
+    case (138):
+        morse_pattern_logic(1);
+        break;
+    case (139):
+        morse_pattern_logic(1);
+        break;
+    case (140):
+        morse_pattern_logic(1);
+        break;
+    case (141):
+        morse_pattern_logic(1);
+        break;
+    case (142):
+        morse_pattern_logic(1);
+        break;
+    case (143):
+        morse_pattern_logic(0);
+        break;
+    case (144):
+        morse_pattern_logic(2);
+        break;
+    case (145):
+        morse_pattern_logic(1);
+        break;
+    case (146):
+        morse_pattern_logic(1);
+        break;
+    case (147):
+        morse_pattern_logic(1);
+        break;
+    case (148):
+        morse_pattern_logic(1);
+        break;
+    case (149):
+        morse_pattern_logic(0);
+        break;
+    case (150):
+        morse_pattern_logic(2);
+        break;
+    case (151):
+        morse_pattern_logic(2);
+        break;
+    case (152):
+        morse_pattern_logic(1);
+        break;
+    case (153):
+        morse_pattern_logic(1);
+        break;
+    case (154):
+        morse_pattern_logic(1);
+        break;
+    case (155):
+        morse_pattern_logic(0);
+        break;
+    case (156):
+        morse_pattern_logic(2);
+        break;
+    case (157):
+        morse_pattern_logic(2);
+        break;
+    case (158):
+        morse_pattern_logic(2);
+        break;
+    case (159):
+        morse_pattern_logic(1);
+        break;
+    case (160):
+        morse_pattern_logic(1);
+        break;
+    case (161):
+        morse_pattern_logic(0);
+        break;
+    case (162):
+        morse_pattern_logic(2);
+        break;
+    case (163):
+        morse_pattern_logic(2);
+        break;
+    case (164):
+        morse_pattern_logic(2);
+        break;
+    case (165):
+        morse_pattern_logic(2);
+        break;
+    case (166):
+        morse_pattern_logic(1);
+        break;
+    case (167):
+        morse_pattern_logic(0);
+        break;
+    case (168):
+        morse_pattern_logic(1);
+        break;
+    case (169):
+        morse_pattern_logic(2);
+        break;
+    case (170):
+        morse_pattern_logic(1);
+        break;
+    case (171):
+        morse_pattern_logic(2);
+        break;
+    case (172):
+        morse_pattern_logic(1);
+        break;
+    case (173):
+        morse_pattern_logic(2);
+        break;
+    case (174):
+        morse_pattern_logic(0);
+        break;
+    case (175):
+        morse_pattern_logic(2);
+        break;
+    case (176):
+        morse_pattern_logic(1);
+        break;
+    case (177):
+        morse_pattern_logic(2);
+        break;
+    case (178):
+        morse_pattern_logic(2);
+        break;
+    case (179):
+        morse_pattern_logic(1);
+        break;
+    case (180):
+        morse_pattern_logic(0);
+        break;
+    case (181):
+        morse_pattern_logic(2);
+        break;
+    case (182):
+        morse_pattern_logic(1);
+        break;
+    case (183):
+        morse_pattern_logic(2);
+        break;
+    case (184):
+        morse_pattern_logic(2);
+        break;
+    case (185):
+        morse_pattern_logic(1);
+        break;
+    case (186):
+        morse_pattern_logic(2);
+        break;
+    case (187):
+        morse_pattern_logic(0);
+        break;
+    case (188):
+        morse_pattern_logic(1);
+        break;
+    case (189):
+        morse_pattern_logic(2);
+        break;
+    case (190):
+        morse_pattern_logic(1);
+        break;
+    case (191):
+        morse_pattern_logic(2);
+        break;
+    case (192):
+        morse_pattern_logic(1);
+        break;
+    case (193):
+        morse_pattern_logic(0);
+        break;
+    case (194):
+        morse_pattern_logic(2);
+        break;
+    case (195):
+        morse_pattern_logic(1);
+        break;
+    case (196):
+        morse_pattern_logic(2);
+        break;
+    case (197):
+        morse_pattern_logic(1);
+        break;
+    case (198):
+        morse_pattern_logic(2);
+        break;
+    case (199):
+        morse_pattern_logic(1);
+        break;
+    case (200):
+        morse_pattern_logic(0);
+        break;
+    case (201):
+        morse_pattern_logic(1);
+        break;
+    case (202):
+        morse_pattern_logic(1);
+        break;
+    case (203):
+        morse_pattern_logic(2);
+        break;
+    case (204):
+        morse_pattern_logic(1);
+        break;
+    case (205):
+        morse_pattern_logic(2);
+        break;
+    case (206):
+        morse_pattern_logic(0);
+        break;
+    case (207):
+        morse_pattern_logic(2);
+        break;
+    case (208):
+        morse_pattern_logic(2);
+        break;
+    case (209):
+        morse_pattern_logic(1);
+        break;
+    case (210):
+        morse_pattern_logic(1);
+        break;
+    case (211):
+        morse_pattern_logic(2);
+        break;
+    case (212):
+        morse_pattern_logic(2);
+        break;
+    case (213):
+        morse_pattern_logic(0);
+        break;
+    case (214):
+        morse_pattern_logic(2);
+        break;
+    case (215):
+        morse_pattern_logic(1);
+        break;
+    case (216):
+        morse_pattern_logic(1);
+        break;
+    case (217):
+        morse_pattern_logic(1);
+        break;
+    case (218):
+        morse_pattern_logic(1);
+        break;
+    case (219):
+        morse_pattern_logic(2);
+        break;
+    case (220):
+        morse_pattern_logic(0);
+        break;
+    case (221):
+        morse_pattern_logic(2);
+        break;
+    case (222):
+        morse_pattern_logic(1);
+        break;
+    case (223):
+        morse_pattern_logic(1);
+        break;
+    case (224):
+        morse_pattern_logic(1);
+        break;
+    case (225):
+        morse_pattern_logic(2);
+        break;
+    case (226):
+        morse_pattern_logic(0);
+        break;
+    case (227):
+        morse_pattern_logic(2);
+        break;
+    case (228):
+        morse_pattern_logic(2);
+        break;
+    case (229):
+        morse_pattern_logic(1);
+        break;
+    case (230):
+        morse_pattern_logic(1);
+        break;
+    case (231):
+        morse_pattern_logic(1);
+        break;
+    case (232):
+        morse_pattern_logic(2);
+        break;
+    case (233):
+        morse_pattern_logic(0);
+        break;
+    case (234):
+        morse_pattern_logic(1);
+        break;
+    case (235):
+        morse_pattern_logic(1);
+        break;
+    case (236):
+        morse_pattern_logic(2);
+        break;
+    case (237):
+        morse_pattern_logic(2);
+        break;
+    case (238):
+        morse_pattern_logic(1);
+        break;
+    case (239):
+        morse_pattern_logic(1);
+        break;
+    case (240):
+        morse_pattern_logic(0);
+        break;
+    case (241):
+        morse_pattern_logic(1);
+        break;
+    case (242):
+        morse_pattern_logic(2);
+        break;
+    case (243):
+        morse_pattern_logic(1);
+        break;
+    case (244):
+        morse_pattern_logic(1);
+        break;
+    case (245):
+        morse_pattern_logic(1);
+        break;
+    case (246):
+        morse_pattern_logic(0);
+        break;
+    case (247):
+        morse_pattern_logic(1);
+        break;
+    case (248):
+        morse_pattern_logic(1);
+        break;
+    case (249):
+        morse_pattern_logic(2);
+        break;
+    case (250):
+        morse_pattern_logic(2);
+        break;
+    case (251):
+        morse_pattern_logic(1);
+        break;
+    case (252):
+        morse_pattern_logic(2);
+        break;
+    case (253):
+        morse_pattern_logic(0);
+        break;
+    case (254):
+        morse_pattern_logic(1);
+        break;
+    case (255):
+        morse_pattern_logic(1);
+        break;
+    case (256):
+        morse_pattern_logic(1);
+        break;
+    case (257):
+        morse_pattern_logic(2);
+        break;
+    case (258):
+        morse_pattern_logic(1);
+        break;
+    case (259):
+        morse_pattern_logic(1);
+        break;
+    case (260):
+        morse_pattern_logic(2);
+        break;
+    case (261):
+        morse_pattern_logic(0);
+        break;
+    case (262):
+        morse_pattern_logic(2);
+        break;
+    case (263):
+        morse_pattern_logic(1);
+        break;
+    case (264):
+        morse_pattern_logic(2);
+        break;
+    case (265):
+        morse_pattern_logic(1);
+        break;
+    case (266):
+        morse_pattern_logic(2);
+        break;
+    case (267):
+        morse_pattern_logic(2);
+        break;
+    case (268):
+        morse_pattern_logic(0);
+        break;
+    case (269):
+        morse_pattern_logic(1);
+        break;
+    case (270):
+        morse_pattern_logic(2);
+        break;
+    case (271):
+        morse_pattern_logic(2);
+        break;
+    case (272):
+        morse_pattern_logic(2);
+        break;
+    case (273):
+        morse_pattern_logic(2);
+        break;
+    case (274):
+        morse_pattern_logic(1);
+        break;
+    case (275):
+        morse_pattern_logic(0);
+        break;
+    case (276):
+        morse_pattern_logic(2);
+        break;
+    case (277):
+        morse_pattern_logic(2);
+        break;
+    case (278):
+        morse_pattern_logic(2);
+        break;
+    case (279):
+        morse_pattern_logic(1);
+        break;
+    case (280):
+        morse_pattern_logic(1);
+        break;
+    case (281):
+        morse_pattern_logic(1);
+        break;
+    case (282):
+        morse_pattern_logic(0);
+        break;
+    case (283):
+        morse_pattern_logic(1);
+        break;
+    case (284):
+        morse_pattern_logic(2);
+        break;
+    case (285):
+        morse_pattern_logic(1);
+        break;
+    case (286):
+        morse_pattern_logic(1);
+        break;
+    case (287):
+        morse_pattern_logic(2);
+        break;
+    case (288):
+        morse_pattern_logic(1);
+        break;
+    case (289):
+        morse_pattern_logic(0);
+        break;
+    case (290):
+        morse_pattern_logic(1);
+        break;
+    case (291):
+        morse_pattern_logic(2);
+        break;
+    case (292):
+        morse_pattern_logic(2);
+        break;
+    case (293):
+        morse_pattern_logic(1);
+        break;
+    case (294):
+        morse_pattern_logic(2);
+        break;
+    case (295):
+        morse_pattern_logic(1);
+        break;
+    case (296):
+        morse_pattern_logic(0);
+        break;
+    case (297):
+        morse_pattern_logic(2);
+        break;
+    case (298):
+        morse_pattern_logic(1);
+        break;
+    case (299):
+        morse_pattern_logic(1);
+        break;
+    case (300):
+        morse_pattern_logic(2);
+        break;
+    case (301):
+        morse_pattern_logic(1);
+        break;
+    case (302):
+        morse_pattern_logic(0);
+        break;
 
-    //able_press_flag = true;
-    /*static int n=0;
-	static int min=1000000000, max=0, sum=0;
-	int latency;*/
-    //s64 now_ns = ktime_to_ns(ktime_get());
-    hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval); //next call relative to expired timestamp
-                                                                       // calculate some statistics values...
-                                                                       /*n++;
-	latency = now_ns - starttime_ns - n * INTERVAL_BETWEEN_CALLBACKS;
-	sum += latency/1000;
-	if (min>latency) min = latency;
-	if (max<latency) max = latency;
-	printk("mod_hrtimer: my_hrtimer_callback called after %dus.\n", (int) (now_ns - starttime_ns)/1000 );
-	if (n < NR_ITERATIONS)
-		return HRTIMER_RESTART;
-	else {
-		printk("mod_hrtimer: my_hrtimer_callback: statistics latences over %d hrtimer callbacks: "
-		"min=%dus, max=%dus, mean=%dus\n", n, min/1000, max/1000, sum/n);*/
+    default:
+        TEST_ALL_CHAR_DISP_index = 0;
+        break;
+    }
+    TEST_ALL_CHAR_DISP_index++;
+#endif
 
-    //call_back_fucn_n();
-
-    //return HRTIMER_NORESTART;
-    //}
+    hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval); 
 
     if (target_morse_pattern_error_event_flag)
     {
@@ -653,13 +1552,13 @@ static void target_morse_pattern_error_event(void)
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
-{
+{morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
-{
+{morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
     all_error_parrent_event();
@@ -4305,925 +5204,6 @@ static void morse_pattern_logic(char input_bool)
 static void timer_callback(struct timer_list *arg)
 {
     //gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
-#ifdef IF_TEST_ALL_CHAR_DISP
-    switch (TEST_ALL_CHAR_DISP_index)
-    {
-    case (0):
-        morse_pattern_logic(1);
-        break;
-    case (1):
-        morse_pattern_logic(2);
-        break;
-    case (2):
-        morse_pattern_logic(0);
-        break;
-    case (3):
-        morse_pattern_logic(2);
-        break;
-    case (4):
-        morse_pattern_logic(1);
-        break;
-    case (5):
-        morse_pattern_logic(1);
-        break;
-    case (6):
-        morse_pattern_logic(1);
-        break;
-    case (7):
-        morse_pattern_logic(0);
-        break;
-    case (8):
-        morse_pattern_logic(2);
-        break;
-    case (9):
-        morse_pattern_logic(1);
-        break;
-    case (10):
-        morse_pattern_logic(2);
-        break;
-    case (11):
-        morse_pattern_logic(1);
-        break;
-    case (12):
-        morse_pattern_logic(0);
-        break;
-    case (13):
-        morse_pattern_logic(2);
-        break;
-    case (14):
-        morse_pattern_logic(1);
-        break;
-    case (15):
-        morse_pattern_logic(1);
-        break;
-    case (16):
-        morse_pattern_logic(0);
-        break;
-    case (17):
-        morse_pattern_logic(1);
-        break;
-    case (18):
-        morse_pattern_logic(0);
-        break;
-    case (19):
-        morse_pattern_logic(1);
-        break;
-    case (20):
-        morse_pattern_logic(1);
-        break;
-    case (21):
-        morse_pattern_logic(2);
-        break;
-    case (22):
-        morse_pattern_logic(1);
-        break;
-    case (23):
-        morse_pattern_logic(0);
-        break;
-    case (24):
-        morse_pattern_logic(2);
-        break;
-    case (25):
-        morse_pattern_logic(2);
-        break;
-    case (26):
-        morse_pattern_logic(1);
-        break;
-    case (27):
-        morse_pattern_logic(0);
-        break;
-    case (28):
-        morse_pattern_logic(1);
-        break;
-    case (29):
-        morse_pattern_logic(1);
-        break;
-    case (30):
-        morse_pattern_logic(1);
-        break;
-    case (31):
-        morse_pattern_logic(1);
-        break;
-    case (32):
-        morse_pattern_logic(0);
-        break;
-    case (33):
-        morse_pattern_logic(1);
-        break;
-    case (34):
-        morse_pattern_logic(1);
-        break;
-    case (35):
-        morse_pattern_logic(0);
-        break;
-    case (36):
-        morse_pattern_logic(1);
-        break;
-    case (37):
-        morse_pattern_logic(2);
-        break;
-    case (38):
-        morse_pattern_logic(2);
-        break;
-    case (39):
-        morse_pattern_logic(2);
-        break;
-    case (40):
-        morse_pattern_logic(0);
-        break;
-    case (41):
-        morse_pattern_logic(2);
-        break;
-    case (42):
-        morse_pattern_logic(1);
-        break;
-    case (43):
-        morse_pattern_logic(2);
-        break;
-    case (44):
-        morse_pattern_logic(0);
-        break;
-    case (45):
-        morse_pattern_logic(1);
-        break;
-    case (46):
-        morse_pattern_logic(2);
-        break;
-    case (47):
-        morse_pattern_logic(1);
-        break;
-    case (48):
-        morse_pattern_logic(1);
-        break;
-    case (49):
-        morse_pattern_logic(0);
-        break;
-    case (50):
-        morse_pattern_logic(2);
-        break;
-    case (51):
-        morse_pattern_logic(2);
-        break;
-    case (52):
-        morse_pattern_logic(0);
-        break;
-    case (53):
-        morse_pattern_logic(2);
-        break;
-    case (54):
-        morse_pattern_logic(1);
-        break;
-    case (55):
-        morse_pattern_logic(0);
-        break;
-    case (56):
-        morse_pattern_logic(2);
-        break;
-    case (57):
-        morse_pattern_logic(2);
-        break;
-    case (58):
-        morse_pattern_logic(2);
-        break;
-    case (59):
-        morse_pattern_logic(0);
-        break;
-    case (60):
-        morse_pattern_logic(1);
-        break;
-    case (61):
-        morse_pattern_logic(2);
-        break;
-    case (62):
-        morse_pattern_logic(2);
-        break;
-    case (63):
-        morse_pattern_logic(1);
-        break;
-    case (64):
-        morse_pattern_logic(0);
-        break;
-    case (65):
-        morse_pattern_logic(2);
-        break;
-    case (66):
-        morse_pattern_logic(2);
-        break;
-    case (67):
-        morse_pattern_logic(1);
-        break;
-    case (68):
-        morse_pattern_logic(2);
-        break;
-    case (69):
-        morse_pattern_logic(0);
-        break;
-    case (70):
-        morse_pattern_logic(1);
-        break;
-    case (71):
-        morse_pattern_logic(2);
-        break;
-    case (72):
-        morse_pattern_logic(1);
-        break;
-    case (73):
-        morse_pattern_logic(0);
-        break;
-    case (74):
-        morse_pattern_logic(1);
-        break;
-    case (75):
-        morse_pattern_logic(1);
-        break;
-    case (76):
-        morse_pattern_logic(1);
-        break;
-    case (77):
-        morse_pattern_logic(0);
-        break;
-    case (78):
-        morse_pattern_logic(2);
-        break;
-    case (79):
-        morse_pattern_logic(0);
-        break;
-    case (80):
-        morse_pattern_logic(1);
-        break;
-    case (81):
-        morse_pattern_logic(1);
-        break;
-    case (82):
-        morse_pattern_logic(2);
-        break;
-    case (83):
-        morse_pattern_logic(0);
-        break;
-    case (84):
-        morse_pattern_logic(1);
-        break;
-    case (85):
-        morse_pattern_logic(1);
-        break;
-    case (86):
-        morse_pattern_logic(1);
-        break;
-    case (87):
-        morse_pattern_logic(2);
-        break;
-    case (88):
-        morse_pattern_logic(0);
-        break;
-    case (89):
-        morse_pattern_logic(1);
-        break;
-    case (90):
-        morse_pattern_logic(2);
-        break;
-    case (91):
-        morse_pattern_logic(2);
-        break;
-    case (92):
-        morse_pattern_logic(0);
-        break;
-    case (93):
-        morse_pattern_logic(2);
-        break;
-    case (94):
-        morse_pattern_logic(1);
-        break;
-    case (95):
-        morse_pattern_logic(1);
-        break;
-    case (96):
-        morse_pattern_logic(2);
-        break;
-    case (97):
-        morse_pattern_logic(0);
-        break;
-    case (98):
-        morse_pattern_logic(2);
-        break;
-    case (99):
-        morse_pattern_logic(1);
-        break;
-    case (100):
-        morse_pattern_logic(2);
-        break;
-    case (101):
-        morse_pattern_logic(2);
-        break;
-    case (102):
-        morse_pattern_logic(0);
-        break;
-    case (103):
-        morse_pattern_logic(2);
-        break;
-    case (104):
-        morse_pattern_logic(2);
-        break;
-    case (105):
-        morse_pattern_logic(1);
-        break;
-    case (106):
-        morse_pattern_logic(1);
-        break;
-    case (107):
-        morse_pattern_logic(0);
-        break;
-    case (108):
-        morse_pattern_logic(2);
-        break;
-    case (109):
-        morse_pattern_logic(2);
-        break;
-    case (110):
-        morse_pattern_logic(2);
-        break;
-    case (111):
-        morse_pattern_logic(2);
-        break;
-    case (112):
-        morse_pattern_logic(2);
-        break;
-    case (113):
-        morse_pattern_logic(0);
-        break;
-    case (114):
-        morse_pattern_logic(1);
-        break;
-    case (115):
-        morse_pattern_logic(2);
-        break;
-    case (116):
-        morse_pattern_logic(2);
-        break;
-    case (117):
-        morse_pattern_logic(2);
-        break;
-    case (118):
-        morse_pattern_logic(2);
-        break;
-    case (119):
-        morse_pattern_logic(0);
-        break;
-    case (120):
-        morse_pattern_logic(1);
-        break;
-    case (121):
-        morse_pattern_logic(1);
-        break;
-    case (122):
-        morse_pattern_logic(2);
-        break;
-    case (123):
-        morse_pattern_logic(2);
-        break;
-    case (124):
-        morse_pattern_logic(2);
-        break;
-    case (125):
-        morse_pattern_logic(0);
-        break;
-    case (126):
-        morse_pattern_logic(1);
-        break;
-    case (127):
-        morse_pattern_logic(1);
-        break;
-    case (128):
-        morse_pattern_logic(1);
-        break;
-    case (129):
-        morse_pattern_logic(2);
-        break;
-    case (130):
-        morse_pattern_logic(2);
-        break;
-    case (131):
-        morse_pattern_logic(0);
-        break;
-    case (132):
-        morse_pattern_logic(1);
-        break;
-    case (133):
-        morse_pattern_logic(1);
-        break;
-    case (134):
-        morse_pattern_logic(1);
-        break;
-    case (135):
-        morse_pattern_logic(1);
-        break;
-    case (136):
-        morse_pattern_logic(2);
-        break;
-    case (137):
-        morse_pattern_logic(0);
-        break;
-    case (138):
-        morse_pattern_logic(1);
-        break;
-    case (139):
-        morse_pattern_logic(1);
-        break;
-    case (140):
-        morse_pattern_logic(1);
-        break;
-    case (141):
-        morse_pattern_logic(1);
-        break;
-    case (142):
-        morse_pattern_logic(1);
-        break;
-    case (143):
-        morse_pattern_logic(0);
-        break;
-    case (144):
-        morse_pattern_logic(2);
-        break;
-    case (145):
-        morse_pattern_logic(1);
-        break;
-    case (146):
-        morse_pattern_logic(1);
-        break;
-    case (147):
-        morse_pattern_logic(1);
-        break;
-    case (148):
-        morse_pattern_logic(1);
-        break;
-    case (149):
-        morse_pattern_logic(0);
-        break;
-    case (150):
-        morse_pattern_logic(2);
-        break;
-    case (151):
-        morse_pattern_logic(2);
-        break;
-    case (152):
-        morse_pattern_logic(1);
-        break;
-    case (153):
-        morse_pattern_logic(1);
-        break;
-    case (154):
-        morse_pattern_logic(1);
-        break;
-    case (155):
-        morse_pattern_logic(0);
-        break;
-    case (156):
-        morse_pattern_logic(2);
-        break;
-    case (157):
-        morse_pattern_logic(2);
-        break;
-    case (158):
-        morse_pattern_logic(2);
-        break;
-    case (159):
-        morse_pattern_logic(1);
-        break;
-    case (160):
-        morse_pattern_logic(1);
-        break;
-    case (161):
-        morse_pattern_logic(0);
-        break;
-    case (162):
-        morse_pattern_logic(2);
-        break;
-    case (163):
-        morse_pattern_logic(2);
-        break;
-    case (164):
-        morse_pattern_logic(2);
-        break;
-    case (165):
-        morse_pattern_logic(2);
-        break;
-    case (166):
-        morse_pattern_logic(1);
-        break;
-    case (167):
-        morse_pattern_logic(0);
-        break;
-    case (168):
-        morse_pattern_logic(1);
-        break;
-    case (169):
-        morse_pattern_logic(2);
-        break;
-    case (170):
-        morse_pattern_logic(1);
-        break;
-    case (171):
-        morse_pattern_logic(2);
-        break;
-    case (172):
-        morse_pattern_logic(1);
-        break;
-    case (173):
-        morse_pattern_logic(2);
-        break;
-    case (174):
-        morse_pattern_logic(0);
-        break;
-    case (175):
-        morse_pattern_logic(2);
-        break;
-    case (176):
-        morse_pattern_logic(1);
-        break;
-    case (177):
-        morse_pattern_logic(2);
-        break;
-    case (178):
-        morse_pattern_logic(2);
-        break;
-    case (179):
-        morse_pattern_logic(1);
-        break;
-    case (180):
-        morse_pattern_logic(0);
-        break;
-    case (181):
-        morse_pattern_logic(2);
-        break;
-    case (182):
-        morse_pattern_logic(1);
-        break;
-    case (183):
-        morse_pattern_logic(2);
-        break;
-    case (184):
-        morse_pattern_logic(2);
-        break;
-    case (185):
-        morse_pattern_logic(1);
-        break;
-    case (186):
-        morse_pattern_logic(2);
-        break;
-    case (187):
-        morse_pattern_logic(0);
-        break;
-    case (188):
-        morse_pattern_logic(1);
-        break;
-    case (189):
-        morse_pattern_logic(2);
-        break;
-    case (190):
-        morse_pattern_logic(1);
-        break;
-    case (191):
-        morse_pattern_logic(2);
-        break;
-    case (192):
-        morse_pattern_logic(1);
-        break;
-    case (193):
-        morse_pattern_logic(0);
-        break;
-    case (194):
-        morse_pattern_logic(2);
-        break;
-    case (195):
-        morse_pattern_logic(1);
-        break;
-    case (196):
-        morse_pattern_logic(2);
-        break;
-    case (197):
-        morse_pattern_logic(1);
-        break;
-    case (198):
-        morse_pattern_logic(2);
-        break;
-    case (199):
-        morse_pattern_logic(1);
-        break;
-    case (200):
-        morse_pattern_logic(0);
-        break;
-    case (201):
-        morse_pattern_logic(1);
-        break;
-    case (202):
-        morse_pattern_logic(1);
-        break;
-    case (203):
-        morse_pattern_logic(2);
-        break;
-    case (204):
-        morse_pattern_logic(1);
-        break;
-    case (205):
-        morse_pattern_logic(2);
-        break;
-    case (206):
-        morse_pattern_logic(0);
-        break;
-    case (207):
-        morse_pattern_logic(2);
-        break;
-    case (208):
-        morse_pattern_logic(2);
-        break;
-    case (209):
-        morse_pattern_logic(1);
-        break;
-    case (210):
-        morse_pattern_logic(1);
-        break;
-    case (211):
-        morse_pattern_logic(2);
-        break;
-    case (212):
-        morse_pattern_logic(2);
-        break;
-    case (213):
-        morse_pattern_logic(0);
-        break;
-    case (214):
-        morse_pattern_logic(2);
-        break;
-    case (215):
-        morse_pattern_logic(1);
-        break;
-    case (216):
-        morse_pattern_logic(1);
-        break;
-    case (217):
-        morse_pattern_logic(1);
-        break;
-    case (218):
-        morse_pattern_logic(1);
-        break;
-    case (219):
-        morse_pattern_logic(2);
-        break;
-    case (220):
-        morse_pattern_logic(0);
-        break;
-    case (221):
-        morse_pattern_logic(2);
-        break;
-    case (222):
-        morse_pattern_logic(1);
-        break;
-    case (223):
-        morse_pattern_logic(1);
-        break;
-    case (224):
-        morse_pattern_logic(1);
-        break;
-    case (225):
-        morse_pattern_logic(2);
-        break;
-    case (226):
-        morse_pattern_logic(0);
-        break;
-    case (227):
-        morse_pattern_logic(2);
-        break;
-    case (228):
-        morse_pattern_logic(2);
-        break;
-    case (229):
-        morse_pattern_logic(1);
-        break;
-    case (230):
-        morse_pattern_logic(1);
-        break;
-    case (231):
-        morse_pattern_logic(1);
-        break;
-    case (232):
-        morse_pattern_logic(2);
-        break;
-    case (233):
-        morse_pattern_logic(0);
-        break;
-    case (234):
-        morse_pattern_logic(1);
-        break;
-    case (235):
-        morse_pattern_logic(1);
-        break;
-    case (236):
-        morse_pattern_logic(2);
-        break;
-    case (237):
-        morse_pattern_logic(2);
-        break;
-    case (238):
-        morse_pattern_logic(1);
-        break;
-    case (239):
-        morse_pattern_logic(1);
-        break;
-    case (240):
-        morse_pattern_logic(0);
-        break;
-    case (241):
-        morse_pattern_logic(1);
-        break;
-    case (242):
-        morse_pattern_logic(2);
-        break;
-    case (243):
-        morse_pattern_logic(1);
-        break;
-    case (244):
-        morse_pattern_logic(1);
-        break;
-    case (245):
-        morse_pattern_logic(1);
-        break;
-    case (246):
-        morse_pattern_logic(0);
-        break;
-    case (247):
-        morse_pattern_logic(1);
-        break;
-    case (248):
-        morse_pattern_logic(1);
-        break;
-    case (249):
-        morse_pattern_logic(2);
-        break;
-    case (250):
-        morse_pattern_logic(2);
-        break;
-    case (251):
-        morse_pattern_logic(1);
-        break;
-    case (252):
-        morse_pattern_logic(2);
-        break;
-    case (253):
-        morse_pattern_logic(0);
-        break;
-    case (254):
-        morse_pattern_logic(1);
-        break;
-    case (255):
-        morse_pattern_logic(1);
-        break;
-    case (256):
-        morse_pattern_logic(1);
-        break;
-    case (257):
-        morse_pattern_logic(2);
-        break;
-    case (258):
-        morse_pattern_logic(1);
-        break;
-    case (259):
-        morse_pattern_logic(1);
-        break;
-    case (260):
-        morse_pattern_logic(2);
-        break;
-    case (261):
-        morse_pattern_logic(0);
-        break;
-    case (262):
-        morse_pattern_logic(2);
-        break;
-    case (263):
-        morse_pattern_logic(1);
-        break;
-    case (264):
-        morse_pattern_logic(2);
-        break;
-    case (265):
-        morse_pattern_logic(1);
-        break;
-    case (266):
-        morse_pattern_logic(2);
-        break;
-    case (267):
-        morse_pattern_logic(2);
-        break;
-    case (268):
-        morse_pattern_logic(0);
-        break;
-    case (269):
-        morse_pattern_logic(1);
-        break;
-    case (270):
-        morse_pattern_logic(2);
-        break;
-    case (271):
-        morse_pattern_logic(2);
-        break;
-    case (272):
-        morse_pattern_logic(2);
-        break;
-    case (273):
-        morse_pattern_logic(2);
-        break;
-    case (274):
-        morse_pattern_logic(1);
-        break;
-    case (275):
-        morse_pattern_logic(0);
-        break;
-    case (276):
-        morse_pattern_logic(2);
-        break;
-    case (277):
-        morse_pattern_logic(2);
-        break;
-    case (278):
-        morse_pattern_logic(2);
-        break;
-    case (279):
-        morse_pattern_logic(1);
-        break;
-    case (280):
-        morse_pattern_logic(1);
-        break;
-    case (281):
-        morse_pattern_logic(1);
-        break;
-    case (282):
-        morse_pattern_logic(0);
-        break;
-    case (283):
-        morse_pattern_logic(1);
-        break;
-    case (284):
-        morse_pattern_logic(2);
-        break;
-    case (285):
-        morse_pattern_logic(1);
-        break;
-    case (286):
-        morse_pattern_logic(1);
-        break;
-    case (287):
-        morse_pattern_logic(2);
-        break;
-    case (288):
-        morse_pattern_logic(1);
-        break;
-    case (289):
-        morse_pattern_logic(0);
-        break;
-    case (290):
-        morse_pattern_logic(1);
-        break;
-    case (291):
-        morse_pattern_logic(2);
-        break;
-    case (292):
-        morse_pattern_logic(2);
-        break;
-    case (293):
-        morse_pattern_logic(1);
-        break;
-    case (294):
-        morse_pattern_logic(2);
-        break;
-    case (295):
-        morse_pattern_logic(1);
-        break;
-    case (296):
-        morse_pattern_logic(0);
-        break;
-    case (297):
-        morse_pattern_logic(2);
-        break;
-    case (298):
-        morse_pattern_logic(1);
-        break;
-    case (299):
-        morse_pattern_logic(1);
-        break;
-    case (300):
-        morse_pattern_logic(2);
-        break;
-    case (301):
-        morse_pattern_logic(1);
-        break;
-    case (302):
-        morse_pattern_logic(0);
-        break;
-
-    default:
-        TEST_ALL_CHAR_DISP_index = 0;
-        break;
-    }
-    TEST_ALL_CHAR_DISP_index++;
-#endif
 
     switch (timer_callback_state)
     {
@@ -5238,7 +5218,8 @@ static void timer_callback(struct timer_list *arg)
         mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_LONG - TIME_DASH_STANDER));
         break;
     case timer_callback_state_ppt_blue3:
-
+    infinite_flashing_input_time_error_event=true;
+target_input_length_error_event();
         break;
     default:
         printk(KERN_ERR "\ntimer_callback (switch - case @ jiffies) \nUnusual entry into the default area.\n");
@@ -5308,7 +5289,7 @@ irq_handler_t isr(int irq, void *data)
                 }
             }
             else
-            {
+            {infinite_flashing_input_time_error_event=false;
             }
         }
         else
