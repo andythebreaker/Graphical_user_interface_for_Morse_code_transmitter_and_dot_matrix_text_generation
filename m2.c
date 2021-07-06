@@ -14,9 +14,10 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-#define IF_TEST_ALL_CHAR_DISP
+//#define IF_TEST_ALL_CHAR_DISP
 
 #define MS_TO_US(MS_INPUT) 1000000ll * MS_INPUT
+#define US_TO_MS(US_INPUT) US_INPUT / 1000000ll
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
@@ -277,6 +278,8 @@
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_STANDER 1000
 #define HRTIMER_MIN_TIME_INTERVAL 1
+#define TIME_ERROR_BLINK_ALL 100
+#define ERROR_BLINK_COUNTER_MAX_LIGHT_TIME 4
 
 #define IRQ_NAME "button_1"
 #define SERIAL_DEVICE "/dev/ttyS0"
@@ -284,7 +287,7 @@
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("andythebreaker");
 MODULE_DESCRIPTION("m2");
-MODULE_VERSION("10.5");
+MODULE_VERSION("16.0");
 
 static short int button_irq_id = 0;
 //static char is_on = 0;
@@ -313,32 +316,38 @@ static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
 static bool able_state_flag = true;
 static bool able_press_flag = true;
 static bool hrtimer_try_to_cancel_flag_hr_timer = false;
+static bool target_morse_pattern_error_event_flag = false;
+static bool target_input_length_error_event_flag = false;
+static bool target_input_time_error_event_flag = false;
 
 static struct hrtimer hr_timer;
 static ktime_t ktime_interval;
 static s64 starttime_ns;
+static char error_blink_counter = 0;
 
 static void call_back_fucn_n(void)
 {
+    able_press_flag = true;
     if (hrtimer_try_to_cancel_flag_hr_timer)
     {
         hrtimer_try_to_cancel_flag_hr_timer = false;
     }
     else
     {
-        gpio_direction_output(UP_HAT_LED5, /*1*/ !__gpio_get_value(UP_HAT_LED5));
+        gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
         last_press = ktime_get();
     }
 }
 
 static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
 {
-    able_press_flag = true;
+    short int i = 0;
+
+    //able_press_flag = true;
     /*static int n=0;
 	static int min=1000000000, max=0, sum=0;
 	int latency;*/
     //s64 now_ns = ktime_to_ns(ktime_get());
-
     hrtimer_forward(&hr_timer, hr_timer._softexpires, ktime_interval); //next call relative to expired timestamp
                                                                        // calculate some statistics values...
                                                                        /*n++;
@@ -353,13 +362,58 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
 		printk("mod_hrtimer: my_hrtimer_callback: statistics latences over %d hrtimer callbacks: "
 		"min=%dus, max=%dus, mean=%dus\n", n, min/1000, max/1000, sum/n);*/
 
-    call_back_fucn_n();
+    //call_back_fucn_n();
 
-    return HRTIMER_NORESTART;
+    //return HRTIMER_NORESTART;
     //}
+    if (error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
+    {
+        if (target_morse_pattern_error_event_flag)
+        {
+            error_blink_counter++;
+            led_status_3[0] = !led_status_3[0];
+        }
+        else
+        {
+            led_status_3[0] = 0;
+        }
+        if (target_input_length_error_event_flag)
+        {
+            error_blink_counter++;
+            led_status_3[1] = !led_status_3[1];
+        }
+        else
+        {
+            led_status_3[1] = 0;
+        }
+        if (target_input_time_error_event_flag)
+        {
+            error_blink_counter++;
+            led_status_3[2] = !led_status_3[2];
+        }
+        else
+        {
+            led_status_3[2] = 0;
+        }
+    }
+    else
+    {
+        error_blink_counter = 0;
+    }
+
+    gpio_direction_output(UP_HAT_74HC595_STCP, 0);
+    for (i = 7; i >= 0; i--)
+    {
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 0);
+        gpio_direction_output(UP_HAT_74HC595_DS, led_status_3[i]);
+        gpio_direction_output(UP_HAT_74HC595_SHCP, 1);
+    }
+    gpio_direction_output(UP_HAT_74HC595_STCP, 1);
+
+    return HRTIMER_RESTART;
 }
 
-static void chmod_error_3_led(void)
+static void init_error_3_led(void)
 {
     short int i = 0;
     gpio_direction_output(UP_HAT_74HC595_STCP, 0);
@@ -537,11 +591,14 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
 static void all_error_parrent_event(void)
 {
     gpio_direction_output(UP_HAT_LED1, 1);
-    led_status_3[0] = 1;
+    /*led_status_3[0] = 1;
     led_status_3[1] = 1;
     led_status_3[2] = 1;
-    chmod_error_3_led();
-    hrtimer_try_to_cancel_flag_hr_timer = true;
+    chmod_error_3_led();*/
+    /*target_morse_pattern_error_event_flag = true;
+    target_input_length_error_event_flag = true;
+    target_input_time_error_event_flag = true;
+    hrtimer_try_to_cancel_flag_hr_timer = true;*/
     /*int test_hrtc = hrtimer_try_to_cancel(&hr_timer);
     if (test_hrtc == 1)
     {
@@ -575,32 +632,45 @@ static void all_error_parrent_event(void)
 
 static void target_morse_pattern_error_event(void)
 {
-    bool_on_error ^= 0x01;
+    /*bool_on_error ^= 0x01;
     led_status_3[0] = 1;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
     chmod_error_3_led();
+    all_error_parrent_event();*/
+    target_morse_pattern_error_event_flag = true;
+    /*target_input_length_error_event_flag = true;
+    target_input_time_error_event_flag = true;
+    hrtimer_try_to_cancel_flag_hr_timer = true;*/
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
-    bool_on_error ^= 0x01;
+    /*bool_on_error ^= 0x01;
     led_status_3[0] = 0;
     led_status_3[1] = 1;
     led_status_3[2] = 0;
     chmod_error_3_led();
+    target_morse_pattern_error_event_flag = true;*/
+    target_input_length_error_event_flag = true;
+    //target_input_time_error_event_flag = true;
+    //hrtimer_try_to_cancel_flag_hr_timer = true;
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
-    bool_on_error ^= 0x01;
+    /*bool_on_error ^= 0x01;
     led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 1;
     chmod_error_3_led();
+    all_error_parrent_event();*/
+    /*target_morse_pattern_error_event_flag = true;
+    target_input_length_error_event_flag = true;*/
+    target_input_time_error_event_flag = true;
+    //hrtimer_try_to_cancel_flag_hr_timer = true;
     all_error_parrent_event();
 }
-
 static void morse_pattern_logic(char input_bool)
 {
 
@@ -5161,7 +5231,8 @@ static void timer_callback(struct timer_list *arg)
     }
     TEST_ALL_CHAR_DISP_index++;
 #endif
-    mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
+
+    //mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
 }
 
 irq_handler_t isr(int irq, void *data)
@@ -5188,23 +5259,15 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) && ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time) > MS_TO_US(HRTIMER_MIN_TIME_INTERVAL))
                     {
-                        able_press_flag = false; /*led_status_3[0] = 0;
+                        able_press_flag = false;
+                        /*led_status_3[0] = 0;
+                
                 led_status_3[1] = 1;
                 led_status_3[2] = 0;
                 chmod_error_3_led();*/
-                        //printk("mod_hrtimer: installing module...\n");
-                        //define a ktime variable with the interval time defined on top of this file
-                        ktime_interval = ktime_set(0, ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
-                        //init a high resolution timer named 'hr_timer'
-                        hrtimer_init(&hr_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-                        //set the callback function for this hr_timer
-                        hr_timer.function = &my_hrtimer_callback;
-                        //get the current time as high resolution timestamp, convert it to ns
-                        starttime_ns = ktime_to_ns(ktime_get());
-                        //activate the high resolution timer including callback function...
-                        hrtimer_start(&hr_timer, ktime_interval, HRTIMER_MODE_REL);
-                        /*printk( "mod_hrtimer: started timer callback function to fire every %lldns (current jiffies=%ld, HZ=%d)\n", 
-		INTERVAL_BETWEEN_CALLBACKS, jiffies, HZ );*/
+                        last_time = ktime_get();
+                        timer_setup(&timer, timer_callback, 0);
+                        mod_timer(&timer, jiffies + msecs_to_jiffies(US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time))));
                     }
                     else
                     {
@@ -5217,7 +5280,8 @@ irq_handler_t isr(int irq, void *data)
                 }
                 else
                 {
-                    target_input_time_error_event();
+                    hrtimer_try_to_cancel_flag_hr_timer = true;
+                    target_input_length_error_event();
                 }
             }
             else
@@ -5304,7 +5368,7 @@ int init_module()
     }
     gpio_direction_output(UP_HAT_LED5, 0);
 
-    chmod_error_3_led();
+    init_error_3_led();
 
     /*gpio_direction_output(UP_HAT_74HC595_STCP, 0);
     for (loopi = 7; loopi >= 0; loopi--)
@@ -5353,19 +5417,27 @@ int init_module()
         screen_show_one_row(loopi % 49, 1, 0x0a - 1, screen_setting_data);
     }
     usleep_range(20000ul, 30000ul);
-    last_time = ktime_get();
 
-    last_time = ktime_get();
-    timer_setup(&timer, timer_callback, 0);
-    mod_timer(&timer, jiffies + msecs_to_jiffies(timeout_ms));
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
-
+    //printk("mod_hrtimer: installing module...\n");
+    //define a ktime variable with the interval time defined on top of this file
+    ktime_interval = ktime_set(0, MS_TO_US(TIME_ERROR_BLINK_ALL));
+    //init a high resolution timer named 'hr_timer'
+    hrtimer_init(&hr_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+    //set the callback function for this hr_timer
+    hr_timer.function = &my_hrtimer_callback;
+    //get the current time as high resolution timestamp, convert it to ns
+    starttime_ns = ktime_to_ns(ktime_get());
+    //activate the high resolution timer including callback function...
+    hrtimer_start(&hr_timer, ktime_interval, HRTIMER_MODE_REL);
+    /*printk( "mod_hrtimer: started timer callback function to fire every %lldns (current jiffies=%ld, HZ=%d)\n", 
+		INTERVAL_BETWEEN_CALLBACKS, jiffies, HZ );*/
     SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
     gpio_direction_output(UP_HAT_LED1, 1);
     led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
-    chmod_error_3_led();
+    init_error_3_led();
     return 0;
 }
 
