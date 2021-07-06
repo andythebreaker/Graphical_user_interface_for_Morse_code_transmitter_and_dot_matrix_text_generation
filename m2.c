@@ -5230,7 +5230,7 @@ irq_handler_t isr(int irq, void *data)
                 chmod_error_3_led();*/
                         last_time = ktime_get();
                         timer_setup(&timer, timer_callback, 0);
-                        printk(KERN_DEBUG "\nthis time - last relase:\n\t%lldelay time:\t%ll\n",this_time - last_relase,US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time)));
+                        printk("\nthis time - last relase:\n\t%lldelay time:\t%ll\n",this_time - last_relase,US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time)));
                         mod_timer(&timer, jiffies + msecs_to_jiffies(US_TO_MS(ktime_to_ns(last_relase) + MS_TO_US(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time))));
                     }
                     else
