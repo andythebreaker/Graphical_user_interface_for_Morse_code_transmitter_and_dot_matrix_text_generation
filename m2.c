@@ -325,6 +325,7 @@ static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
 
 static bool able_state_flag = true;
 static bool able_press_flag = true;
+static bool able_relase_flag = false;
 static bool hrtimer_try_to_cancel_flag_hr_timer = false;
 static bool target_morse_pattern_error_event_flag = false;
 static bool target_input_length_error_event_flag = false;
@@ -369,6 +370,7 @@ static void call_back_fucn_n(void)
         timer_callback_state = timer_callback_state_ppt_blue2;
         timer_setup(&timer, timer_callback, 0);
         mod_timer(&timer, jiffies + msecs_to_jiffies(TIME_DASH_STANDER));
+        able_relase_flag = true;
         last_press = ktime_get();
     }
 }
