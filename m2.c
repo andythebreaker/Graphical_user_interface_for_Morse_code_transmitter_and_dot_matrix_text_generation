@@ -5296,9 +5296,11 @@ static void timer_callback(struct timer_list *arg)
     switch (timer_callback_state)
     {
     case timer_callback_state_ppt_blue1:
+        printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue1\n");
         call_back_fucn_n();
         break;
     case timer_callback_state_ppt_blue2:
+        printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue2\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         timer_callback_state = timer_callback_state_ppt_blue3;
         JIFFIES_TIMER_GO(TIME_DASH_LONG - TIME_DASH_STANDER)
@@ -5309,11 +5311,13 @@ static void timer_callback(struct timer_list *arg)
         target_input_length_error_event();
         break;
     case timer_callback_state_big_if_else2:
+        printk(KERN_DEBUG "\ntimer_callback_state_big_if_else2\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         morse_pattern_logic(1);
         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
         break;
     case timer_callback_state_big_if_else5:
+        printk(KERN_DEBUG "\ntimer_callback_state_big_if_else5\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         morse_pattern_logic(2);
         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
@@ -5323,6 +5327,7 @@ static void timer_callback(struct timer_list *arg)
         morse_pattern_logic(0);
         break;
     case timer_callback_state_after_success:
+        printk(KERN_DEBUG "\ntimer_callback_state_after_success\n");
         able_state_flag = true;
         gpio_direction_output(UP_HAT_LED1, 1);
         break;
