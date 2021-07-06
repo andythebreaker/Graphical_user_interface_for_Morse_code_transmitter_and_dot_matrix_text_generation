@@ -393,7 +393,7 @@ static void call_back_fucn_n(void)
     else
     {
         gpio_direction_output(UP_HAT_LED5, 1);
-        printk(KERN_DEBUG "\nset able press to false @ 369\n");
+        printk(KERN_DEBUG "\nset able press to false @ 396\n");
         able_press_flag = false;
         timer_callback_state = timer_callback_state_ppt_blue2;
         JIFFIES_TIMER_GO(TIME_DASH_STANDER)
@@ -1599,7 +1599,7 @@ static void target_input_time_error_event(void)
 }
 static void morse_pattern_logic(char input_bool)
 {
-
+    printk("morse_pattern_logic : %d", input_bool);
     switch (morse_pattern_status)
     {
     case 0:
