@@ -4175,7 +4175,7 @@ static void morse_pattern_logic(char input_bool)
 
 static void timer_callback(struct timer_list *arg)
 {
-    gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
+    //gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
 #ifdef IF_TEST_ALL_CHAR_DISP
     switch (TEST_ALL_CHAR_DISP_index)
     {
