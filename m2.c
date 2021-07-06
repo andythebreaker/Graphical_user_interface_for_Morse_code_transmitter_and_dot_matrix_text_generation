@@ -323,7 +323,7 @@ static bool target_input_time_error_event_flag = false;
 static struct hrtimer hr_timer;
 static ktime_t ktime_interval;
 static s64 starttime_ns;
-static char error_blink_counter = 0;
+static short int error_blink_counter = 0;
 
 static void call_back_fucn_n(void)
 {
@@ -366,11 +366,13 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
 
     //return HRTIMER_NORESTART;
     //}
+
     if (error_blink_counter < ERROR_BLINK_COUNTER_MAX_LIGHT_TIME * 2)
     {
+
         if (target_morse_pattern_error_event_flag)
         {
-            error_blink_counter++;
+
             led_status_3[0] = !led_status_3[0];
         }
         else
@@ -379,7 +381,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         }
         if (target_input_length_error_event_flag)
         {
-            error_blink_counter++;
+
             led_status_3[1] = !led_status_3[1];
         }
         else
@@ -388,13 +390,21 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         }
         if (target_input_time_error_event_flag)
         {
-            error_blink_counter++;
+
             led_status_3[2] = !led_status_3[2];
         }
         else
         {
             led_status_3[2] = 0;
         }
+    }
+    else
+    {
+        error_blink_counter = 0;
+    }
+    if (target_morse_pattern_error_event_flag || target_input_length_error_event_flag || target_input_time_error_event_flag)
+    {
+        error_blink_counter++;
     }
     else
     {
