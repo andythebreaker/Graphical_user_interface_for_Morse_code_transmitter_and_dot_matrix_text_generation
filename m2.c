@@ -20,13 +20,14 @@
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
-#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO) \
-    last_time = ktime_get();                               \
-    if (timer_pending(&timer) == 1)                        \
-    {                                                      \
-        del_timer(&timer);                                 \
-    }                                                      \
-    timer_setup(&timer, timer_callback, 0);                \
+#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)  \
+    last_time = ktime_get();                                \
+    printk("\ntime stmp:\n%lld\n", ktime_to_ns(last_time)); \
+    if (timer_pending(&timer) == 1)                         \
+    {                                                       \
+        del_timer(&timer);                                  \
+    }                                                       \
+    timer_setup(&timer, timer_callback, 0);                 \
     mod_timer(&timer, jiffies + msecs_to_jiffies(INPUT_STUFF_FOR_JIFFIES_TIMER_GO));
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
@@ -5292,7 +5293,7 @@ static void morse_pattern_logic(char input_bool)
 static void timer_callback(struct timer_list *arg)
 {
     //gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
-
+    printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get()));
     switch (timer_callback_state)
     {
     case timer_callback_state_ppt_blue1:
