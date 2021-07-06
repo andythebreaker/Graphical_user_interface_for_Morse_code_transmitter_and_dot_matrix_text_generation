@@ -5351,6 +5351,7 @@ irq_handler_t isr(int irq, void *data)
             //disable_clock_B();
             if (is_press)
             {
+                printk(KERN_DEBUG "\nPRESS!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                 if (able_press_flag)
                 {
                     long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
@@ -5390,6 +5391,7 @@ irq_handler_t isr(int irq, void *data)
             }
             else
             { //relase
+                printk(KERN_DEBUG "\nRELASE!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                 infinite_flashing_input_time_error_event = false;
                 if (able_relase_flag)
                 {
