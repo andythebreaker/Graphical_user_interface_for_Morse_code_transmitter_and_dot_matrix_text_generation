@@ -16,8 +16,8 @@
 
 //#define IF_TEST_ALL_CHAR_DISP
 
-#define MS_TO_NS(MS_INPUT) 1000000ll * MS_INPUT
-#define NS_TO_MS(US_INPUT) US_INPUT / 1000000ll
+#define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
+#define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
     row_pattern_obj = (row_pattern_foo){.row_pattern_foo_elem = SCREEN_SHOW_FRAM_PATTERN};                                                \
