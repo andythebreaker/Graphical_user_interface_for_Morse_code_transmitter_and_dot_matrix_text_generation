@@ -286,7 +286,7 @@ MODULE_DESCRIPTION("m2");
 MODULE_VERSION("10.5");
 
 static short int button_irq_id = 0;
-static char is_on = 0;
+//static char is_on = 0;
 static char is_press = 0;
 
 static int timeout_ms = INTERVAL_SLOW_MS;
@@ -316,7 +316,7 @@ static s64 starttime_ns;
 
 static void call_back_fucn_n(void)
 {
-    gpio_direction_output(UP_HAT_LED5, 1);
+    gpio_direction_output(UP_HAT_LED5, /*1*/!__gpio_get_value(UP_HAT_LED5));
     last_press = ktime_get();
 }
 
@@ -522,17 +522,22 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
     }
 }
 
+static void all_error_parrent_event(void){
+        gpio_direction_output(UP_HAT_LED1, 1);
+}
+
 static void target_morse_pattern_error_event(void)
 {
     bool_on_error ^= 0x01;
+    all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
-    bool_on_error ^= 0x01;
+    bool_on_error ^= 0x01;all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
-    bool_on_error ^= 0x01;
+    bool_on_error ^= 0x01;all_error_parrent_event();
 }
 
 static void morse_pattern_logic(char input_bool)
@@ -5104,11 +5109,12 @@ irq_handler_t isr(int irq, void *data)
     if (this_time - last_time > MS_TO_US(DEBOUNCE_BUFFER))
     {
         if (able_state_flag)
-        {
+        { 
             //disable_clock_B();
             is_press ^= 0x01;
             if (is_press)
             {
+            gpio_direction_output(UP_HAT_LED1, 0);
                 if (this_time - last_relase < MS_TO_US(TIME_BETWEEN_PATTERN_SHORT))
                 {
                     /*led_status_3[0] = 1;
@@ -5287,7 +5293,7 @@ int init_module()
     request_irq(button_irq_id, (irq_handler_t)isr, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, IRQ_NAME, NULL);
 
     SCREEN_SHOW_FRAM(ASCII88PATTERN_FFFF)
-    gpio_direction_output(UP_HAT_LED1, is_on);
+    gpio_direction_output(UP_HAT_LED1, 1);
     led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
