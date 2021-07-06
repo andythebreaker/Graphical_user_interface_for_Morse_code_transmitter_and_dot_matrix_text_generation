@@ -15,6 +15,7 @@
 #include <linux/delay.h>
 
 //#define IF_TEST_ALL_CHAR_DISP
+//#define IF_PRINT_STEP_ONE_TIME
 
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
@@ -5220,7 +5221,9 @@ irq_handler_t isr(int irq, void *data)
                 led_status_3[1] = 0;
                 led_status_3[2] = 0;
                 chmod_error_3_led();*/
+#ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:%lld\n", this_time - last_relase);
+#endif
                         target_input_time_error_event();
                     }
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
@@ -5233,7 +5236,9 @@ irq_handler_t isr(int irq, void *data)
                 chmod_error_3_led();*/
                         last_time = ktime_get();
                         timer_setup(&timer, timer_callback, 0);
+#ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
+#endif
                         mod_timer(&timer, jiffies + msecs_to_jiffies(target_delay_time_ms));
                     }
                     else
