@@ -5220,6 +5220,7 @@ irq_handler_t isr(int irq, void *data)
                 led_status_3[1] = 0;
                 led_status_3[2] = 0;
                 chmod_error_3_led();*/
+                        printk("\nthis time - last relase:%lld\n", this_time - last_relase);
                         target_input_time_error_event();
                     }
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
