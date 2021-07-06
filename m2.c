@@ -312,15 +312,18 @@ static uint8_t led_status_3[8] = {1, 1, 1, 0, 0, 0, 0, 0};
 
 static bool able_state_flag = true;
 static bool able_press_flag = true;
+static bool hrtimer_try_to_cancel_flag_hr_timer=false;
 
 static struct hrtimer hr_timer;
 static ktime_t ktime_interval;
 static s64 starttime_ns;
 
 static void call_back_fucn_n(void)
-{
+{if(!hrtimer_try_to_cancel_flag_hr_timer){
+
     gpio_direction_output(UP_HAT_LED5, /*1*/ !__gpio_get_value(UP_HAT_LED5));
     last_press = ktime_get();
+}
 }
 
 static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
@@ -533,7 +536,8 @@ static void all_error_parrent_event(void)
     led_status_3[1] = 1;
     led_status_3[2] = 1;
     chmod_error_3_led();
-    int test_hrtc = hrtimer_try_to_cancel(&hr_timer);
+    hrtimer_try_to_cancel_flag_hr_timer=true;
+    /*int test_hrtc = hrtimer_try_to_cancel(&hr_timer);
     if (test_hrtc == 1)
     {
         led_status_3[0] = 1;
@@ -561,34 +565,34 @@ static void all_error_parrent_event(void)
         led_status_3[1] = 0;
         led_status_3[2] = 0;
         chmod_error_3_led();
-    }
+    }*/
 }
 
 static void target_morse_pattern_error_event(void)
 {
     bool_on_error ^= 0x01;
-    /*led_status_3[0] = 1;
+    led_status_3[0] = 1;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
-    chmod_error_3_led();*/
+    chmod_error_3_led();
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
     bool_on_error ^= 0x01;
-    /*led_status_3[0] = 0;
+    led_status_3[0] = 0;
     led_status_3[1] = 1;
     led_status_3[2] = 0;
-    chmod_error_3_led();*/
+    chmod_error_3_led();
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
     bool_on_error ^= 0x01;
-    /*led_status_3[0] = 0;
+    led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 1;
-    chmod_error_3_led();*/
+    chmod_error_3_led();
     all_error_parrent_event();
 }
 
