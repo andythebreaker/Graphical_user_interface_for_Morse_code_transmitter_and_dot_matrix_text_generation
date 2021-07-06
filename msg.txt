@@ -1,1 +1,1 @@
-maybe all ok -> error: function declaration isn’t a prototype [-Werror=strict-prototypes]
+add dbug msg

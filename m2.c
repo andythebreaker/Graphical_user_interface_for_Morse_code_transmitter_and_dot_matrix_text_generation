@@ -5303,6 +5303,7 @@ static void timer_callback(struct timer_list *arg)
         break;
     case timer_callback_state_ppt_blue3:
         infinite_flashing_input_time_error_event = true;
+        printk(KERN_DEBUG "\nkey word : timer_callback_state_ppt_blue3\n");
         target_input_length_error_event();
         break;
     case timer_callback_state_big_if_else2:
@@ -5373,6 +5374,7 @@ irq_handler_t isr(int irq, void *data)
                 {
                     hrtimer_try_to_cancel_flag_hr_timer = true;
                     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
+                    printk(KERN_DEBUG "\nkey word : if (able_press_flag) => false\n");
                     target_input_length_error_event();
                 }
             }
@@ -5388,6 +5390,7 @@ irq_handler_t isr(int irq, void *data)
                     long long target_delay_time_ms_dash = NS_TO_MS(target_delay_time_dot);
                     if (var_switch_case < TIME_DOT_SHORT)
                     { //1
+                        printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
