@@ -529,34 +529,66 @@ static void screen_show_one_row(short int screen_status_pa_49, uint8_t bool_sett
 static void all_error_parrent_event(void)
 {
     gpio_direction_output(UP_HAT_LED1, 1);
-    hrtimer_try_to_cancel(&hr_timer);
+    led_status_3[0] = 1;
+    led_status_3[1] = 1;
+    led_status_3[2] = 1;
+    chmod_error_3_led();
+    int test_hrtc = hrtimer_try_to_cancel(&hr_timer);
+    if (test_hrtc == 1)
+    {
+        led_status_3[0] = 1;
+        led_status_3[1] = 0;
+        led_status_3[2] = 0;
+        chmod_error_3_led();
+    }
+    else if (test_hrtc == 0)
+    {
+        led_status_3[0] = 0;
+        led_status_3[1] = 1;
+        led_status_3[2] = 0;
+        chmod_error_3_led();
+    }
+    else if (test_hrtc == -1)
+    {
+        led_status_3[0] = 0;
+        led_status_3[1] = 0;
+        led_status_3[2] = 1;
+        chmod_error_3_led();
+    }
+    else
+    {
+        led_status_3[0] = 0;
+        led_status_3[1] = 0;
+        led_status_3[2] = 0;
+        chmod_error_3_led();
+    }
 }
 
 static void target_morse_pattern_error_event(void)
 {
     bool_on_error ^= 0x01;
-    led_status_3[0] = 1;
+    /*led_status_3[0] = 1;
     led_status_3[1] = 0;
     led_status_3[2] = 0;
-    chmod_error_3_led();
+    chmod_error_3_led();*/
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
     bool_on_error ^= 0x01;
-    led_status_3[0] = 0;
+    /*led_status_3[0] = 0;
     led_status_3[1] = 1;
     led_status_3[2] = 0;
-    chmod_error_3_led();
+    chmod_error_3_led();*/
     all_error_parrent_event();
 }
 static void target_input_time_error_event(void)
 {
     bool_on_error ^= 0x01;
-    led_status_3[0] = 0;
+    /*led_status_3[0] = 0;
     led_status_3[1] = 0;
     led_status_3[2] = 1;
-    chmod_error_3_led();
+    chmod_error_3_led();*/
     all_error_parrent_event();
 }
 
