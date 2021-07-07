@@ -1,2 +1,21 @@
-# Graphical_user_interface_for_Morse_code_transmitter_and_dot_matrix_text_generation
-Graphical user interface for Morse code transmitter and dot matrix text generation
+# M2 Installation and execution
+
+## Installation 
+
+There are already compiled files in the folder (it is not necessary to follow the steps and compile again)
+
+Please move to the directory with the C file and "Makefile" file (that is, the directory at the same level as this readme file)
+
+`make`
+
+## Transfer to the target platform
+
+`scp m2.ko em_up:`
+
+## execution
+
+ssh 進入upBoard 環境: `ssh em_up`
+
+執行方式為: `sudo insmod m2.ko` 
+
+結束方式為: `sudo rmmod m2.ko`
