@@ -377,6 +377,7 @@ static void every_time_at_success(void)
 
 static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_t last_relase_input)
 {
+    able_press_flag = true;
     last_relase = last_relase_input;
     timer_callback_state = timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase;
     JIFFIES_TIMER_GO(TIME_BETWEEN_PATTERN_LONG)
@@ -5460,6 +5461,7 @@ irq_handler_t isr(int irq, void *data)
                     else
                     { //7
                         able_relase_flag = false;
+                        able_press_flag = true;
                     }
                 }
                 else
