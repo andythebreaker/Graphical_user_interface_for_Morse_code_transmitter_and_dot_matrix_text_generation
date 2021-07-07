@@ -1,1 +1,1 @@
-printk(KERN_DEBUG "\nrelase : case 2\n");
+rm all kprint

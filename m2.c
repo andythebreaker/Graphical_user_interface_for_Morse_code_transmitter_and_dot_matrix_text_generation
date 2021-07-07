@@ -20,8 +20,8 @@
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
+//printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get()));VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV1
 #define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)    \
-    printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get())); \
     if (timer_pending(&timer) == 1)                           \
     {                                                         \
         del_timer(&timer);                                    \
@@ -393,7 +393,7 @@ static void call_back_fucn_n(void)
     else
     {
         gpio_direction_output(UP_HAT_LED5, 1);
-        printk(KERN_DEBUG "\nset able press to false @ 396\n");
+        //printk(KERN_DEBUG "\nset able press to false @ 396\n");
         able_press_flag = false;
         able_relase_flag = true;
         timer_callback_state = timer_callback_state_ppt_blue2;
@@ -1583,7 +1583,7 @@ static void target_morse_pattern_error_event(void)
 }
 static void target_input_length_error_event(void)
 {
-    printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
+    //printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
@@ -1591,7 +1591,7 @@ static void target_input_length_error_event(void)
 }
 static void target_input_time_error_event(void)
 {
-    printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
+    //printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
@@ -5294,42 +5294,42 @@ static void morse_pattern_logic(char input_bool)
 static void timer_callback(struct timer_list *arg)
 {
     //gpio_direction_output(UP_HAT_LED5, !__gpio_get_value(UP_HAT_LED5));
-    printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get()));
+    //printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get()));
     switch (timer_callback_state)
     {
     case timer_callback_state_ppt_blue1:
-        printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue1\n");
+        //printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue1\n");
         call_back_fucn_n();
         break;
     case timer_callback_state_ppt_blue2:
-        printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue2\n");
+        //printk(KERN_DEBUG "\ntimer_callback_state_ppt_blue2\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         timer_callback_state = timer_callback_state_ppt_blue3;
         JIFFIES_TIMER_GO(TIME_DASH_LONG - TIME_DASH_STANDER)
         break;
     case timer_callback_state_ppt_blue3:
         infinite_flashing_input_time_error_event = true;
-        printk(KERN_DEBUG "\nkey word : timer_callback_state_ppt_blue3\n");
+        //printk(KERN_DEBUG "\nkey word : timer_callback_state_ppt_blue3\n");
         target_input_length_error_event();
         break;
     case timer_callback_state_big_if_else2:
-        printk(KERN_DEBUG "\ntimer_callback_state_big_if_else2\n");
+        //printk(KERN_DEBUG "\ntimer_callback_state_big_if_else2\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         morse_pattern_logic(1);
         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
         break;
     case timer_callback_state_big_if_else5:
-        printk(KERN_DEBUG "\ntimer_callback_state_big_if_else5\n");
+        //printk(KERN_DEBUG "\ntimer_callback_state_big_if_else5\n");
         gpio_direction_output(UP_HAT_LED5, 0);
         morse_pattern_logic(2);
         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_get());
         break;
     case timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase:
-        printk(KERN_DEBUG "\nkey word : timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase => morse_pattern_logic(0);\n");
+        //printk(KERN_DEBUG "\nkey word : timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase => morse_pattern_logic(0);\n");
         morse_pattern_logic(0);
         break;
     case timer_callback_state_after_success:
-        printk(KERN_DEBUG "\ntimer_callback_state_after_success\n");
+        //printk(KERN_DEBUG "\ntimer_callback_state_after_success\n");
         able_state_flag = true;
         gpio_direction_output(UP_HAT_LED1, 1);
         break;
@@ -5352,7 +5352,7 @@ irq_handler_t isr(int irq, void *data)
             //disable_clock_B();
             if (is_press)
             {
-                printk(KERN_DEBUG "\nPRESS!!!!!!!!!!!!!!!!!!!!!!!!!!%lld\n", ktime_to_ns(this_time));
+                printk(KERN_DEBUG "\nEVENT : PRESS > %lld\n", ktime_to_ns(this_time));
                 if (able_press_flag)
                 {
                     long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
@@ -5368,7 +5368,7 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
-                        printk(KERN_DEBUG "\nset able press to false @ 5370\n");
+                        //printk(KERN_DEBUG "\nset able press to false @ 5370\n");
                         able_press_flag = false;
                         timer_callback_state = timer_callback_state_ppt_blue1;
 
@@ -5386,13 +5386,13 @@ irq_handler_t isr(int irq, void *data)
                 {
                     hrtimer_try_to_cancel_flag_hr_timer = true;
                     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
-                    printk(KERN_DEBUG "\nkey word : if (able_press_flag) => false\n");
+                    //printk(KERN_DEBUG "\nkey word : if (able_press_flag) => false\n");
                     target_input_length_error_event();
                 }
             }
             else
             { //relase
-                printk(KERN_DEBUG "\nRELASE!!!!!!!!!!!!!!!!!!!!!!!!!!%lld\n", ktime_to_ns(this_time));
+                printk(KERN_DEBUG "\nEVENT : RELASE > %lld\n", ktime_to_ns(this_time));
                 infinite_flashing_input_time_error_event = false;
                 if (able_relase_flag)
                 {
@@ -5404,7 +5404,7 @@ irq_handler_t isr(int irq, void *data)
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1
                         printk(KERN_DEBUG "\nrelase : case 1\n");
-                        printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
+                        //printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
@@ -5427,18 +5427,21 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DOT_LONG)
                     { //3
+                    printk(KERN_DEBUG "\nrelase : case 3\n");
                         gpio_direction_output(UP_HAT_LED5, 0);
                         morse_pattern_logic(1);
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_SHORT)
                     { //4
+                    printk(KERN_DEBUG "\nrelase : case 4\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_STANDER)
                     { //5
+                    printk(KERN_DEBUG "\nrelase : case 5\n");
                         if (target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                         {
                             timer_callback_state = timer_callback_state_big_if_else5;
@@ -5454,19 +5457,21 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_LONG)
                     { //6
+                    printk(KERN_DEBUG "\nrelase : case 6\n");
                         gpio_direction_output(UP_HAT_LED5, 0);
                         morse_pattern_logic(2);
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else
                     { //7
+                    printk(KERN_DEBUG "\nrelase : case 7\n");
                         able_relase_flag = false;
                         able_press_flag = true;
                     }
                 }
                 else
                 {
-                    printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
+                    //printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
                     target_input_length_error_event();
                 }
             }
