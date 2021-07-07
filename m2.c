@@ -5404,6 +5404,7 @@ irq_handler_t isr(int irq, void *data)
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1
                         printk(KERN_DEBUG "\nrelase : case 1\n");
+                        printk("\nafter : lass press time = %lld\n",ktime_to_ns(last_press));
                         //printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
