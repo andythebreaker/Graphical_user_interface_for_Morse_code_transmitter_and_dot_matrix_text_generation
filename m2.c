@@ -5443,12 +5443,12 @@ irq_handler_t isr(int irq, void *data)
                     { //5
                     printk(KERN_DEBUG "\nrelase : case 5\n");
                         if (target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
-                        {
+                        {printk(KERN_DEBUG "\nafter : call the timer\n");
                             timer_callback_state = timer_callback_state_big_if_else5;
                             JIFFIES_TIMER_GO(target_delay_time_ms_dash)
                         }
                         else
-                        {
+                        {printk(KERN_DEBUG "\nafter : do case 6\n");
                             /*copy from case 6*/
                             gpio_direction_output(UP_HAT_LED5, 0);
                             morse_pattern_logic(2);
