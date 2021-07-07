@@ -5402,6 +5402,7 @@ irq_handler_t isr(int irq, void *data)
                     long long target_delay_time_ms_dash = NS_TO_MS(target_delay_time_dot);
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1
+                        printk(KERN_DEBUG "\nrelase : case 1\n");
                         printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
@@ -5409,6 +5410,7 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DOT_STANDER)
                     { //2
+                        printk(KERN_DEBUG "\nrelase : case 2\n");
                         if (target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                         {
                             timer_callback_state = timer_callback_state_big_if_else2;
