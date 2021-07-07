@@ -1,1 +1,1 @@
-rm all kprint
+回彈短時間延長
