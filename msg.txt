@@ -1,1 +1,1 @@
-after : lass press time 
+增加時間容許度

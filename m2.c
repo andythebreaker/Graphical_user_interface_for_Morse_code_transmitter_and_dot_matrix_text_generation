@@ -16,17 +16,18 @@
 
 //#define IF_TEST_ALL_CHAR_DISP
 //#define IF_PRINT_STEP_ONE_TIME
+#define IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
 
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
 
 //printk("\ntime stmp:\n%lld\n", ktime_to_ns(ktime_get()));VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV1
-#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO)    \
-    if (timer_pending(&timer) == 1)                           \
-    {                                                         \
-        del_timer(&timer);                                    \
-    }                                                         \
-    timer_setup(&timer, timer_callback, 0);                   \
+#define JIFFIES_TIMER_GO(INPUT_STUFF_FOR_JIFFIES_TIMER_GO) \
+    if (timer_pending(&timer) == 1)                        \
+    {                                                      \
+        del_timer(&timer);                                 \
+    }                                                      \
+    timer_setup(&timer, timer_callback, 0);                \
     mod_timer(&timer, jiffies + msecs_to_jiffies(INPUT_STUFF_FOR_JIFFIES_TIMER_GO));
 
 #define SCREEN_SHOW_FRAM(SCREEN_SHOW_FRAM_PATTERN)                                                                                        \
@@ -291,11 +292,11 @@
 #define TIME_BETWEEN_PATTERN_SHORT 800
 #define TIME_BETWEEN_PATTERN_LONG 1200
 #define TIME_DASH_STANDER 3000
-#define TIME_DASH_SHORT ((TIME_DASH_STANDER/100)*75)
-#define TIME_DASH_LONG ((TIME_DASH_STANDER/100)*120)
+#define TIME_DASH_SHORT ((TIME_DASH_STANDER / 100) * 75)
+#define TIME_DASH_LONG ((TIME_DASH_STANDER / 100) * 120)
 #define TIME_DOT_STANDER 1000
-#define TIME_DOT_SHORT ((TIME_DOT_STANDER/100)*75)
-#define TIME_DOT_LONG ((TIME_DOT_STANDER/100)*120)
+#define TIME_DOT_SHORT ((TIME_DOT_STANDER / 100) * 75)
+#define TIME_DOT_LONG ((TIME_DOT_STANDER / 100) * 120)
 
 #define HRTIMER_MIN_TIME_INTERVAL 20
 #define TIME_ERROR_BLINK_ALL 100
@@ -318,6 +319,9 @@ struct timer_list timer;
 static ktime_t last_time;
 static ktime_t last_relase;
 static ktime_t last_press;
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+static ktime_t physical_pressure_record;
+#endif
 
 #ifdef IF_TEST_ALL_CHAR_DISP
 static int TEST_ALL_CHAR_DISP_index = 0;
@@ -5355,6 +5359,9 @@ irq_handler_t isr(int irq, void *data)
                 printk(KERN_DEBUG "\nEVENT : PRESS > %lld\n", ktime_to_ns(this_time));
                 if (able_press_flag)
                 {
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+                    physical_pressure_record = this_time;
+#endif
                     long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
                     long long target_delay_time_ms = NS_TO_MS(ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
                     gpio_direction_output(UP_HAT_LED1, 0);
@@ -5404,11 +5411,97 @@ irq_handler_t isr(int irq, void *data)
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1
                         printk(KERN_DEBUG "\nrelase : case 1\n");
-                        printk("\nafter : lass press time = %lld\n",ktime_to_ns(last_press));
-                        //printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
+//printk("\nafter : lass press time = %lld\n",ktime_to_ns(last_press));
+//printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+                        ///////////////////////////The following is the code copied and pasted. Counting 13 lines up from this warning line is the starting point for copying
+                        printk(KERN_DEBUG "\nphysical : In order to avoid users always getting false warnings. We use material resources to push down time to make an overall re-judgment.\n");
+                        infinite_flashing_input_time_error_event = false;
+                        if (able_relase_flag)
+                        {
+                            long long physical_var_switch_case = this_time - physical_pressure_record;
+                            long long physical_target_delay_time_dot = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DOT_STANDER) - ktime_to_ns(this_time);
+                            long long physical_target_delay_time_ms_dot = NS_TO_MS(physical_target_delay_time_dot);
+                            long long physical_target_delay_time_dash = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
+                            long long physical_target_delay_time_ms_dash = NS_TO_MS(physical_target_delay_time_dash);
+                            if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_SHORT)
+                            { //1
+                                printk(KERN_DEBUG "\nphysical_relase : case 1\n");
+                                target_input_length_error_event();
+                                able_relase_flag = false;
+                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            }
+                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_STANDER)
+                            { //2
+                                printk(KERN_DEBUG "\nphysical_relase : case 2\n");
+                                if (physical_target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+                                {
+                                    timer_callback_state = timer_callback_state_big_if_else2;
+                                    JIFFIES_TIMER_GO(physical_target_delay_time_ms_dot)
+                                }
+                                else
+                                {
+                                    /*copy from case 3*/
+                                    gpio_direction_output(UP_HAT_LED5, 0);
+                                    morse_pattern_logic(1);
+                                    set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                                }
+                            }
+                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_LONG)
+                            { //3
+                                printk(KERN_DEBUG "\nphysical_relase : case 3\n");
+                                gpio_direction_output(UP_HAT_LED5, 0);
+                                morse_pattern_logic(1);
+                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            }
+                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_SHORT)
+                            { //4
+                                printk(KERN_DEBUG "\nphysical_relase : case 4\n");
+                                target_input_length_error_event();
+                                able_relase_flag = false;
+                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            }
+                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_STANDER)
+                            { //5
+                                printk(KERN_DEBUG "\nphysical_relase : case 5\n");
+                                if (physical_target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+                                { //printk(KERN_DEBUG "\nafter : call the timer\n");
+                                    timer_callback_state = timer_callback_state_big_if_else5;
+                                    JIFFIES_TIMER_GO(physical_target_delay_time_ms_dash)
+                                }
+                                else
+                                { //printk(KERN_DEBUG "\nafter : do case 6\n");
+                                    /*copy from case 6*/
+                                    gpio_direction_output(UP_HAT_LED5, 0);
+                                    morse_pattern_logic(2);
+                                    set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                                }
+                            }
+                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_LONG)
+                            { //6
+                                printk(KERN_DEBUG "\nphysical_relase : case 6\n");
+                                gpio_direction_output(UP_HAT_LED5, 0);
+                                morse_pattern_logic(2);
+                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+                            }
+                            else
+                            { //7
+                                printk(KERN_DEBUG "\nphysical_relase : case 7\n");
+                                able_relase_flag = false;
+                                able_press_flag = true;
+                            }
+                        }
+                        else
+                        {
+                            //printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
+                            target_input_length_error_event();
+                        }
+
+#else
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+#endif
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DOT_STANDER)
                     { //2
@@ -5428,28 +5521,28 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DOT_LONG)
                     { //3
-                    printk(KERN_DEBUG "\nrelase : case 3\n");
+                        printk(KERN_DEBUG "\nrelase : case 3\n");
                         gpio_direction_output(UP_HAT_LED5, 0);
                         morse_pattern_logic(1);
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_SHORT)
                     { //4
-                    printk(KERN_DEBUG "\nrelase : case 4\n");
+                        printk(KERN_DEBUG "\nrelase : case 4\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_STANDER)
                     { //5
-                    printk(KERN_DEBUG "\nrelase : case 5\n");
+                        printk(KERN_DEBUG "\nrelase : case 5\n");
                         if (target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
-                        {//printk(KERN_DEBUG "\nafter : call the timer\n");
+                        { //printk(KERN_DEBUG "\nafter : call the timer\n");
                             timer_callback_state = timer_callback_state_big_if_else5;
                             JIFFIES_TIMER_GO(target_delay_time_ms_dash)
                         }
                         else
-                        {//printk(KERN_DEBUG "\nafter : do case 6\n");
+                        { //printk(KERN_DEBUG "\nafter : do case 6\n");
                             /*copy from case 6*/
                             gpio_direction_output(UP_HAT_LED5, 0);
                             morse_pattern_logic(2);
@@ -5458,14 +5551,14 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_LONG)
                     { //6
-                    printk(KERN_DEBUG "\nrelase : case 6\n");
+                        printk(KERN_DEBUG "\nrelase : case 6\n");
                         gpio_direction_output(UP_HAT_LED5, 0);
                         morse_pattern_logic(2);
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
                     }
                     else
                     { //7
-                    printk(KERN_DEBUG "\nrelase : case 7\n");
+                        printk(KERN_DEBUG "\nrelase : case 7\n");
                         able_relase_flag = false;
                         able_press_flag = true;
                     }
