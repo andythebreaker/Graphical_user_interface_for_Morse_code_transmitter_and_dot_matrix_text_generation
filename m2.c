@@ -5359,11 +5359,11 @@ irq_handler_t isr(int irq, void *data)
                 printk(KERN_DEBUG "\nEVENT : PRESS > %lld\n", ktime_to_ns(this_time));
                 if (able_press_flag)
                 {
+                    long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
+                    long long target_delay_time_ms = NS_TO_MS(ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
 #ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
                     physical_pressure_record = this_time;
 #endif
-                    long long target_delay_time = ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
-                    long long target_delay_time_ms = NS_TO_MS(ktime_to_ns(last_relase) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
                     gpio_direction_output(UP_HAT_LED1, 0);
                     if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_SHORT))
                     {
