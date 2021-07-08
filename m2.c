@@ -5813,7 +5813,6 @@ static void callback_copy_function_of_time_error_correction_time(ktime_t this_ti
         ////////////////////                    gpio_direction_output(UP_HAT_LED1, 0);
         if (this_time - physical_relase_record < MS_TO_NS(TIME_BETWEEN_PATTERN_SHORT))
         {
-
             ////////////////////////////////#ifdef IF_PRINT_STEP_ONE_TIME
             /////////////////////////////////                       printk("\nthis time - last relase:%lld\n", this_time - last_relase);
             //////////////////////////#endif
@@ -5825,7 +5824,6 @@ static void callback_copy_function_of_time_error_correction_time(ktime_t this_ti
             printk(KERN_DEBUG "\nphysical_flag : able_press_flag = false;\n\t@ row 5392\n");
             able_press_flag = false;
             timer_callback_state = timer_callback_state_ppt_blue1;
-
             ////////////////////////#ifdef IF_PRINT_STEP_ONE_TIME
             ///////////////////////////                       printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
             ///////////////////////////#endif
