@@ -1597,7 +1597,7 @@ static void target_input_length_error_event(void)
     //printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
     printk(KERN_DEBUG "\nerror : target_input_length_error_event");
     printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = true;\n\t@ row 1602\n");
-    morse_pattern_logic(0);
+    morse_pattern_status=0;
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
     all_error_parrent_event();
@@ -1607,7 +1607,7 @@ static void target_input_time_error_event(void)
     printk(KERN_DEBUG "\nerror : target_input_time_error_event");
     printk(KERN_DEBUG "\nflag :  target_input_time_error_event_flag = true;\n\t@ row 1612\n");
     //printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
-    morse_pattern_logic(0);
+    morse_pattern_status=0;
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
     all_error_parrent_event();

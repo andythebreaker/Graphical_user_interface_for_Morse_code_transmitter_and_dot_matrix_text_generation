@@ -1,1 +1,1 @@
-姿佳error訊息與flag便訊息
+morse_pattern_status=0;
