@@ -375,6 +375,7 @@ static void morse_pattern_logic(char input_bool);
 
 static void every_time_at_success(void)
 {
+    printk(KERN_DEBUG "\nflag : able_state_flag = false;\n\t@static void every_time_at_success(void)\n");
     able_state_flag = false;
     timer_callback_state = timer_callback_state_after_success;
     JIFFIES_TIMER_GO(TIME_BETWEEN_CHAR)
@@ -382,6 +383,7 @@ static void every_time_at_success(void)
 
 static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_t last_relase_input)
 {
+    printk(KERN_DEBUG "\nflag : able_press_flag = true;\n\t@static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(ktime_t last_relase_input)\n");
     able_press_flag = true;
     last_relase = last_relase_input;
     timer_callback_state = timer_callback_state_set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase;
@@ -390,13 +392,14 @@ static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_rela
 
 static void call_back_fucn_n(void)
 {
+        printk(KERN_DEBUG "\nflag : able_press_flag = true;\n\t@static void call_back_fucn_n(void)\n");
     able_press_flag = true;
     if (hrtimer_try_to_cancel_flag_hr_timer)
-    {
+    {printk(KERN_DEBUG "\nflag : hrtimer_try_to_cancel_flag_hr_timer = false;\n\t@static void call_back_fucn_n(void)\n\t->if (hrtimer_try_to_cancel_flag_hr_timer)");
         hrtimer_try_to_cancel_flag_hr_timer = false;
     }
     else
-    {
+    {printk(KERN_DEBUG "\nflag : able_press_flag = false; able_relase_flag = true;\n\t@static void call_back_fucn_n(void)\n\t->[logic else] if (hrtimer_try_to_cancel_flag_hr_timer)");
         gpio_direction_output(UP_HAT_LED5, 1);
         //printk(KERN_DEBUG "\nset able press to false @ 396\n");
         able_press_flag = false;
@@ -1340,7 +1343,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
             morse_pattern_error_blink_counter++;
         }
         else
-        {
+        {printk(KERN_DEBUG "\nflag : target_morse_pattern_error_event_flag = false;\n\t@ row 1348\n");
             morse_pattern_error_blink_counter = 0;
             led_status_3[0] = 0;
             target_morse_pattern_error_event_flag = false;
@@ -1358,7 +1361,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
             input_length_error_blink_counter++;
         }
         else
-        {
+        {printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = false;\n\t@ row 1367\n");
             input_length_error_blink_counter = 0;
             led_status_3[1] = 0;
             target_input_length_error_event_flag = false;
@@ -1377,6 +1380,7 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
         }
         else
         {
+            printk(KERN_DEBUG "\nflag :  target_input_time_error_event_flag = false;\n\t@ row 1386\n");
             input_time_error_blink_counter = 0;
             led_status_3[2] = 0;
             target_input_time_error_event_flag = false;
@@ -1583,12 +1587,16 @@ static void all_error_parrent_event(void)
 static void target_morse_pattern_error_event(void)
 {
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_A)
+    printk(KERN_DEBUG "\nerror : target_morse_pattern_error_event");
+    printk(KERN_DEBUG "\nflag :  target_morse_pattern_error_event_flag = true;\n\t@ row 1592\n");
     target_morse_pattern_error_event_flag = true;
     all_error_parrent_event();
 }
 static void target_input_length_error_event(void)
 {
     //printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
+    printk(KERN_DEBUG "\nerror : target_input_length_error_event");
+    printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = true;\n\t@ row 1602\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
@@ -1596,6 +1604,8 @@ static void target_input_length_error_event(void)
 }
 static void target_input_time_error_event(void)
 {
+    printk(KERN_DEBUG "\nerror : target_input_time_error_event");
+    printk(KERN_DEBUG "\nflag :  target_input_time_error_event_flag = true;\n\t@ row 1612\n");
     //printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
     morse_pattern_logic(0);
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
@@ -5334,6 +5344,7 @@ static void timer_callback(struct timer_list *arg)
         morse_pattern_logic(0);
         break;
     case timer_callback_state_after_success:
+    printk(KERN_DEBUG "\nflag :  able_state_flag = true;\n\t@ row 5349\n");
         //printk(KERN_DEBUG "\ntimer_callback_state_after_success\n");
         able_state_flag = true;
         gpio_direction_output(UP_HAT_LED1, 1);
@@ -5377,6 +5388,7 @@ irq_handler_t isr(int irq, void *data)
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
                         //printk(KERN_DEBUG "\nset able press to false @ 5370\n");
+                        printk(KERN_DEBUG "\nflag : able_press_flag = false;\n\t@ row 5392\n");
                         able_press_flag = false;
                         timer_callback_state = timer_callback_state_ppt_blue1;
 
@@ -5392,6 +5404,7 @@ irq_handler_t isr(int irq, void *data)
                 }
                 else
                 {
+                    printk(KERN_DEBUG "\nflag : hrtimer_try_to_cancel_flag_hr_timer = true;\n\t@ row 5408\n");
                     hrtimer_try_to_cancel_flag_hr_timer = true;
                     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
                     //printk(KERN_DEBUG "\nkey word : if (able_press_flag) => false\n");
@@ -5428,6 +5441,7 @@ irq_handler_t isr(int irq, void *data)
                             if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_SHORT)
                             { //1
                                 printk(KERN_DEBUG "\nphysical_relase : case 1\n");
+                                 printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5446\n");
                                 target_input_length_error_event();
                                 able_relase_flag = false;
                                 set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
@@ -5458,6 +5472,7 @@ irq_handler_t isr(int irq, void *data)
                             else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_SHORT)
                             { //4
                                 printk(KERN_DEBUG "\nphysical_relase : case 4\n");
+                                printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5477\n");
                                 target_input_length_error_event();
                                 able_relase_flag = false;
                                 set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
@@ -5488,6 +5503,7 @@ irq_handler_t isr(int irq, void *data)
                             else
                             { //7
                                 printk(KERN_DEBUG "\nphysical_relase : case 7\n");
+                                printk(KERN_DEBUG "\nflag : able_relase_flag = false; able_press_flag = true;\n\t@ row 5507\n");
                                 able_relase_flag = false;
                                 able_press_flag = true;
                             }
@@ -5500,6 +5516,7 @@ irq_handler_t isr(int irq, void *data)
 
 #else
                         target_input_length_error_event();
+                        printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5520\n");
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
 #endif
@@ -5530,6 +5547,7 @@ irq_handler_t isr(int irq, void *data)
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_SHORT)
                     { //4
                         printk(KERN_DEBUG "\nrelase : case 4\n");
+                        printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5552\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
@@ -5560,6 +5578,7 @@ irq_handler_t isr(int irq, void *data)
                     else
                     { //7
                         printk(KERN_DEBUG "\nrelase : case 7\n");
+                        printk(KERN_DEBUG "\nflag : able_relase_flag = false; able_press_flag = true;\n\t@ row 5582\n");
                         able_relase_flag = false;
                         able_press_flag = true;
                     }
