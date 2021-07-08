@@ -289,6 +289,7 @@
 #define DEBOUNCE_BUFFER 50
 
 #define TIME_BETWEEN_CHAR_BEFORE_FUZZY_LOGIC 3000
+#define TIME_BETWEEN_CHAR_SHORT ((TIME_BETWEEN_CHAR_BEFORE_FUZZY_LOGIC / 100) * 75)
 #define TIME_BETWEEN_CHAR ((TIME_BETWEEN_CHAR_BEFORE_FUZZY_LOGIC / 100) * 80)
 #define TIME_BETWEEN_PATTERN_STANDER 1000
 #define TIME_BETWEEN_PATTERN_SHORT 800
@@ -5377,7 +5378,7 @@ irq_handler_t isr(int irq, void *data)
     if (this_time - last_time > MS_TO_NS(DEBOUNCE_BUFFER))
     {
         is_press ^= 0x01;
-        if (able_state_flag)
+        if (able_state_flag||(this_time - physical_relase_record >MS_TO_NS(TIME_BETWEEN_CHAR_SHORT)))
         {
             //disable_clock_B();
             if (is_press)
