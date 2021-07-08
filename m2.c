@@ -372,6 +372,7 @@ static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 static void call_back_fucn_n(void);
 static void timer_callback(struct timer_list *arg);
 static void morse_pattern_logic(char input_bool);
+static void fuzzy_logic_copy_fucn(ktime_t this_time);
 
 static void every_time_at_success(void)
 {
@@ -392,14 +393,16 @@ static void set_timer_between_pattern_long_call_back_send_zero_set_var_last_rela
 
 static void call_back_fucn_n(void)
 {
-        printk(KERN_DEBUG "\nflag : able_press_flag = true;\n\t@static void call_back_fucn_n(void)\n");
+    printk(KERN_DEBUG "\nflag : able_press_flag = true;\n\t@static void call_back_fucn_n(void)\n");
     able_press_flag = true;
     if (hrtimer_try_to_cancel_flag_hr_timer)
-    {printk(KERN_DEBUG "\nflag : hrtimer_try_to_cancel_flag_hr_timer = false;\n\t@static void call_back_fucn_n(void)\n\t->if (hrtimer_try_to_cancel_flag_hr_timer)");
+    {
+        printk(KERN_DEBUG "\nflag : hrtimer_try_to_cancel_flag_hr_timer = false;\n\t@static void call_back_fucn_n(void)\n\t->if (hrtimer_try_to_cancel_flag_hr_timer)");
         hrtimer_try_to_cancel_flag_hr_timer = false;
     }
     else
-    {printk(KERN_DEBUG "\nflag : able_press_flag = false; able_relase_flag = true;\n\t@static void call_back_fucn_n(void)\n\t->[logic else] if (hrtimer_try_to_cancel_flag_hr_timer)");
+    {
+        printk(KERN_DEBUG "\nflag : able_press_flag = false; able_relase_flag = true;\n\t@static void call_back_fucn_n(void)\n\t->[logic else] if (hrtimer_try_to_cancel_flag_hr_timer)");
         gpio_direction_output(UP_HAT_LED5, 1);
         //printk(KERN_DEBUG "\nset able press to false @ 396\n");
         able_press_flag = false;
@@ -1343,7 +1346,8 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
             morse_pattern_error_blink_counter++;
         }
         else
-        {printk(KERN_DEBUG "\nflag : target_morse_pattern_error_event_flag = false;\n\t@ row 1348\n");
+        {
+            printk(KERN_DEBUG "\nflag : target_morse_pattern_error_event_flag = false;\n\t@ row 1348\n");
             morse_pattern_error_blink_counter = 0;
             led_status_3[0] = 0;
             target_morse_pattern_error_event_flag = false;
@@ -1361,7 +1365,8 @@ static enum hrtimer_restart my_hrtimer_callback(struct hrtimer *timer)
             input_length_error_blink_counter++;
         }
         else
-        {printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = false;\n\t@ row 1367\n");
+        {
+            printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = false;\n\t@ row 1367\n");
             input_length_error_blink_counter = 0;
             led_status_3[1] = 0;
             target_input_length_error_event_flag = false;
@@ -1597,7 +1602,7 @@ static void target_input_length_error_event(void)
     //printk(KERN_DEBUG "\nkey word : target_input_length_error_event(void) => morse_pattern_logic(0);\n");
     printk(KERN_DEBUG "\nerror : target_input_length_error_event");
     printk(KERN_DEBUG "\nflag :  target_input_length_error_event_flag = true;\n\t@ row 1602\n");
-    morse_pattern_status=0;
+    morse_pattern_status = 0;
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
     target_input_length_error_event_flag = true;
     all_error_parrent_event();
@@ -1607,7 +1612,7 @@ static void target_input_time_error_event(void)
     printk(KERN_DEBUG "\nerror : target_input_time_error_event");
     printk(KERN_DEBUG "\nflag :  target_input_time_error_event_flag = true;\n\t@ row 1612\n");
     //printk(KERN_DEBUG "\nkey word : target_input_time_error_event(void) => morse_pattern_logic(0);\n");
-    morse_pattern_status=0;
+    morse_pattern_status = 0;
     //SCREEN_SHOW_FRAM(ASCII88PATTERN_C)
     target_input_time_error_event_flag = true;
     all_error_parrent_event();
@@ -5344,7 +5349,7 @@ static void timer_callback(struct timer_list *arg)
         morse_pattern_logic(0);
         break;
     case timer_callback_state_after_success:
-    printk(KERN_DEBUG "\nflag :  able_state_flag = true;\n\t@ row 5349\n");
+        printk(KERN_DEBUG "\nflag :  able_state_flag = true;\n\t@ row 5349\n");
         //printk(KERN_DEBUG "\ntimer_callback_state_after_success\n");
         able_state_flag = true;
         gpio_direction_output(UP_HAT_LED1, 1);
@@ -5428,92 +5433,7 @@ irq_handler_t isr(int irq, void *data)
 //printk("\nafter : lass press time = %lld\n",ktime_to_ns(last_press));
 //printk(KERN_DEBUG "\nkey word : if (var_switch_case __this_time - last_press__ < TIME_DOT_SHORT) => @ place relase\n");
 #ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
-                        ///////////////////////////The following is the code copied and pasted. Counting 13 lines up from this warning line is the starting point for copying
-                        printk(KERN_DEBUG "\nphysical : In order to avoid users always getting false warnings. We use material resources to push down time to make an overall re-judgment.\n");
-                        infinite_flashing_input_time_error_event = false;
-                        if (able_relase_flag)
-                        {
-                            long long physical_var_switch_case = this_time - physical_pressure_record;
-                            long long physical_target_delay_time_dot = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DOT_STANDER) - ktime_to_ns(this_time);
-                            long long physical_target_delay_time_ms_dot = NS_TO_MS(physical_target_delay_time_dot);
-                            long long physical_target_delay_time_dash = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
-                            long long physical_target_delay_time_ms_dash = NS_TO_MS(physical_target_delay_time_dash);
-                            if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_SHORT)
-                            { //1
-                                printk(KERN_DEBUG "\nphysical_relase : case 1\n");
-                                 printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5446\n");
-                                target_input_length_error_event();
-                                able_relase_flag = false;
-                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                            }
-                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_STANDER)
-                            { //2
-                                printk(KERN_DEBUG "\nphysical_relase : case 2\n");
-                                if (physical_target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
-                                {
-                                    timer_callback_state = timer_callback_state_big_if_else2;
-                                    JIFFIES_TIMER_GO(physical_target_delay_time_ms_dot)
-                                }
-                                else
-                                {
-                                    /*copy from case 3*/
-                                    gpio_direction_output(UP_HAT_LED5, 0);
-                                    morse_pattern_logic(1);
-                                    set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                                }
-                            }
-                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_LONG)
-                            { //3
-                                printk(KERN_DEBUG "\nphysical_relase : case 3\n");
-                                gpio_direction_output(UP_HAT_LED5, 0);
-                                morse_pattern_logic(1);
-                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                            }
-                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_SHORT)
-                            { //4
-                                printk(KERN_DEBUG "\nphysical_relase : case 4\n");
-                                printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5477\n");
-                                target_input_length_error_event();
-                                able_relase_flag = false;
-                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                            }
-                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_STANDER)
-                            { //5
-                                printk(KERN_DEBUG "\nphysical_relase : case 5\n");
-                                if (physical_target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
-                                { //printk(KERN_DEBUG "\nafter : call the timer\n");
-                                    timer_callback_state = timer_callback_state_big_if_else5;
-                                    JIFFIES_TIMER_GO(physical_target_delay_time_ms_dash)
-                                }
-                                else
-                                { //printk(KERN_DEBUG "\nafter : do case 6\n");
-                                    /*copy from case 6*/
-                                    gpio_direction_output(UP_HAT_LED5, 0);
-                                    morse_pattern_logic(2);
-                                    set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                                }
-                            }
-                            else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_LONG)
-                            { //6
-                                printk(KERN_DEBUG "\nphysical_relase : case 6\n");
-                                gpio_direction_output(UP_HAT_LED5, 0);
-                                morse_pattern_logic(2);
-                                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
-                            }
-                            else
-                            { //7
-                                printk(KERN_DEBUG "\nphysical_relase : case 7\n");
-                                printk(KERN_DEBUG "\nflag : able_relase_flag = false; able_press_flag = true;\n\t@ row 5507\n");
-                                able_relase_flag = false;
-                                able_press_flag = true;
-                            }
-                        }
-                        else
-                        {
-                            //printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
-                            target_input_length_error_event();
-                        }
-
+                        fuzzy_logic_copy_fucn(this_time);
 #else
                         target_input_length_error_event();
                         printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5520\n");
@@ -5546,11 +5466,15 @@ irq_handler_t isr(int irq, void *data)
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_SHORT)
                     { //4
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+                        fuzzy_logic_copy_fucn(this_time);
+#else
                         printk(KERN_DEBUG "\nrelase : case 4\n");
                         printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5552\n");
                         target_input_length_error_event();
                         able_relase_flag = false;
                         set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+#endif
                     }
                     else if (NS_TO_MS(var_switch_case) < TIME_DASH_STANDER)
                     { //5
@@ -5765,4 +5689,94 @@ void cleanup_module(void)
     del_timer(&timer);
 
     printk(KERN_DEBUG "\nGPIO unloaded !\n");
+}
+
+static void fuzzy_logic_copy_fucn(ktime_t this_time)
+{
+    ///////////////////////////The following is the code copied and pasted. Counting 13 lines up from this warning line is the starting point for copying
+
+    printk(KERN_DEBUG "\nphysical : In order to avoid users always getting false warnings. We use material resources to push down time to make an overall re-judgment.\n");
+    infinite_flashing_input_time_error_event = false;
+    if (able_relase_flag)
+    {
+        long long physical_var_switch_case = this_time - physical_pressure_record;
+        long long physical_target_delay_time_dot = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DOT_STANDER) - ktime_to_ns(this_time);
+        long long physical_target_delay_time_ms_dot = NS_TO_MS(physical_target_delay_time_dot);
+        long long physical_target_delay_time_dash = ktime_to_ns(physical_pressure_record) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
+        long long physical_target_delay_time_ms_dash = NS_TO_MS(physical_target_delay_time_dash);
+        if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_SHORT)
+        { //1
+            printk(KERN_DEBUG "\nphysical_relase : case 1\n");
+            printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5446\n");
+            target_input_length_error_event();
+            able_relase_flag = false;
+            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+        }
+        else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_STANDER)
+        { //2
+            printk(KERN_DEBUG "\nphysical_relase : case 2\n");
+            if (physical_target_delay_time_dot > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+            {
+                timer_callback_state = timer_callback_state_big_if_else2;
+                JIFFIES_TIMER_GO(physical_target_delay_time_ms_dot)
+            }
+            else
+            {
+                /*copy from case 3*/
+                gpio_direction_output(UP_HAT_LED5, 0);
+                morse_pattern_logic(1);
+                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+            }
+        }
+        else if (NS_TO_MS(physical_var_switch_case) < TIME_DOT_LONG)
+        { //3
+            printk(KERN_DEBUG "\nphysical_relase : case 3\n");
+            gpio_direction_output(UP_HAT_LED5, 0);
+            morse_pattern_logic(1);
+            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+        }
+        else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_SHORT)
+        { //4
+            printk(KERN_DEBUG "\nphysical_relase : case 4\n");
+            printk(KERN_DEBUG "\nflag : able_relase_flag = false;\n\t@ row 5477\n");
+            target_input_length_error_event();
+            able_relase_flag = false;
+            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+        }
+        else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_STANDER)
+        { //5
+            printk(KERN_DEBUG "\nphysical_relase : case 5\n");
+            if (physical_target_delay_time_dash > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+            { //printk(KERN_DEBUG "\nafter : call the timer\n");
+                timer_callback_state = timer_callback_state_big_if_else5;
+                JIFFIES_TIMER_GO(physical_target_delay_time_ms_dash)
+            }
+            else
+            { //printk(KERN_DEBUG "\nafter : do case 6\n");
+                /*copy from case 6*/
+                gpio_direction_output(UP_HAT_LED5, 0);
+                morse_pattern_logic(2);
+                set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+            }
+        }
+        else if (NS_TO_MS(physical_var_switch_case) < TIME_DASH_LONG)
+        { //6
+            printk(KERN_DEBUG "\nphysical_relase : case 6\n");
+            gpio_direction_output(UP_HAT_LED5, 0);
+            morse_pattern_logic(2);
+            set_timer_between_pattern_long_call_back_send_zero_set_var_last_relase(this_time);
+        }
+        else
+        { //7
+            printk(KERN_DEBUG "\nphysical_relase : case 7\n");
+            printk(KERN_DEBUG "\nflag : able_relase_flag = false; able_press_flag = true;\n\t@ row 5507\n");
+            able_relase_flag = false;
+            able_press_flag = true;
+        }
+    }
+    else
+    {
+        //printk(KERN_DEBUG "\nif (able_relase_flag) => is false\n");
+        target_input_length_error_event();
+    }
 }

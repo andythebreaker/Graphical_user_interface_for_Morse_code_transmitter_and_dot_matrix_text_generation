@@ -1,1 +1,1 @@
-morse_pattern_status=0;
+常案的減少錯誤
