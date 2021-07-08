@@ -17,6 +17,7 @@
 //#define IF_TEST_ALL_CHAR_DISP
 //#define IF_PRINT_STEP_ONE_TIME
 #define IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+#define IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
 
 #define MS_TO_NS(MS_INPUT) 1000000ll * (MS_INPUT)
 #define NS_TO_MS(US_INPUT) (US_INPUT) / 1000000ll
@@ -323,6 +324,9 @@ static ktime_t last_press;
 #ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
 static ktime_t physical_pressure_record;
 #endif
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
+static ktime_t physical_relase_record;
+#endif
 
 #ifdef IF_TEST_ALL_CHAR_DISP
 static int TEST_ALL_CHAR_DISP_index = 0;
@@ -372,7 +376,12 @@ static TCS timer_callback_state = timer_callback_state_ppt_blue0;
 static void call_back_fucn_n(void);
 static void timer_callback(struct timer_list *arg);
 static void morse_pattern_logic(char input_bool);
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
 static void fuzzy_logic_copy_fucn(ktime_t this_time);
+#endif
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
+static void callback_copy_function_of_time_error_correction_time(ktime_t this_time);
+#endif
 
 static void every_time_at_success(void)
 {
@@ -5388,7 +5397,11 @@ irq_handler_t isr(int irq, void *data)
 #ifdef IF_PRINT_STEP_ONE_TIME
                         printk("\nthis time - last relase:%lld\n", this_time - last_relase);
 #endif
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
+                        callback_copy_function_of_time_error_correction_time(this_time);
+#else
                         target_input_time_error_event();
+#endif
                     }
                     else if (this_time - last_relase < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
                     {
@@ -5427,6 +5440,9 @@ irq_handler_t isr(int irq, void *data)
                     long long target_delay_time_ms_dot = NS_TO_MS(target_delay_time_dot);
                     long long target_delay_time_dash = ktime_to_ns(last_press) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
                     long long target_delay_time_ms_dash = NS_TO_MS(target_delay_time_dash);
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
+                    physical_pressure_record = this_time;
+#endif
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1
                         printk(KERN_DEBUG "\nrelase : case 1\n");
@@ -5691,6 +5707,7 @@ void cleanup_module(void)
     printk(KERN_DEBUG "\nGPIO unloaded !\n");
 }
 
+#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
 static void fuzzy_logic_copy_fucn(ktime_t this_time)
 {
     ///////////////////////////The following is the code copied and pasted. Counting 13 lines up from this warning line is the starting point for copying
@@ -5780,3 +5797,52 @@ static void fuzzy_logic_copy_fucn(ktime_t this_time)
         target_input_length_error_event();
     }
 }
+#endif
+
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
+static void callback_copy_function_of_time_error_correction_time(ktime_t this_time)
+{
+    printk(KERN_DEBUG "\nphysical : In order to avoid users always getting false warnings. We use material resources to push down time to make an overall re-judgment.\n\n\t@callback_copy_function_of_time_error_correction_time(ktime_t this_time)");
+    if (able_press_flag)
+    {
+        long long target_delay_time = ktime_to_ns(physical_relase_record) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time);
+        long long target_delay_time_ms = NS_TO_MS(ktime_to_ns(physical_relase_record) + MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) - ktime_to_ns(this_time));
+        ///////////////////#ifdef IF_FUZZY_LOGIC_THAT_ALLOWS_THE_TIME_ZONE_TO_BE_PRESSED_DOWN
+        /////////////////////                    physical_pressure_record = this_time;
+        /////////////////////////#endif
+        ////////////////////                    gpio_direction_output(UP_HAT_LED1, 0);
+        if (this_time - physical_relase_record < MS_TO_NS(TIME_BETWEEN_PATTERN_SHORT))
+        {
+
+            ////////////////////////////////#ifdef IF_PRINT_STEP_ONE_TIME
+            /////////////////////////////////                       printk("\nthis time - last relase:%lld\n", this_time - last_relase);
+            //////////////////////////#endif
+            target_input_time_error_event();
+        }
+        else if (this_time - physical_relase_record < MS_TO_NS(TIME_BETWEEN_PATTERN_STANDER) && target_delay_time > MS_TO_NS(HRTIMER_MIN_TIME_INTERVAL))
+        {
+            //printk(KERN_DEBUG "\nset able press to false @ 5370\n");
+            printk(KERN_DEBUG "\nphysical_flag : able_press_flag = false;\n\t@ row 5392\n");
+            able_press_flag = false;
+            timer_callback_state = timer_callback_state_ppt_blue1;
+
+            ////////////////////////#ifdef IF_PRINT_STEP_ONE_TIME
+            ///////////////////////////                       printk("\nthis time - last relase:\n\t%lld\ndelay time:\n\t%lld\ndelay time:\t\n%lld...\n", this_time - last_relase, target_delay_time, target_delay_time_ms);
+            ///////////////////////////#endif
+            JIFFIES_TIMER_GO(target_delay_time_ms);
+        }
+        else
+        {
+            call_back_fucn_n();
+        }
+    }
+    else
+    {
+        printk(KERN_DEBUG "\nphysical_flag : hrtimer_try_to_cancel_flag_hr_timer = true;\n\t@ row 5408\n");
+        hrtimer_try_to_cancel_flag_hr_timer = true;
+        //SCREEN_SHOW_FRAM(ASCII88PATTERN_B)
+        //printk(KERN_DEBUG "\nkey word : if (able_press_flag) => false\n");
+        target_input_length_error_event();
+    }
+}
+#endif
