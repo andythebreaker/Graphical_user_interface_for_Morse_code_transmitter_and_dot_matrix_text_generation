@@ -5441,7 +5441,7 @@ irq_handler_t isr(int irq, void *data)
                     long long target_delay_time_dash = ktime_to_ns(last_press) + MS_TO_NS(TIME_DASH_STANDER) - ktime_to_ns(this_time);
                     long long target_delay_time_ms_dash = NS_TO_MS(target_delay_time_dash);
 #ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME
-                    physical_pressure_record = this_time;
+                    physical_relase_record = this_time;
 #endif
                     if (NS_TO_MS(var_switch_case) < TIME_DOT_SHORT)
                     { //1

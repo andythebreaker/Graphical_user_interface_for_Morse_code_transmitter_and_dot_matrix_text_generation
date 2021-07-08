@@ -1,1 +1,1 @@
-換推訊息，解決下壓的過短錯誤
+#ifdef IF_AVOID_WRONG_WARNING_OF_FRONT_PRESSING_ACTION_TIME                   physical_relase_record = this_time;#endif
